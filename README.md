@@ -2,6 +2,9 @@
 
 This repository contains a global AI-powered climate risk platform.
 
+## Live Demo
+- Frontend (GitHub Pages): [https://dommlee.github.io/ai-climate-platform/](https://dommlee.github.io/ai-climate-platform/)
+
 ## Stack
 - Backend: FastAPI + SQLAlchemy + APScheduler + ReportLab
 - Frontend: React + Vite + Recharts + Tailwind CSS

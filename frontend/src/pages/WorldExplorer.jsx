@@ -41,57 +41,6 @@ function normalizeCountryName(value) {
     .toLowerCase();
 }
 
-function ringSignedArea(ring) {
-  if (!Array.isArray(ring) || ring.length < 3) return 0;
-  let area = 0;
-  for (let i = 0; i < ring.length - 1; i += 1) {
-    const a = ring[i];
-    const b = ring[i + 1];
-    area += (Number(a?.[0] || 0) * Number(b?.[1] || 0)) - (Number(b?.[0] || 0) * Number(a?.[1] || 0));
-  }
-  return area / 2;
-}
-
-function orientRing(ring, clockwise = true) {
-  if (!Array.isArray(ring)) return [];
-  const signedArea = ringSignedArea(ring);
-  const isClockwise = signedArea < 0;
-  if ((clockwise && isClockwise) || (!clockwise && !isClockwise)) return ring;
-  return [...ring].reverse();
-}
-
-function normalizePolygonRings(polygonRings) {
-  if (!Array.isArray(polygonRings)) return [];
-  return polygonRings.map((ring, index) => orientRing(ring, index === 0));
-}
-
-function normalizeFeatureGeometry(feature) {
-  const geometry = feature?.geometry;
-  if (!geometry?.type || !Array.isArray(geometry?.coordinates)) return feature;
-
-  if (geometry.type === "Polygon") {
-    return {
-      ...feature,
-      geometry: {
-        ...geometry,
-        coordinates: normalizePolygonRings(geometry.coordinates),
-      },
-    };
-  }
-
-  if (geometry.type === "MultiPolygon") {
-    return {
-      ...feature,
-      geometry: {
-        ...geometry,
-        coordinates: geometry.coordinates.map((poly) => normalizePolygonRings(poly)),
-      },
-    };
-  }
-
-  return feature;
-}
-
 function wait(ms) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
@@ -158,7 +107,7 @@ export default function WorldExplorer() {
       .then((json) => {
         if (!mounted) return;
         const features = Array.isArray(json?.features) ? json.features : [];
-        setCountries(features.filter((item) => item?.geometry).map((item) => normalizeFeatureGeometry(item)));
+        setCountries(features.filter((item) => item?.geometry));
       })
       .catch(() => {
         if (!mounted) return;

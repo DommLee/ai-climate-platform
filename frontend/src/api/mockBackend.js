@@ -14,6 +14,9 @@ const COUNTRY_DATA = {
   JPN: { country_name: "Japan", region: "East Asia & Pacific", capital: "Tokyo", population: 124000000, area_km2: 377975, lat: 36.2, lon: 138.3 },
   BRA: { country_name: "Brazil", region: "Latin America & Caribbean", capital: "Brasilia", population: 203000000, area_km2: 8515767, lat: -10.8, lon: -52.9 },
   KEN: { country_name: "Kenya", region: "Sub-Saharan Africa", capital: "Nairobi", population: 55000000, area_km2: 580367, lat: 0.2, lon: 37.9 },
+  RUS: { country_name: "Russia", region: "Europe & Central Asia", capital: "Moscow", population: 143000000, area_km2: 17098242, lat: 61.5, lon: 96.0 },
+  KAZ: { country_name: "Kazakhstan", region: "Europe & Central Asia", capital: "Astana", population: 19900000, area_km2: 2724900, lat: 48.0, lon: 68.0 },
+  BMU: { country_name: "Bermuda", region: "North America", capital: "Hamilton", population: 64000, area_km2: 54, lat: 32.3, lon: -64.8 },
 };
 
 const COUNTRY_ALIASES = {
@@ -31,6 +34,35 @@ const COUNTRY_ALIASES = {
   brazil: "BRA",
   ken: "KEN",
   kenya: "KEN",
+  russia: "RUS",
+  russian: "RUS",
+  "russian federation": "RUS",
+  rus: "RUS",
+  kazakhstan: "KAZ",
+  kazakistan: "KAZ",
+  kaz: "KAZ",
+  bermuda: "BMU",
+  bmu: "BMU",
+};
+
+const COUNTRY_ISO2_TO_ISO3 = {
+  TR: "TUR",
+  US: "USA",
+  DE: "DEU",
+  JP: "JPN",
+  BR: "BRA",
+  KE: "KEN",
+  RU: "RUS",
+  KZ: "KAZ",
+  BM: "BMU",
+  GB: "GBR",
+  FR: "FRA",
+  IT: "ITA",
+  ES: "ESP",
+  CA: "CAN",
+  AU: "AUS",
+  CN: "CHN",
+  IN: "IND",
 };
 
 const THREATS = ["drought", "flood", "wildfire", "heatwave"];
@@ -278,17 +310,50 @@ function makeRankings(limit = 8) {
   };
 }
 
+function toTitleCase(value) {
+  return String(value || "")
+    .split(/[\s_-]+/)
+    .filter(Boolean)
+    .map((token) => token.charAt(0).toUpperCase() + token.slice(1).toLowerCase())
+    .join(" ");
+}
+
 function resolveCountryCode(input) {
   const raw = String(input || "").trim();
   const upper = raw.toUpperCase();
+
+  if (upper.length === 2 && COUNTRY_ISO2_TO_ISO3[upper]) return COUNTRY_ISO2_TO_ISO3[upper];
   if (COUNTRY_DATA[upper]) return upper;
+
+  if (/^[A-Z]{3}$/.test(upper)) return upper;
+
   const normalized = raw.toLowerCase();
-  return COUNTRY_ALIASES[normalized] || "TUR";
+  if (COUNTRY_ALIASES[normalized]) return COUNTRY_ALIASES[normalized];
+
+  const compact = normalized.replace(/[^a-z]/g, "");
+  if (compact.length >= 3) return compact.slice(0, 3).toUpperCase();
+
+  return "UNK";
+}
+
+function buildFallbackCountry(iso3, countryRef) {
+  const raw = String(countryRef || "").trim();
+  const prettyFromRef = raw && !/^[A-Z]{2,3}$/.test(raw.toUpperCase()) ? toTitleCase(raw) : null;
+  const countryName = prettyFromRef || iso3;
+  return {
+    country_name: countryName,
+    region: "Global",
+    capital: "-",
+    population: Math.round(seeded(`${iso3}:population`, 200000, 180000000)),
+    area_km2: Math.round(seeded(`${iso3}:area`, 20000, 2200000)),
+    lat: Number(seeded(`${iso3}:lat`, -52, 74).toFixed(2)),
+    lon: Number(seeded(`${iso3}:lon`, -170, 170).toFixed(2)),
+  };
 }
 
 function makeCountryProfile(countryRef, lang = "en") {
   const iso3 = resolveCountryCode(countryRef);
-  const country = COUNTRY_DATA[iso3] || COUNTRY_DATA.TUR;
+  const country = COUNTRY_DATA[iso3] || buildFallbackCountry(iso3, countryRef);
   const threat = pickThreat(`${iso3}:threat`);
   const computedRisk = Number(seeded(`${iso3}:risk`, 28, 76).toFixed(1));
   const trendDirection = ["rising", "stable", "falling"][hashString(`${iso3}:trend`) % 3];
