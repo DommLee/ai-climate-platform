@@ -20,7 +20,6 @@ export default function MainLayout() {
             </div>
             <div>
               <h1 className="text-xl font-black tracking-tight">{t("appTitle")}</h1>
-              <p className="text-xs text-zinc-400">DommLee (Abdullah Yildiz) · abdullahyldxz@gmail.com</p>
             </div>
           </div>
 
