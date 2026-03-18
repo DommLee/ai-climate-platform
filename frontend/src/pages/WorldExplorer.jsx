@@ -216,11 +216,12 @@ export default function WorldExplorer() {
       if (cached && Date.now() - cached.cachedAt < COUNTRY_PROFILE_CACHE_TTL_MS) {
         const payload = cached.data;
         setCountryProfile(payload);
-        setCountryQuery(payload?.country_name || rawIdentifier || normalizedIso3);
+        const preferredName = String(providedFeature?.properties?.name || "").trim();
+        setCountryQuery(preferredName || payload?.country_name || rawIdentifier || normalizedIso3);
         const resolvedIso3 = normalizeIso3(payload?.iso3);
         const selectedFeature =
-          countriesByIso3.get(resolvedIso3) ||
           providedFeature ||
+          countriesByIso3.get(resolvedIso3) ||
           countriesByNormalizedName.get(normalizeCountryName(payload?.country_name)) ||
           null;
         if (selectedFeature) setSelectedCountry(selectedFeature);
@@ -281,12 +282,13 @@ export default function WorldExplorer() {
         if (abortController.signal.aborted || activeRequestRef.current !== requestId) return;
 
         setCountryProfile(data);
-        setCountryQuery(data?.country_name || rawIdentifier || normalizedIso3);
+        const preferredName = String(providedFeature?.properties?.name || "").trim();
+        setCountryQuery(preferredName || data?.country_name || rawIdentifier || normalizedIso3);
 
         const resolvedIso3 = normalizeIso3(data?.iso3);
         const selectedFeature =
-          countriesByIso3.get(resolvedIso3) ||
           providedFeature ||
+          countriesByIso3.get(resolvedIso3) ||
           countriesByNormalizedName.get(normalizeCountryName(data?.country_name)) ||
           null;
 

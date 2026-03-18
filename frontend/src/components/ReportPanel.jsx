@@ -45,19 +45,15 @@ export default function ReportPanel() {
       insight,
       events,
       sources,
+      autoPrint,
     });
-
-    const popup = window.open("", "_blank", "noopener,noreferrer");
-    if (!popup) return;
-    popup.document.open();
-    popup.document.write(html);
-    popup.document.close();
-    if (autoPrint) {
-      setTimeout(() => {
-        popup.focus();
-        popup.print();
-      }, 250);
+    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+    const blobUrl = URL.createObjectURL(blob);
+    const popup = window.open(blobUrl, "_blank");
+    if (!popup) {
+      window.location.assign(blobUrl);
     }
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 90_000);
   };
 
   return (
