@@ -1,0 +1,84 @@
+﻿services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: climate-postgres
+    environment:
+      POSTGRES_DB: climate
+      POSTGRES_USER: climate
+      POSTGRES_PASSWORD: climate
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U climate -d climate"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: climate-redis
+    ports:
+      - "6380:6379"
+
+  api:
+    build:
+      context: ./backend
+    container_name: climate-api
+    env_file:
+      - ./backend/.env.example
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql+psycopg://climate:climate@postgres:5432/climate
+      REDIS_URL: redis://redis:6379/0
+      CORS_ORIGINS: http://localhost:5180,http://localhost:8080
+      TRUSTED_HOSTS: localhost,127.0.0.1,api
+      ENABLE_SCHEDULER_IN_API: "false"
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    ports:
+      - "8000:8000"
+    volumes:
+      - reports_data:/app/reports
+
+  worker:
+    build:
+      context: ./backend
+    container_name: climate-worker
+    command: python worker.py
+    env_file:
+      - ./backend/.env.example
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql+psycopg://climate:climate@postgres:5432/climate
+      REDIS_URL: redis://redis:6379/0
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      ENABLE_SCHEDULER_IN_API: "false"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    volumes:
+      - reports_data:/app/reports
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: climate-frontend
+    ports:
+      - "5180:80"
+    depends_on:
+      api:
+        condition: service_started
+
+volumes:
+  postgres_data:
+  reports_data:
