@@ -62,6 +62,23 @@ Single-domain pattern:
 - `app.yourdomain.com` -> frontend
 - `api.yourdomain.com` -> backend
 
+### Render Quick Start (This Repo)
+
+This repository now includes `render.yaml` with:
+- `ai-climate-api` (FastAPI web service)
+- `ai-climate-worker` (ingest + report background worker)
+
+Steps:
+1. Render -> New -> Blueprint -> select this GitHub repo.
+2. Set shared env vars for both services:
+   - `DATABASE_URL` (same Postgres connection for web + worker)
+   - `OPENAI_API_KEY`, `GEMINI_API_KEY`
+   - optional: `EMDAT_API_KEY`, `COPERNICUS_API_KEY`
+3. Deploy and verify backend:
+   - `https://<your-api>.onrender.com/api/v1/health`
+4. In GitHub repo settings, set `VITE_API_BASE_URL=https://<your-api>.onrender.com`.
+5. Push to `main` (or rerun Pages workflow) to update frontend.
+
 ## 5) Docker VPS Path (Alternative)
 
 1. Provision Linux VM (minimum 2 vCPU / 4GB RAM).

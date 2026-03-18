@@ -1,0 +1,67 @@
+services:
+  - type: web
+    name: ai-climate-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: ENABLE_SCHEDULER_IN_API
+        value: "false"
+      - key: SECRET_MANAGER_MODE
+        value: env
+      - key: CORS_ORIGINS
+        value: https://dommlee.github.io
+      - key: TRUSTED_HOSTS
+        value: "*.onrender.com,localhost,127.0.0.1"
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: EMDAT_API_KEY
+        sync: false
+      - key: COPERNICUS_API_KEY
+        sync: false
+
+  - type: worker
+    name: ai-climate-worker
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python worker.py
+    autoDeploy: true
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: API_HOST
+        value: 0.0.0.0
+      - key: ENABLE_SCHEDULER_IN_API
+        value: "false"
+      - key: SECRET_MANAGER_MODE
+        value: env
+      - key: CORS_ORIGINS
+        value: https://dommlee.github.io
+      - key: TRUSTED_HOSTS
+        value: "*.onrender.com,localhost,127.0.0.1"
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: EMDAT_API_KEY
+        sync: false
+      - key: COPERNICUS_API_KEY
+        sync: false

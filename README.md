@@ -85,6 +85,20 @@ This repository contains a global AI-powered climate risk platform.
 4. Page URL will be:
    - `https://dommlee.github.io/ai-climate-platform/`
 
+## Deploy Backend on Render
+1. In Render dashboard, create Blueprint from this repo (`render.yaml`).
+2. For both services (`ai-climate-api`, `ai-climate-worker`) set the same required secrets:
+   - `DATABASE_URL` (recommended: managed Postgres connection string)
+   - `OPENAI_API_KEY`, `GEMINI_API_KEY`
+   - optional: `EMDAT_API_KEY`, `COPERNICUS_API_KEY`
+3. After backend deploy, copy API URL (for example `https://ai-climate-api.onrender.com`).
+4. In GitHub repo settings, set `VITE_API_BASE_URL` to that URL and redeploy Pages.
+5. Validate:
+   - `https://ai-climate-api.onrender.com/api/v1/health`
+   - `https://dommlee.github.io/ai-climate-platform/`
+
+Note: If `VITE_API_BASE_URL` is missing or invalid, frontend now auto-falls back to built-in demo/mock API mode.
+
 ## Production Safety Defaults
 - `frontend/nginx.conf` disables cache for `index.html` and uses immutable cache for hashed assets.
 - `baslat.bat` opens `http://localhost:5180` with cache-busting query to avoid stale bundles.

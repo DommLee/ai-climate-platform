@@ -96,7 +96,14 @@ def build_settings() -> Settings:
         app_env=os.getenv("APP_ENV", "development"),
         api_host=os.getenv("API_HOST", "0.0.0.0"),
         api_port=_get_int("API_PORT", 8000),
-        cors_origins=_get_list("CORS_ORIGINS", ["http://localhost:5173", "http://localhost:4173"]),
+        cors_origins=_get_list(
+            "CORS_ORIGINS",
+            [
+                "http://localhost:5173",
+                "http://localhost:4173",
+                "https://dommlee.github.io",
+            ],
+        ),
         trusted_hosts=_get_list("TRUSTED_HOSTS", ["localhost", "127.0.0.1", "api", "*"]),
         database_url=os.getenv("DATABASE_URL", "sqlite:///./climate.db"),
         redis_url=os.getenv("REDIS_URL", "redis://redis:6379/0"),

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useI18n } from "../context/I18nContext";
-import { apiBaseForRequests } from "../api/runtimeConfig";
+import { apiBaseForRequests, hasExplicitApiBase } from "../api/runtimeConfig";
 
 const API_BASE = apiBaseForRequests;
 
@@ -48,6 +48,7 @@ export default function MapEmbed({ lat, lon, locationName = "", countryCode = ""
   const markerTopPct = ((centerFloat.y - (center.y - 1)) / 3) * 100;
   const markerLabel = [locationName, countryCode ? `(${countryCode})` : ""].filter(Boolean).join(" ").trim();
   const mapExternalUrl = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lon}#map=${zoom}/${lat}/${lon}`;
+  const shouldUseProxyTiles = import.meta.env.DEV || hasExplicitApiBase;
 
   return (
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-3 shadow-xl">
@@ -60,7 +61,7 @@ export default function MapEmbed({ lat, lon, locationName = "", countryCode = ""
               const ty = normalized.y;
               const key = `${tx}-${ty}`;
               const useDirectOsm = Boolean(fallbackTiles[key]);
-              const src = useDirectOsm
+              const src = useDirectOsm || !shouldUseProxyTiles
                 ? `https://tile.openstreetmap.org/${zoom}/${tx}/${ty}.png`
                 : `${API_BASE}/api/v1/maps/tile/${zoom}/${tx}/${ty}.png`;
               return (
@@ -128,7 +129,7 @@ export default function MapEmbed({ lat, lon, locationName = "", countryCode = ""
         {t("openInOsm")}
       </a>
       <p className="mt-2 text-xs text-zinc-400">
-        Map tiles: OpenStreetMap via cached proxy endpoint.
+        {shouldUseProxyTiles ? "Map tiles: OpenStreetMap via cached proxy endpoint." : "Map tiles: OpenStreetMap direct CDN."}
       </p>
     </div>
   );
