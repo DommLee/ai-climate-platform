@@ -1,13 +1,9 @@
 import axios from "axios";
 import { resolveMockResponse } from "./mockBackend";
-
-const devFallbackBaseUrl = "http://localhost:8000";
-const hasExplicitApiBase = Boolean(import.meta.env.VITE_API_BASE_URL);
-const useMockApi = import.meta.env.VITE_ENABLE_MOCK_API === "true" || (import.meta.env.PROD && !hasExplicitApiBase);
-const baseURL = hasExplicitApiBase ? import.meta.env.VITE_API_BASE_URL : import.meta.env.DEV ? devFallbackBaseUrl : "";
+import { apiBaseForRequests, useMockApi } from "./runtimeConfig";
 
 export const api = axios.create({
-  baseURL,
+  baseURL: apiBaseForRequests,
   timeout: 20000,
   headers: {
     "Content-Type": "application/json",

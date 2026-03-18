@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useClimate } from "../context/ClimateContext";
 import { useI18n } from "../context/I18nContext";
+import { apiBaseForRequests } from "../api/runtimeConfig";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "http://localhost:8000" : "");
+const API_BASE = apiBaseForRequests;
 
 export default function ReportPanel() {
   const { createReport, pollReport, reportJob } = useClimate();

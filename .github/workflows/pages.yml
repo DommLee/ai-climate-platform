@@ -36,6 +36,20 @@ jobs:
           VITE_API_BASE_URL_VAR: ${{ vars.VITE_API_BASE_URL }}
           VITE_API_BASE_URL_SECRET: ${{ secrets.VITE_API_BASE_URL }}
         run: |
+          sanitize_api_base() {
+            case "$1" in
+              ""|"VITE_API_BASE_URL"|"undefined"|"null")
+                echo ""
+                ;;
+              *)
+                echo "$1"
+                ;;
+            esac
+          }
+
+          VITE_API_BASE_URL_SECRET="$(sanitize_api_base "$VITE_API_BASE_URL_SECRET")"
+          VITE_API_BASE_URL_VAR="$(sanitize_api_base "$VITE_API_BASE_URL_VAR")"
+
           if [ -n "$VITE_API_BASE_URL_SECRET" ]; then
             export VITE_API_BASE_URL="$VITE_API_BASE_URL_SECRET"
           elif [ -n "$VITE_API_BASE_URL_VAR" ]; then
