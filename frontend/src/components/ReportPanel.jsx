@@ -1,6 +1,8 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useClimate } from "../context/ClimateContext";
 import { useI18n } from "../context/I18nContext";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "http://localhost:8000" : "");
 
 export default function ReportPanel() {
   const { createReport, pollReport, reportJob } = useClimate();
@@ -47,7 +49,7 @@ export default function ReportPanel() {
             <p className="mt-1 text-xs text-zinc-500">Duration: {reportJob.duration_seconds.toFixed(1)}s</p>
           )}
           {reportJob.output_url && (
-            <a href={`${import.meta.env.VITE_API_BASE_URL || "http://localhost:8000"}${reportJob.output_url}`} target="_blank" rel="noreferrer" className="mt-2 inline-block text-emerald-400 hover:underline">
+            <a href={`${API_BASE}${reportJob.output_url}`} target="_blank" rel="noreferrer" className="mt-2 inline-block text-emerald-400 hover:underline">
               Download PDF
             </a>
           )}

@@ -33,8 +33,16 @@ jobs:
         env:
           VITE_BASE_PATH: /ai-climate-platform/
           VITE_ROUTER_MODE: hash
-          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
+          VITE_API_BASE_URL_VAR: ${{ vars.VITE_API_BASE_URL }}
+          VITE_API_BASE_URL_SECRET: ${{ secrets.VITE_API_BASE_URL }}
         run: |
+          if [ -n "$VITE_API_BASE_URL_SECRET" ]; then
+            export VITE_API_BASE_URL="$VITE_API_BASE_URL_SECRET"
+          elif [ -n "$VITE_API_BASE_URL_VAR" ]; then
+            export VITE_API_BASE_URL="$VITE_API_BASE_URL_VAR"
+          else
+            echo "::warning::VITE_API_BASE_URL not set. Frontend will call relative /api paths in production."
+          fi
           npm ci
           npm run build
           touch dist/.nojekyll

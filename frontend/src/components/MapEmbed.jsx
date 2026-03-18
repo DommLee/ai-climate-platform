@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useI18n } from "../context/I18nContext";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
+const API_BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.DEV ? "http://localhost:8000" : "");
 
 function latLonToTile(lat, lon, zoom) {
   const latRad = (lat * Math.PI) / 180;

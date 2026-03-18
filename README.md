@@ -78,6 +78,9 @@ This repository contains a global AI-powered climate risk platform.
 ## Publish Frontend on GitHub Pages
 1. In GitHub repo, go to `Settings > Pages`, set source to `GitHub Actions`.
 2. In repo settings, add variable `VITE_API_BASE_URL` with your public backend API URL.
+   - You can add it as either:
+     - Repository Variable: `VITE_API_BASE_URL`, or
+     - Repository Secret: `VITE_API_BASE_URL`
 3. Push to `main`; workflow `Deploy Frontend to GitHub Pages` will publish automatically.
 4. Page URL will be:
    - `https://dommlee.github.io/ai-climate-platform/`
