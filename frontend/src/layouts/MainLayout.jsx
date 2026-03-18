@@ -1,6 +1,6 @@
-ï»¿import React from "react";
+import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { Activity, Gauge, Globe, Scale, Sparkles } from "lucide-react";
+import { Activity, Gauge, Globe, Info, Scale, Sparkles } from "lucide-react";
 import { useClimate } from "../context/ClimateContext";
 import { useI18n } from "../context/I18nContext";
 import LocationSelect from "../components/LocationSelect";
@@ -18,7 +18,10 @@ export default function MainLayout() {
             <div className="rounded-xl bg-emerald-500 p-2 text-zinc-950">
               <Activity size={20} />
             </div>
-            <h1 className="text-xl font-black tracking-tight">{t("appTitle")}</h1>
+            <div>
+              <h1 className="text-xl font-black tracking-tight">{t("appTitle")}</h1>
+              <p className="text-xs text-zinc-400">DommLee (Abdullah Yildiz) · abdullahyldxz@gmail.com</p>
+            </div>
           </div>
 
           <div className="flex items-center gap-3">
@@ -72,6 +75,13 @@ export default function MainLayout() {
           >
             <Scale size={16} />
             {t("countryCompare")}
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) => `mt-2 flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold ${isActive ? "bg-emerald-500 text-zinc-950" : "hover:bg-zinc-800"}`}
+          >
+            <Info size={16} />
+            {t("about")}
           </NavLink>
         </aside>
 

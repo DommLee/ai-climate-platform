@@ -9,6 +9,7 @@ const RiskAnalysis = lazy(() => import("./pages/RiskAnalysis"));
 const Solutions = lazy(() => import("./pages/Solutions"));
 const WorldExplorer = lazy(() => import("./pages/WorldExplorer"));
 const CountryCompare = lazy(() => import("./pages/CountryCompare"));
+const About = lazy(() => import("./pages/About"));
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path="solutions" element={<Solutions />} />
                 <Route path="world" element={<WorldExplorer />} />
                 <Route path="compare" element={<CountryCompare />} />
+                <Route path="about" element={<About />} />
               </Route>
             </Routes>
           </Suspense>
