@@ -71,8 +71,16 @@ This repository contains a global AI-powered climate risk platform.
 - Keep `.env` files private; only `.env.example` should be in Git.
 - This repo includes:
   - CI workflow: `.github/workflows/ci.yml`
+  - GitHub Pages deploy: `.github/workflows/pages.yml`
   - Dependabot updates: `.github/dependabot.yml`
   - Security policy: `SECURITY.md`
+
+## Publish Frontend on GitHub Pages
+1. In GitHub repo, go to `Settings > Pages`, set source to `GitHub Actions`.
+2. In repo settings, add variable `VITE_API_BASE_URL` with your public backend API URL.
+3. Push to `main`; workflow `Deploy Frontend to GitHub Pages` will publish automatically.
+4. Page URL will be:
+   - `https://dommlee.github.io/ai-climate-platform/`
 
 ## Production Safety Defaults
 - `frontend/nginx.conf` disables cache for `index.html` and uses immutable cache for hashed assets.

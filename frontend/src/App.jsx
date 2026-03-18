@@ -1,5 +1,5 @@
-﻿import React, { Suspense, lazy } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom";
 import { ClimateProvider } from "./context/ClimateContext";
 import { I18nProvider } from "./context/I18nContext";
 import MainLayout from "./layouts/MainLayout";
@@ -11,11 +11,13 @@ const WorldExplorer = lazy(() => import("./pages/WorldExplorer"));
 const CountryCompare = lazy(() => import("./pages/CountryCompare"));
 const About = lazy(() => import("./pages/About"));
 
+const Router = import.meta.env.VITE_ROUTER_MODE === "hash" ? HashRouter : BrowserRouter;
+
 export default function App() {
   return (
     <I18nProvider>
       <ClimateProvider>
-        <BrowserRouter>
+        <Router>
           <Suspense fallback={<div className="p-6 text-zinc-300">Loading...</div>}>
             <Routes>
               <Route path="/" element={<MainLayout />}>
@@ -28,7 +30,7 @@ export default function App() {
               </Route>
             </Routes>
           </Suspense>
-        </BrowserRouter>
+        </Router>
       </ClimateProvider>
     </I18nProvider>
   );
