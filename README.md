@@ -1,4 +1,4 @@
-﻿# AI Climate Platform (Global v1)
+# AI Climate Platform (Global v1)
 
 This repository contains a global AI-powered climate risk platform.
 
