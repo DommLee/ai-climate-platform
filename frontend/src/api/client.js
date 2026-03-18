@@ -11,8 +11,8 @@ export const api = axios.create({
 });
 
 if (useMockApi) {
-  api.interceptors.request.use((config) => {
-    const mockData = resolveMockResponse(config);
+  api.interceptors.request.use(async (config) => {
+    const mockData = await resolveMockResponse(config);
     if (mockData !== null && mockData !== undefined) {
       config.adapter = async () => ({
         data: mockData,

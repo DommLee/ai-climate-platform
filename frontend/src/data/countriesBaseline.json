@@ -1,0 +1,4291 @@
+[
+  {
+    "cca3": "ABW",
+    "cca2": "AW",
+    "name_common": "Aruba",
+    "name_official": "Aruba",
+    "capital": "Oranjestad",
+    "region": "Caribbean",
+    "population": 107566,
+    "area_km2": 180,
+    "lat": 12.5,
+    "lon": -69.96666666,
+    "alt_spellings": [
+      "AW"
+    ]
+  },
+  {
+    "cca3": "AFG",
+    "cca2": "AF",
+    "name_common": "Afghanistan",
+    "name_official": "Islamic Republic of Afghanistan",
+    "capital": "Kabul",
+    "region": "Southern Asia",
+    "population": 43844000,
+    "area_km2": 652230,
+    "lat": 33,
+    "lon": 65,
+    "alt_spellings": [
+      "AF",
+      "Afġānistān"
+    ]
+  },
+  {
+    "cca3": "AGO",
+    "cca2": "AO",
+    "name_common": "Angola",
+    "name_official": "Republic of Angola",
+    "capital": "Luanda",
+    "region": "Middle Africa",
+    "population": 36170961,
+    "area_km2": 1246700,
+    "lat": -12.5,
+    "lon": 18.5,
+    "alt_spellings": [
+      "AO",
+      "República de Angola",
+      "ʁɛpublika de an'ɡɔla"
+    ]
+  },
+  {
+    "cca3": "AIA",
+    "cca2": "AI",
+    "name_common": "Anguilla",
+    "name_official": "Anguilla",
+    "capital": "The Valley",
+    "region": "Caribbean",
+    "population": 16010,
+    "area_km2": 91,
+    "lat": 18.25,
+    "lon": -63.16666666,
+    "alt_spellings": [
+      "AI"
+    ]
+  },
+  {
+    "cca3": "ALA",
+    "cca2": "AX",
+    "name_common": "Åland Islands",
+    "name_official": "Åland Islands",
+    "capital": "Mariehamn",
+    "region": "Northern Europe",
+    "population": 30654,
+    "area_km2": 1580,
+    "lat": 60.116667,
+    "lon": 19.9,
+    "alt_spellings": [
+      "AX",
+      "Aaland",
+      "Aland",
+      "Ahvenanmaa"
+    ]
+  },
+  {
+    "cca3": "ALB",
+    "cca2": "AL",
+    "name_common": "Albania",
+    "name_official": "Republic of Albania",
+    "capital": "Tirana",
+    "region": "Southeast Europe",
+    "population": 2363314,
+    "area_km2": 28748,
+    "lat": 41,
+    "lon": 20,
+    "alt_spellings": [
+      "AL",
+      "Shqipëri",
+      "Shqipëria",
+      "Shqipnia"
+    ]
+  },
+  {
+    "cca3": "AND",
+    "cca2": "AD",
+    "name_common": "Andorra",
+    "name_official": "Principality of Andorra",
+    "capital": "Andorra la Vella",
+    "region": "Southern Europe",
+    "population": 88406,
+    "area_km2": 468,
+    "lat": 42.5,
+    "lon": 1.5,
+    "alt_spellings": [
+      "AD",
+      "Principality of Andorra",
+      "Principat d'Andorra"
+    ]
+  },
+  {
+    "cca3": "ARE",
+    "cca2": "AE",
+    "name_common": "United Arab Emirates",
+    "name_official": "United Arab Emirates",
+    "capital": "Abu Dhabi",
+    "region": "Western Asia",
+    "population": 11294243,
+    "area_km2": 83600,
+    "lat": 24,
+    "lon": 54,
+    "alt_spellings": [
+      "AE",
+      "UAE",
+      "Emirates"
+    ]
+  },
+  {
+    "cca3": "ARG",
+    "cca2": "AR",
+    "name_common": "Argentina",
+    "name_official": "Argentine Republic",
+    "capital": "Buenos Aires",
+    "region": "South America",
+    "population": 46735004,
+    "area_km2": 2780400,
+    "lat": -34,
+    "lon": -64,
+    "alt_spellings": [
+      "AR",
+      "Argentine Republic",
+      "República Argentina"
+    ]
+  },
+  {
+    "cca3": "ARM",
+    "cca2": "AM",
+    "name_common": "Armenia",
+    "name_official": "Republic of Armenia",
+    "capital": "Yerevan",
+    "region": "Western Asia",
+    "population": 3076200,
+    "area_km2": 29743,
+    "lat": 40,
+    "lon": 45,
+    "alt_spellings": [
+      "AM",
+      "Hayastan",
+      "Republic of Armenia",
+      "Հայաստանի Հանրապետություն"
+    ]
+  },
+  {
+    "cca3": "ASM",
+    "cca2": "AS",
+    "name_common": "American Samoa",
+    "name_official": "American Samoa",
+    "capital": "Pago Pago",
+    "region": "Polynesia",
+    "population": 49710,
+    "area_km2": 199,
+    "lat": -14.33333333,
+    "lon": -170,
+    "alt_spellings": [
+      "AS",
+      "Amerika Sāmoa",
+      "Amelika Sāmoa",
+      "Sāmoa Amelika"
+    ]
+  },
+  {
+    "cca3": "ATA",
+    "cca2": "AQ",
+    "name_common": "Antarctica",
+    "name_official": "Antarctica",
+    "capital": "-",
+    "region": "Antarctic",
+    "population": 1300,
+    "area_km2": 14000000,
+    "lat": -90,
+    "lon": 0,
+    "alt_spellings": [
+      "AQ"
+    ]
+  },
+  {
+    "cca3": "ATF",
+    "cca2": "TF",
+    "name_common": "French Southern and Antarctic Lands",
+    "name_official": "Territory of the French Southern and Antarctic Lands",
+    "capital": "Port-aux-Français",
+    "region": "Antarctic",
+    "population": 400,
+    "area_km2": 7747,
+    "lat": -49.25,
+    "lon": 69.167,
+    "alt_spellings": [
+      "TF",
+      "French Southern Territories"
+    ]
+  },
+  {
+    "cca3": "ATG",
+    "cca2": "AG",
+    "name_common": "Antigua and Barbuda",
+    "name_official": "Antigua and Barbuda",
+    "capital": "Saint John's",
+    "region": "Caribbean",
+    "population": 103603,
+    "area_km2": 442,
+    "lat": 17.05,
+    "lon": -61.8,
+    "alt_spellings": [
+      "AG"
+    ]
+  },
+  {
+    "cca3": "AUS",
+    "cca2": "AU",
+    "name_common": "Australia",
+    "name_official": "Commonwealth of Australia",
+    "capital": "Canberra",
+    "region": "Australia and New Zealand",
+    "population": 27536874,
+    "area_km2": 7692024,
+    "lat": -27,
+    "lon": 133,
+    "alt_spellings": [
+      "AU"
+    ]
+  },
+  {
+    "cca3": "AUT",
+    "cca2": "AT",
+    "name_common": "Austria",
+    "name_official": "Republic of Austria",
+    "capital": "Vienna",
+    "region": "Central Europe",
+    "population": 9200931,
+    "area_km2": 83871,
+    "lat": 47.33333333,
+    "lon": 13.33333333,
+    "alt_spellings": [
+      "AT",
+      "Osterreich",
+      "Oesterreich"
+    ]
+  },
+  {
+    "cca3": "AZE",
+    "cca2": "AZ",
+    "name_common": "Azerbaijan",
+    "name_official": "Republic of Azerbaijan",
+    "capital": "Baku",
+    "region": "Western Asia",
+    "population": 10241722,
+    "area_km2": 86600,
+    "lat": 40.5,
+    "lon": 47.5,
+    "alt_spellings": [
+      "AZ",
+      "Republic of Azerbaijan",
+      "Azərbaycan Respublikası"
+    ]
+  },
+  {
+    "cca3": "BDI",
+    "cca2": "BI",
+    "name_common": "Burundi",
+    "name_official": "Republic of Burundi",
+    "capital": "Gitega",
+    "region": "Eastern Africa",
+    "population": 12332788,
+    "area_km2": 27834,
+    "lat": -3.5,
+    "lon": 30,
+    "alt_spellings": [
+      "BI",
+      "Republic of Burundi",
+      "Republika y'Uburundi",
+      "République du Burundi"
+    ]
+  },
+  {
+    "cca3": "BEL",
+    "cca2": "BE",
+    "name_common": "Belgium",
+    "name_official": "Kingdom of Belgium",
+    "capital": "Brussels",
+    "region": "Western Europe",
+    "population": 11825551,
+    "area_km2": 30528,
+    "lat": 50.83333333,
+    "lon": 4,
+    "alt_spellings": [
+      "BE",
+      "België",
+      "Belgie",
+      "Belgien",
+      "Belgique",
+      "Kingdom of Belgium",
+      "Koninkrijk België",
+      "Royaume de Belgique",
+      "Königreich Belgien"
+    ]
+  },
+  {
+    "cca3": "BEN",
+    "cca2": "BJ",
+    "name_common": "Benin",
+    "name_official": "Republic of Benin",
+    "capital": "Porto-Novo",
+    "region": "Western Africa",
+    "population": 13224860,
+    "area_km2": 112622,
+    "lat": 9.5,
+    "lon": 2.25,
+    "alt_spellings": [
+      "BJ",
+      "Republic of Benin",
+      "République du Bénin"
+    ]
+  },
+  {
+    "cca3": "BES",
+    "cca2": "BQ",
+    "name_common": "Caribbean Netherlands",
+    "name_official": "Bonaire, Sint Eustatius and Saba",
+    "capital": "Kralendijk",
+    "region": "Caribbean",
+    "population": 31980,
+    "area_km2": 328,
+    "lat": 12.18,
+    "lon": -68.25,
+    "alt_spellings": [
+      "BES islands"
+    ]
+  },
+  {
+    "cca3": "BFA",
+    "cca2": "BF",
+    "name_common": "Burkina Faso",
+    "name_official": "Burkina Faso",
+    "capital": "Ouagadougou",
+    "region": "Western Africa",
+    "population": 24070553,
+    "area_km2": 272967,
+    "lat": 13,
+    "lon": -2,
+    "alt_spellings": [
+      "BF"
+    ]
+  },
+  {
+    "cca3": "BGD",
+    "cca2": "BD",
+    "name_common": "Bangladesh",
+    "name_official": "People's Republic of Bangladesh",
+    "capital": "Dhaka",
+    "region": "Southern Asia",
+    "population": 169828911,
+    "area_km2": 147570,
+    "lat": 24,
+    "lon": 90,
+    "alt_spellings": [
+      "BD",
+      "People's Republic of Bangladesh",
+      "Gônôprôjatôntri Bangladesh"
+    ]
+  },
+  {
+    "cca3": "BGR",
+    "cca2": "BG",
+    "name_common": "Bulgaria",
+    "name_official": "Republic of Bulgaria",
+    "capital": "Sofia",
+    "region": "Southeast Europe",
+    "population": 6437360,
+    "area_km2": 110879,
+    "lat": 43,
+    "lon": 25,
+    "alt_spellings": [
+      "BG",
+      "Republic of Bulgaria",
+      "Република България"
+    ]
+  },
+  {
+    "cca3": "BHR",
+    "cca2": "BH",
+    "name_common": "Bahrain",
+    "name_official": "Kingdom of Bahrain",
+    "capital": "Manama",
+    "region": "Western Asia",
+    "population": 1594654,
+    "area_km2": 765,
+    "lat": 26,
+    "lon": 50.55,
+    "alt_spellings": [
+      "BH",
+      "Kingdom of Bahrain",
+      "Mamlakat al-Baḥrayn"
+    ]
+  },
+  {
+    "cca3": "BHS",
+    "cca2": "BS",
+    "name_common": "Bahamas",
+    "name_official": "Commonwealth of the Bahamas",
+    "capital": "Nassau",
+    "region": "Caribbean",
+    "population": 398165,
+    "area_km2": 13943,
+    "lat": 25.0343,
+    "lon": -77.3963,
+    "alt_spellings": [
+      "BS",
+      "Commonwealth of the Bahamas"
+    ]
+  },
+  {
+    "cca3": "BIH",
+    "cca2": "BA",
+    "name_common": "Bosnia and Herzegovina",
+    "name_official": "Bosnia and Herzegovina",
+    "capital": "Sarajevo",
+    "region": "Southeast Europe",
+    "population": 3422000,
+    "area_km2": 51209,
+    "lat": 44,
+    "lon": 18,
+    "alt_spellings": [
+      "BA",
+      "Bosnia-Herzegovina",
+      "Босна и Херцеговина"
+    ]
+  },
+  {
+    "cca3": "BLM",
+    "cca2": "BL",
+    "name_common": "Saint Barthélemy",
+    "name_official": "Collectivity of Saint Barthélemy",
+    "capital": "Gustavia",
+    "region": "Caribbean",
+    "population": 10562,
+    "area_km2": 21,
+    "lat": 18.5,
+    "lon": -63.41666666,
+    "alt_spellings": [
+      "BL",
+      "St. Barthelemy",
+      "Collectivity of Saint Barthélemy",
+      "Collectivité de Saint-Barthélemy"
+    ]
+  },
+  {
+    "cca3": "BLR",
+    "cca2": "BY",
+    "name_common": "Belarus",
+    "name_official": "Republic of Belarus",
+    "capital": "Minsk",
+    "region": "Eastern Europe",
+    "population": 9109280,
+    "area_km2": 207600,
+    "lat": 53,
+    "lon": 28,
+    "alt_spellings": [
+      "BY",
+      "Bielaruś",
+      "Republic of Belarus",
+      "Белоруссия",
+      "Республика Белоруссия"
+    ]
+  },
+  {
+    "cca3": "BLZ",
+    "cca2": "BZ",
+    "name_common": "Belize",
+    "name_official": "Belize",
+    "capital": "Belmopan",
+    "region": "Central America",
+    "population": 417634,
+    "area_km2": 22966,
+    "lat": 17.25,
+    "lon": -88.75,
+    "alt_spellings": [
+      "BZ"
+    ]
+  },
+  {
+    "cca3": "BMU",
+    "cca2": "BM",
+    "name_common": "Bermuda",
+    "name_official": "Bermuda",
+    "capital": "Hamilton",
+    "region": "North America",
+    "population": 64055,
+    "area_km2": 54,
+    "lat": 32.33333333,
+    "lon": -64.75,
+    "alt_spellings": [
+      "BM",
+      "The Islands of Bermuda",
+      "The Bermudas",
+      "Somers Isles"
+    ]
+  },
+  {
+    "cca3": "BOL",
+    "cca2": "BO",
+    "name_common": "Bolivia",
+    "name_official": "Plurinational State of Bolivia",
+    "capital": "Sucre",
+    "region": "South America",
+    "population": 11365333,
+    "area_km2": 1098581,
+    "lat": -17,
+    "lon": -65,
+    "alt_spellings": [
+      "BO",
+      "Buliwya",
+      "Wuliwya",
+      "Bolivia, Plurinational State of",
+      "Plurinational State of Bolivia",
+      "Estado Plurinacional de Bolivia",
+      "Buliwya Mamallaqta",
+      "Wuliwya Suyu",
+      "Tetã Volívia"
+    ]
+  },
+  {
+    "cca3": "BRA",
+    "cca2": "BR",
+    "name_common": "Brazil",
+    "name_official": "Federative Republic of Brazil",
+    "capital": "Brasília",
+    "region": "South America",
+    "population": 213421037,
+    "area_km2": 8515767,
+    "lat": -10,
+    "lon": -55,
+    "alt_spellings": [
+      "BR",
+      "Brasil",
+      "Federative Republic of Brazil",
+      "República Federativa do Brasil"
+    ]
+  },
+  {
+    "cca3": "BRB",
+    "cca2": "BB",
+    "name_common": "Barbados",
+    "name_official": "Barbados",
+    "capital": "Bridgetown",
+    "region": "Caribbean",
+    "population": 267800,
+    "area_km2": 430,
+    "lat": 13.16666666,
+    "lon": -59.53333333,
+    "alt_spellings": [
+      "BB"
+    ]
+  },
+  {
+    "cca3": "BRN",
+    "cca2": "BN",
+    "name_common": "Brunei",
+    "name_official": "Nation of Brunei, Abode of Peace",
+    "capital": "Bandar Seri Begawan",
+    "region": "South-Eastern Asia",
+    "population": 455500,
+    "area_km2": 5765,
+    "lat": 4.5,
+    "lon": 114.66666666,
+    "alt_spellings": [
+      "BN",
+      "Brunei Darussalam",
+      "Nation of Brunei",
+      "the Abode of Peace"
+    ]
+  },
+  {
+    "cca3": "BTN",
+    "cca2": "BT",
+    "name_common": "Bhutan",
+    "name_official": "Kingdom of Bhutan",
+    "capital": "Thimphu",
+    "region": "Southern Asia",
+    "population": 784043,
+    "area_km2": 38394,
+    "lat": 27.5,
+    "lon": 90.5,
+    "alt_spellings": [
+      "BT",
+      "Kingdom of Bhutan"
+    ]
+  },
+  {
+    "cca3": "BVT",
+    "cca2": "BV",
+    "name_common": "Bouvet Island",
+    "name_official": "Bouvet Island",
+    "capital": "-",
+    "region": "Antarctic",
+    "population": 0,
+    "area_km2": 49,
+    "lat": -54.4208,
+    "lon": 3.3464,
+    "alt_spellings": [
+      "BV",
+      "Bouvetøya",
+      "Bouvet-øya"
+    ]
+  },
+  {
+    "cca3": "BWA",
+    "cca2": "BW",
+    "name_common": "Botswana",
+    "name_official": "Republic of Botswana",
+    "capital": "Gaborone",
+    "region": "Southern Africa",
+    "population": 2359609,
+    "area_km2": 582000,
+    "lat": -22,
+    "lon": 24,
+    "alt_spellings": [
+      "BW",
+      "Republic of Botswana",
+      "Lefatshe la Botswana"
+    ]
+  },
+  {
+    "cca3": "CAF",
+    "cca2": "CF",
+    "name_common": "Central African Republic",
+    "name_official": "Central African Republic",
+    "capital": "Bangui",
+    "region": "Middle Africa",
+    "population": 6470307,
+    "area_km2": 622984,
+    "lat": 7,
+    "lon": 21,
+    "alt_spellings": [
+      "CF",
+      "Central African Republic",
+      "République centrafricaine"
+    ]
+  },
+  {
+    "cca3": "CAN",
+    "cca2": "CA",
+    "name_common": "Canada",
+    "name_official": "Canada",
+    "capital": "Ottawa",
+    "region": "North America",
+    "population": 41651653,
+    "area_km2": 9984670,
+    "lat": 60,
+    "lon": -95,
+    "alt_spellings": [
+      "CA"
+    ]
+  },
+  {
+    "cca3": "CCK",
+    "cca2": "CC",
+    "name_common": "Cocos (Keeling) Islands",
+    "name_official": "Territory of the Cocos (Keeling) Islands",
+    "capital": "West Island",
+    "region": "Australia and New Zealand",
+    "population": 593,
+    "area_km2": 14,
+    "lat": -12.1642,
+    "lon": 96.871,
+    "alt_spellings": [
+      "CC",
+      "Keeling Islands",
+      "Cocos Islands"
+    ]
+  },
+  {
+    "cca3": "CHE",
+    "cca2": "CH",
+    "name_common": "Switzerland",
+    "name_official": "Swiss Confederation",
+    "capital": "Bern",
+    "region": "Western Europe",
+    "population": 9082848,
+    "area_km2": 41284,
+    "lat": 47,
+    "lon": 8,
+    "alt_spellings": [
+      "CH",
+      "Swiss Confederation",
+      "Schweiz",
+      "Suisse",
+      "Svizzera",
+      "Svizra"
+    ]
+  },
+  {
+    "cca3": "CHL",
+    "cca2": "CL",
+    "name_common": "Chile",
+    "name_official": "Republic of Chile",
+    "capital": "Santiago",
+    "region": "South America",
+    "population": 20206953,
+    "area_km2": 756102,
+    "lat": -30,
+    "lon": -71,
+    "alt_spellings": [
+      "CL",
+      "Republic of Chile",
+      "República de Chile"
+    ]
+  },
+  {
+    "cca3": "CHN",
+    "cca2": "CN",
+    "name_common": "China",
+    "name_official": "People's Republic of China",
+    "capital": "Beijing",
+    "region": "Eastern Asia",
+    "population": 1408280000,
+    "area_km2": 9706961,
+    "lat": 35,
+    "lon": 105,
+    "alt_spellings": [
+      "CN",
+      "Zhōngguó",
+      "Zhongguo",
+      "Zhonghua",
+      "People's Republic of China",
+      "中华人民共和国",
+      "Zhōnghuá Rénmín Gònghéguó"
+    ]
+  },
+  {
+    "cca3": "CIV",
+    "cca2": "CI",
+    "name_common": "Ivory Coast",
+    "name_official": "Republic of Côte d'Ivoire",
+    "capital": "Yamoussoukro",
+    "region": "Western Africa",
+    "population": 31719275,
+    "area_km2": 322463,
+    "lat": 8,
+    "lon": -5,
+    "alt_spellings": [
+      "CI",
+      "Côte d'Ivoire",
+      "Ivory Coast",
+      "Republic of Côte d'Ivoire",
+      "République de Côte d'Ivoire"
+    ]
+  },
+  {
+    "cca3": "CMR",
+    "cca2": "CM",
+    "name_common": "Cameroon",
+    "name_official": "Republic of Cameroon",
+    "capital": "Yaoundé",
+    "region": "Middle Africa",
+    "population": 29442327,
+    "area_km2": 475442,
+    "lat": 6,
+    "lon": 12,
+    "alt_spellings": [
+      "CM",
+      "Republic of Cameroon",
+      "République du Cameroun"
+    ]
+  },
+  {
+    "cca3": "COD",
+    "cca2": "CD",
+    "name_common": "DR Congo",
+    "name_official": "Democratic Republic of the Congo",
+    "capital": "Kinshasa",
+    "region": "Middle Africa",
+    "population": 112832000,
+    "area_km2": 2344858,
+    "lat": 0,
+    "lon": 25,
+    "alt_spellings": [
+      "CD",
+      "DR Congo",
+      "Congo-Kinshasa",
+      "Congo, the Democratic Republic of the",
+      "DRC"
+    ]
+  },
+  {
+    "cca3": "COG",
+    "cca2": "CG",
+    "name_common": "Republic of the Congo",
+    "name_official": "Republic of the Congo",
+    "capital": "Brazzaville",
+    "region": "Middle Africa",
+    "population": 6142180,
+    "area_km2": 342000,
+    "lat": -1,
+    "lon": 15,
+    "alt_spellings": [
+      "CG",
+      "Congo",
+      "Congo-Brazzaville"
+    ]
+  },
+  {
+    "cca3": "COK",
+    "cca2": "CK",
+    "name_common": "Cook Islands",
+    "name_official": "Cook Islands",
+    "capital": "Avarua",
+    "region": "Polynesia",
+    "population": 15040,
+    "area_km2": 236,
+    "lat": -21.23333333,
+    "lon": -159.76666666,
+    "alt_spellings": [
+      "CK",
+      "Kūki 'Āirani"
+    ]
+  },
+  {
+    "cca3": "COL",
+    "cca2": "CO",
+    "name_common": "Colombia",
+    "name_official": "Republic of Colombia",
+    "capital": "Bogotá",
+    "region": "South America",
+    "population": 53057212,
+    "area_km2": 1141748,
+    "lat": 4,
+    "lon": -72,
+    "alt_spellings": [
+      "CO",
+      "Republic of Colombia",
+      "República de Colombia"
+    ]
+  },
+  {
+    "cca3": "COM",
+    "cca2": "KM",
+    "name_common": "Comoros",
+    "name_official": "Union of the Comoros",
+    "capital": "Moroni",
+    "region": "Eastern Africa",
+    "population": 919901,
+    "area_km2": 1862,
+    "lat": -12.16666666,
+    "lon": 44.25,
+    "alt_spellings": [
+      "KM",
+      "Union of the Comoros",
+      "Union des Comores",
+      "Udzima wa Komori",
+      "al-Ittiḥād al-Qumurī"
+    ]
+  },
+  {
+    "cca3": "CPV",
+    "cca2": "CV",
+    "name_common": "Cape Verde",
+    "name_official": "Republic of Cabo Verde",
+    "capital": "Praia",
+    "region": "Western Africa",
+    "population": 491233,
+    "area_km2": 4033,
+    "lat": 16.5388,
+    "lon": -23.0418,
+    "alt_spellings": [
+      "CV",
+      "Republic of Cabo Verde",
+      "República de Cabo Verde"
+    ]
+  },
+  {
+    "cca3": "CRI",
+    "cca2": "CR",
+    "name_common": "Costa Rica",
+    "name_official": "Republic of Costa Rica",
+    "capital": "San José",
+    "region": "Central America",
+    "population": 5309625,
+    "area_km2": 51100,
+    "lat": 10,
+    "lon": -84,
+    "alt_spellings": [
+      "CR",
+      "Republic of Costa Rica",
+      "República de Costa Rica"
+    ]
+  },
+  {
+    "cca3": "CUB",
+    "cca2": "CU",
+    "name_common": "Cuba",
+    "name_official": "Republic of Cuba",
+    "capital": "Havana",
+    "region": "Caribbean",
+    "population": 9748007,
+    "area_km2": 109884,
+    "lat": 21.5,
+    "lon": -80,
+    "alt_spellings": [
+      "CU",
+      "Republic of Cuba",
+      "República de Cuba"
+    ]
+  },
+  {
+    "cca3": "CUW",
+    "cca2": "CW",
+    "name_common": "Curaçao",
+    "name_official": "Country of Curaçao",
+    "capital": "Willemstad",
+    "region": "Caribbean",
+    "population": 156115,
+    "area_km2": 444,
+    "lat": 12.116667,
+    "lon": -68.933333,
+    "alt_spellings": [
+      "CW",
+      "Curacao",
+      "Kòrsou",
+      "Country of Curaçao",
+      "Land Curaçao",
+      "Pais Kòrsou"
+    ]
+  },
+  {
+    "cca3": "CXR",
+    "cca2": "CX",
+    "name_common": "Christmas Island",
+    "name_official": "Territory of Christmas Island",
+    "capital": "Flying Fish Cove",
+    "region": "Australia and New Zealand",
+    "population": 1692,
+    "area_km2": 135,
+    "lat": -10.5,
+    "lon": 105.66666666,
+    "alt_spellings": [
+      "CX",
+      "Territory of Christmas Island"
+    ]
+  },
+  {
+    "cca3": "CYM",
+    "cca2": "KY",
+    "name_common": "Cayman Islands",
+    "name_official": "Cayman Islands",
+    "capital": "George Town",
+    "region": "Caribbean",
+    "population": 84738,
+    "area_km2": 264,
+    "lat": 19.3133,
+    "lon": -81.2546,
+    "alt_spellings": [
+      "KY"
+    ]
+  },
+  {
+    "cca3": "CYP",
+    "cca2": "CY",
+    "name_common": "Cyprus",
+    "name_official": "Republic of Cyprus",
+    "capital": "Nicosia",
+    "region": "Southern Europe",
+    "population": 1442614,
+    "area_km2": 9251,
+    "lat": 35,
+    "lon": 33,
+    "alt_spellings": [
+      "CY",
+      "Kýpros",
+      "Kıbrıs",
+      "Republic of Cyprus",
+      "Κυπριακή Δημοκρατία",
+      "Kıbrıs Cumhuriyeti"
+    ]
+  },
+  {
+    "cca3": "CZE",
+    "cca2": "CZ",
+    "name_common": "Czechia",
+    "name_official": "Czech Republic",
+    "capital": "Prague",
+    "region": "Central Europe",
+    "population": 10882341,
+    "area_km2": 78865,
+    "lat": 49.75,
+    "lon": 15.5,
+    "alt_spellings": [
+      "CZ",
+      "Česká republika",
+      "Česko"
+    ]
+  },
+  {
+    "cca3": "DEU",
+    "cca2": "DE",
+    "name_common": "Germany",
+    "name_official": "Federal Republic of Germany",
+    "capital": "Berlin",
+    "region": "Western Europe",
+    "population": 83491249,
+    "area_km2": 357114,
+    "lat": 51,
+    "lon": 9,
+    "alt_spellings": [
+      "DE",
+      "Federal Republic of Germany",
+      "Bundesrepublik Deutschland"
+    ]
+  },
+  {
+    "cca3": "DJI",
+    "cca2": "DJ",
+    "name_common": "Djibouti",
+    "name_official": "Republic of Djibouti",
+    "capital": "Djibouti",
+    "region": "Eastern Africa",
+    "population": 1066809,
+    "area_km2": 23200,
+    "lat": 11.5,
+    "lon": 43,
+    "alt_spellings": [
+      "DJ",
+      "Jabuuti",
+      "Gabuuti",
+      "Republic of Djibouti",
+      "République de Djibouti",
+      "Gabuutih Ummuuno",
+      "Jamhuuriyadda Jabuuti"
+    ]
+  },
+  {
+    "cca3": "DMA",
+    "cca2": "DM",
+    "name_common": "Dominica",
+    "name_official": "Commonwealth of Dominica",
+    "capital": "Roseau",
+    "region": "Caribbean",
+    "population": 67408,
+    "area_km2": 751,
+    "lat": 15.41666666,
+    "lon": -61.33333333,
+    "alt_spellings": [
+      "DM",
+      "Dominique",
+      "Wai‘tu kubuli",
+      "Commonwealth of Dominica"
+    ]
+  },
+  {
+    "cca3": "DNK",
+    "cca2": "DK",
+    "name_common": "Denmark",
+    "name_official": "Kingdom of Denmark",
+    "capital": "Copenhagen",
+    "region": "Northern Europe",
+    "population": 6011488,
+    "area_km2": 43094,
+    "lat": 56,
+    "lon": 10,
+    "alt_spellings": [
+      "DK",
+      "Danmark",
+      "Kingdom of Denmark",
+      "Kongeriget Danmark"
+    ]
+  },
+  {
+    "cca3": "DOM",
+    "cca2": "DO",
+    "name_common": "Dominican Republic",
+    "name_official": "Dominican Republic",
+    "capital": "Santo Domingo",
+    "region": "Caribbean",
+    "population": 10771504,
+    "area_km2": 48671,
+    "lat": 19,
+    "lon": -70.66666666,
+    "alt_spellings": [
+      "DO"
+    ]
+  },
+  {
+    "cca3": "DZA",
+    "cca2": "DZ",
+    "name_common": "Algeria",
+    "name_official": "People's Democratic Republic of Algeria",
+    "capital": "Algiers",
+    "region": "Northern Africa",
+    "population": 47400000,
+    "area_km2": 2381741,
+    "lat": 28,
+    "lon": 3,
+    "alt_spellings": [
+      "DZ",
+      "Dzayer",
+      "Algérie"
+    ]
+  },
+  {
+    "cca3": "ECU",
+    "cca2": "EC",
+    "name_common": "Ecuador",
+    "name_official": "Republic of Ecuador",
+    "capital": "Quito",
+    "region": "South America",
+    "population": 18103660,
+    "area_km2": 276841,
+    "lat": -2,
+    "lon": -77.5,
+    "alt_spellings": [
+      "EC",
+      "Republic of Ecuador",
+      "República del Ecuador"
+    ]
+  },
+  {
+    "cca3": "EGY",
+    "cca2": "EG",
+    "name_common": "Egypt",
+    "name_official": "Arab Republic of Egypt",
+    "capital": "Cairo",
+    "region": "Northern Africa",
+    "population": 107271260,
+    "area_km2": 1002450,
+    "lat": 27,
+    "lon": 30,
+    "alt_spellings": [
+      "EG",
+      "Arab Republic of Egypt"
+    ]
+  },
+  {
+    "cca3": "ERI",
+    "cca2": "ER",
+    "name_common": "Eritrea",
+    "name_official": "State of Eritrea",
+    "capital": "Asmara",
+    "region": "Eastern Africa",
+    "population": 3607000,
+    "area_km2": 117600,
+    "lat": 15,
+    "lon": 39,
+    "alt_spellings": [
+      "ER",
+      "State of Eritrea",
+      "ሃገረ ኤርትራ",
+      "Dawlat Iritriyá",
+      "ʾErtrā",
+      "Iritriyā"
+    ]
+  },
+  {
+    "cca3": "ESH",
+    "cca2": "EH",
+    "name_common": "Western Sahara",
+    "name_official": "Sahrawi Arab Democratic Republic",
+    "capital": "El Aaiún",
+    "region": "Northern Africa",
+    "population": 600904,
+    "area_km2": 266000,
+    "lat": 24.5,
+    "lon": -13,
+    "alt_spellings": [
+      "EH",
+      "Taneẓroft Tutrimt"
+    ]
+  },
+  {
+    "cca3": "ESP",
+    "cca2": "ES",
+    "name_common": "Spain",
+    "name_official": "Kingdom of Spain",
+    "capital": "Madrid",
+    "region": "Southern Europe",
+    "population": 49315949,
+    "area_km2": 505992,
+    "lat": 40,
+    "lon": -4,
+    "alt_spellings": [
+      "ES",
+      "Kingdom of Spain",
+      "Reino de España"
+    ]
+  },
+  {
+    "cca3": "EST",
+    "cca2": "EE",
+    "name_common": "Estonia",
+    "name_official": "Republic of Estonia",
+    "capital": "Tallinn",
+    "region": "Northern Europe",
+    "population": 1369995,
+    "area_km2": 45227,
+    "lat": 59,
+    "lon": 26,
+    "alt_spellings": [
+      "EE",
+      "Eesti",
+      "Republic of Estonia",
+      "Eesti Vabariik"
+    ]
+  },
+  {
+    "cca3": "ETH",
+    "cca2": "ET",
+    "name_common": "Ethiopia",
+    "name_official": "Federal Democratic Republic of Ethiopia",
+    "capital": "Addis Ababa",
+    "region": "Eastern Africa",
+    "population": 111652998,
+    "area_km2": 1104300,
+    "lat": 8,
+    "lon": 38,
+    "alt_spellings": [
+      "ET",
+      "ʾĪtyōṗṗyā",
+      "Federal Democratic Republic of Ethiopia",
+      "የኢትዮጵያ ፌዴራላዊ ዲሞክራሲያዊ ሪፐብሊክ"
+    ]
+  },
+  {
+    "cca3": "FIN",
+    "cca2": "FI",
+    "name_common": "Finland",
+    "name_official": "Republic of Finland",
+    "capital": "Helsinki",
+    "region": "Northern Europe",
+    "population": 5650325,
+    "area_km2": 338455,
+    "lat": 64,
+    "lon": 26,
+    "alt_spellings": [
+      "FI",
+      "Suomi",
+      "Republic of Finland",
+      "Suomen tasavalta",
+      "Republiken Finland"
+    ]
+  },
+  {
+    "cca3": "FJI",
+    "cca2": "FJ",
+    "name_common": "Fiji",
+    "name_official": "Republic of Fiji",
+    "capital": "Suva",
+    "region": "Melanesia",
+    "population": 900869,
+    "area_km2": 18272,
+    "lat": -17.7134,
+    "lon": 178.065,
+    "alt_spellings": [
+      "FJ",
+      "Viti",
+      "Republic of Fiji",
+      "Matanitu ko Viti",
+      "Fijī Gaṇarājya"
+    ]
+  },
+  {
+    "cca3": "FLK",
+    "cca2": "FK",
+    "name_common": "Falkland Islands",
+    "name_official": "Falkland Islands",
+    "capital": "Stanley",
+    "region": "South America",
+    "population": 3662,
+    "area_km2": 12173,
+    "lat": -51.75,
+    "lon": -59,
+    "alt_spellings": [
+      "FK",
+      "Islas Malvinas",
+      "Falkland Islands (Malvinas)"
+    ]
+  },
+  {
+    "cca3": "FRA",
+    "cca2": "FR",
+    "name_common": "France",
+    "name_official": "French Republic",
+    "capital": "Paris",
+    "region": "Western Europe",
+    "population": 66351959,
+    "area_km2": 543908,
+    "lat": 46,
+    "lon": 2,
+    "alt_spellings": [
+      "FR",
+      "French Republic",
+      "République française"
+    ]
+  },
+  {
+    "cca3": "FRO",
+    "cca2": "FO",
+    "name_common": "Faroe Islands",
+    "name_official": "Faroe Islands",
+    "capital": "Tórshavn",
+    "region": "Northern Europe",
+    "population": 54885,
+    "area_km2": 1393,
+    "lat": 62,
+    "lon": -7,
+    "alt_spellings": [
+      "FO",
+      "Føroyar",
+      "Færøerne"
+    ]
+  },
+  {
+    "cca3": "FSM",
+    "cca2": "FM",
+    "name_common": "Micronesia",
+    "name_official": "Federated States of Micronesia",
+    "capital": "Palikir",
+    "region": "Micronesia",
+    "population": 105564,
+    "area_km2": 702,
+    "lat": 6.91666666,
+    "lon": 158.25,
+    "alt_spellings": [
+      "FM",
+      "Federated States of Micronesia",
+      "Micronesia, Federated States of"
+    ]
+  },
+  {
+    "cca3": "GAB",
+    "cca2": "GA",
+    "name_common": "Gabon",
+    "name_official": "Gabonese Republic",
+    "capital": "Libreville",
+    "region": "Middle Africa",
+    "population": 2469296,
+    "area_km2": 267668,
+    "lat": -1,
+    "lon": 11.75,
+    "alt_spellings": [
+      "GA",
+      "Gabonese Republic",
+      "République Gabonaise"
+    ]
+  },
+  {
+    "cca3": "GBR",
+    "cca2": "GB",
+    "name_common": "United Kingdom",
+    "name_official": "United Kingdom of Great Britain and Northern Ireland",
+    "capital": "London",
+    "region": "Northern Europe",
+    "population": 69281437,
+    "area_km2": 244376,
+    "lat": 54,
+    "lon": -2,
+    "alt_spellings": [
+      "GB",
+      "UK",
+      "Great Britain"
+    ]
+  },
+  {
+    "cca3": "GEO",
+    "cca2": "GE",
+    "name_common": "Georgia",
+    "name_official": "Georgia",
+    "capital": "Tbilisi",
+    "region": "Western Asia",
+    "population": 4000921,
+    "area_km2": 69700,
+    "lat": 42,
+    "lon": 43.5,
+    "alt_spellings": [
+      "GE",
+      "Sakartvelo"
+    ]
+  },
+  {
+    "cca3": "GGY",
+    "cca2": "GG",
+    "name_common": "Guernsey",
+    "name_official": "Bailiwick of Guernsey",
+    "capital": "St. Peter Port",
+    "region": "Northern Europe",
+    "population": 64781,
+    "area_km2": 78,
+    "lat": 49.46666666,
+    "lon": -2.58333333,
+    "alt_spellings": [
+      "GG",
+      "Bailiwick of Guernsey",
+      "Bailliage de Guernesey"
+    ]
+  },
+  {
+    "cca3": "GHA",
+    "cca2": "GH",
+    "name_common": "Ghana",
+    "name_official": "Republic of Ghana",
+    "capital": "Accra",
+    "region": "Western Africa",
+    "population": 33742380,
+    "area_km2": 238533,
+    "lat": 8,
+    "lon": -2,
+    "alt_spellings": [
+      "GH"
+    ]
+  },
+  {
+    "cca3": "GIB",
+    "cca2": "GI",
+    "name_common": "Gibraltar",
+    "name_official": "Gibraltar",
+    "capital": "Gibraltar",
+    "region": "Southern Europe",
+    "population": 38000,
+    "area_km2": 6,
+    "lat": 36.13333333,
+    "lon": -5.35,
+    "alt_spellings": [
+      "GI"
+    ]
+  },
+  {
+    "cca3": "GIN",
+    "cca2": "GN",
+    "name_common": "Guinea",
+    "name_official": "Republic of Guinea",
+    "capital": "Conakry",
+    "region": "Western Africa",
+    "population": 14363931,
+    "area_km2": 245857,
+    "lat": 11,
+    "lon": -10,
+    "alt_spellings": [
+      "GN",
+      "Republic of Guinea",
+      "République de Guinée"
+    ]
+  },
+  {
+    "cca3": "GLP",
+    "cca2": "GP",
+    "name_common": "Guadeloupe",
+    "name_official": "Guadeloupe",
+    "capital": "Basse-Terre",
+    "region": "Caribbean",
+    "population": 378561,
+    "area_km2": 1628,
+    "lat": 16.25,
+    "lon": -61.583333,
+    "alt_spellings": [
+      "GP",
+      "Gwadloup"
+    ]
+  },
+  {
+    "cca3": "GMB",
+    "cca2": "GM",
+    "name_common": "Gambia",
+    "name_official": "Republic of the Gambia",
+    "capital": "Banjul",
+    "region": "Western Africa",
+    "population": 2422712,
+    "area_km2": 10689,
+    "lat": 13.46666666,
+    "lon": -16.56666666,
+    "alt_spellings": [
+      "GM",
+      "Republic of the Gambia"
+    ]
+  },
+  {
+    "cca3": "GNB",
+    "cca2": "GW",
+    "name_common": "Guinea-Bissau",
+    "name_official": "Republic of Guinea-Bissau",
+    "capital": "Bissau",
+    "region": "Western Africa",
+    "population": 1781308,
+    "area_km2": 36125,
+    "lat": 12,
+    "lon": -15,
+    "alt_spellings": [
+      "GW",
+      "Republic of Guinea-Bissau",
+      "República da Guiné-Bissau"
+    ]
+  },
+  {
+    "cca3": "GNQ",
+    "cca2": "GQ",
+    "name_common": "Equatorial Guinea",
+    "name_official": "Republic of Equatorial Guinea",
+    "capital": "Ciudad de la Paz",
+    "region": "Middle Africa",
+    "population": 1668768,
+    "area_km2": 28051,
+    "lat": 2,
+    "lon": 10,
+    "alt_spellings": [
+      "GQ",
+      "Republic of Equatorial Guinea",
+      "República de Guinea Ecuatorial",
+      "République de Guinée équatoriale",
+      "República da Guiné Equatorial"
+    ]
+  },
+  {
+    "cca3": "GRC",
+    "cca2": "GR",
+    "name_common": "Greece",
+    "name_official": "Hellenic Republic",
+    "capital": "Athens",
+    "region": "Southern Europe",
+    "population": 10400720,
+    "area_km2": 131990,
+    "lat": 39,
+    "lon": 22,
+    "alt_spellings": [
+      "GR",
+      "Elláda",
+      "Hellenic Republic",
+      "Ελληνική Δημοκρατία"
+    ]
+  },
+  {
+    "cca3": "GRD",
+    "cca2": "GD",
+    "name_common": "Grenada",
+    "name_official": "Grenada",
+    "capital": "St. George's",
+    "region": "Caribbean",
+    "population": 109021,
+    "area_km2": 344,
+    "lat": 12.11666666,
+    "lon": -61.66666666,
+    "alt_spellings": [
+      "GD"
+    ]
+  },
+  {
+    "cca3": "GRL",
+    "cca2": "GL",
+    "name_common": "Greenland",
+    "name_official": "Greenland",
+    "capital": "Nuuk",
+    "region": "North America",
+    "population": 56542,
+    "area_km2": 2166086,
+    "lat": 72,
+    "lon": -40,
+    "alt_spellings": [
+      "GL",
+      "Grønland"
+    ]
+  },
+  {
+    "cca3": "GTM",
+    "cca2": "GT",
+    "name_common": "Guatemala",
+    "name_official": "Republic of Guatemala",
+    "capital": "Guatemala City",
+    "region": "Central America",
+    "population": 18079810,
+    "area_km2": 108889,
+    "lat": 15.5,
+    "lon": -90.25,
+    "alt_spellings": [
+      "GT"
+    ]
+  },
+  {
+    "cca3": "GUF",
+    "cca2": "GF",
+    "name_common": "French Guiana",
+    "name_official": "Guiana",
+    "capital": "Cayenne",
+    "region": "South America",
+    "population": 292354,
+    "area_km2": 83534,
+    "lat": 4,
+    "lon": -53,
+    "alt_spellings": [
+      "GF",
+      "Guiana",
+      "Guyane"
+    ]
+  },
+  {
+    "cca3": "GUM",
+    "cca2": "GU",
+    "name_common": "Guam",
+    "name_official": "Guam",
+    "capital": "Hagåtña",
+    "region": "Micronesia",
+    "population": 153836,
+    "area_km2": 549,
+    "lat": 13.46666666,
+    "lon": 144.78333333,
+    "alt_spellings": [
+      "GU",
+      "Guåhån"
+    ]
+  },
+  {
+    "cca3": "GUY",
+    "cca2": "GY",
+    "name_common": "Guyana",
+    "name_official": "Co-operative Republic of Guyana",
+    "capital": "Georgetown",
+    "region": "South America",
+    "population": 772975,
+    "area_km2": 214969,
+    "lat": 5,
+    "lon": -59,
+    "alt_spellings": [
+      "GY",
+      "Co-operative Republic of Guyana"
+    ]
+  },
+  {
+    "cca3": "HKG",
+    "cca2": "HK",
+    "name_common": "Hong Kong",
+    "name_official": "Hong Kong Special Administrative Region of the People's Republic of China",
+    "capital": "City of Victoria",
+    "region": "Eastern Asia",
+    "population": 7527500,
+    "area_km2": 1104,
+    "lat": 22.267,
+    "lon": 114.188,
+    "alt_spellings": [
+      "HK"
+    ]
+  },
+  {
+    "cca3": "HMD",
+    "cca2": "HM",
+    "name_common": "Heard Island and McDonald Islands",
+    "name_official": "Heard Island and McDonald Islands",
+    "capital": "-",
+    "region": "Antarctic",
+    "population": 0,
+    "area_km2": 412,
+    "lat": -53.0818,
+    "lon": 73.5042,
+    "alt_spellings": [
+      "HM",
+      "Heard Island and McDonald Islands"
+    ]
+  },
+  {
+    "cca3": "HND",
+    "cca2": "HN",
+    "name_common": "Honduras",
+    "name_official": "Republic of Honduras",
+    "capital": "Tegucigalpa",
+    "region": "Central America",
+    "population": 9892632,
+    "area_km2": 112492,
+    "lat": 15,
+    "lon": -86.5,
+    "alt_spellings": [
+      "HN",
+      "Republic of Honduras",
+      "República de Honduras"
+    ]
+  },
+  {
+    "cca3": "HRV",
+    "cca2": "HR",
+    "name_common": "Croatia",
+    "name_official": "Republic of Croatia",
+    "capital": "Zagreb",
+    "region": "Southeast Europe",
+    "population": 3866233,
+    "area_km2": 56594,
+    "lat": 45.16666666,
+    "lon": 15.5,
+    "alt_spellings": [
+      "HR",
+      "Hrvatska",
+      "Republic of Croatia",
+      "Republika Hrvatska"
+    ]
+  },
+  {
+    "cca3": "HTI",
+    "cca2": "HT",
+    "name_common": "Haiti",
+    "name_official": "Republic of Haiti",
+    "capital": "Port-au-Prince",
+    "region": "Caribbean",
+    "population": 11867032,
+    "area_km2": 27750,
+    "lat": 19,
+    "lon": -72.41666666,
+    "alt_spellings": [
+      "HT",
+      "Republic of Haiti",
+      "République d'Haïti",
+      "Repiblik Ayiti"
+    ]
+  },
+  {
+    "cca3": "HUN",
+    "cca2": "HU",
+    "name_common": "Hungary",
+    "name_official": "Hungary",
+    "capital": "Budapest",
+    "region": "Central Europe",
+    "population": 9539502,
+    "area_km2": 93028,
+    "lat": 47,
+    "lon": 20,
+    "alt_spellings": [
+      "HU"
+    ]
+  },
+  {
+    "cca3": "IDN",
+    "cca2": "ID",
+    "name_common": "Indonesia",
+    "name_official": "Republic of Indonesia",
+    "capital": "Jakarta",
+    "region": "South-Eastern Asia",
+    "population": 284438782,
+    "area_km2": 1904569,
+    "lat": -5,
+    "lon": 120,
+    "alt_spellings": [
+      "ID",
+      "Republic of Indonesia",
+      "Republik Indonesia"
+    ]
+  },
+  {
+    "cca3": "IMN",
+    "cca2": "IM",
+    "name_common": "Isle of Man",
+    "name_official": "Isle of Man",
+    "capital": "Douglas",
+    "region": "Northern Europe",
+    "population": 84530,
+    "area_km2": 572,
+    "lat": 54.25,
+    "lon": -4.5,
+    "alt_spellings": [
+      "IM",
+      "Ellan Vannin",
+      "Mann",
+      "Mannin"
+    ]
+  },
+  {
+    "cca3": "IND",
+    "cca2": "IN",
+    "name_common": "India",
+    "name_official": "Republic of India",
+    "capital": "New Delhi",
+    "region": "Southern Asia",
+    "population": 1417492000,
+    "area_km2": 3287263,
+    "lat": 20,
+    "lon": 77,
+    "alt_spellings": [
+      "IN",
+      "Bhārat",
+      "Republic of India",
+      "Bharat Ganrajya",
+      "இந்தியா"
+    ]
+  },
+  {
+    "cca3": "IOT",
+    "cca2": "IO",
+    "name_common": "British Indian Ocean Territory",
+    "name_official": "British Indian Ocean Territory",
+    "capital": "Diego Garcia",
+    "region": "Eastern Africa",
+    "population": 0,
+    "area_km2": 60,
+    "lat": -6,
+    "lon": 71.5,
+    "alt_spellings": [
+      "IO"
+    ]
+  },
+  {
+    "cca3": "IRL",
+    "cca2": "IE",
+    "name_common": "Ireland",
+    "name_official": "Republic of Ireland",
+    "capital": "Dublin",
+    "region": "Northern Europe",
+    "population": 5458600,
+    "area_km2": 70273,
+    "lat": 53,
+    "lon": -8,
+    "alt_spellings": [
+      "IE",
+      "Éire",
+      "Republic of Ireland",
+      "Poblacht na hÉireann"
+    ]
+  },
+  {
+    "cca3": "IRN",
+    "cca2": "IR",
+    "name_common": "Iran",
+    "name_official": "Islamic Republic of Iran",
+    "capital": "Tehran",
+    "region": "Southern Asia",
+    "population": 85961000,
+    "area_km2": 1648195,
+    "lat": 32,
+    "lon": 53,
+    "alt_spellings": [
+      "IR",
+      "Islamic Republic of Iran",
+      "Iran, Islamic Republic of",
+      "Jomhuri-ye Eslāmi-ye Irān"
+    ]
+  },
+  {
+    "cca3": "IRQ",
+    "cca2": "IQ",
+    "name_common": "Iraq",
+    "name_official": "Republic of Iraq",
+    "capital": "Baghdad",
+    "region": "Western Asia",
+    "population": 46118793,
+    "area_km2": 438317,
+    "lat": 33,
+    "lon": 44,
+    "alt_spellings": [
+      "IQ",
+      "Republic of Iraq",
+      "Jumhūriyyat al-‘Irāq"
+    ]
+  },
+  {
+    "cca3": "ISL",
+    "cca2": "IS",
+    "name_common": "Iceland",
+    "name_official": "Iceland",
+    "capital": "Reykjavik",
+    "region": "Northern Europe",
+    "population": 391810,
+    "area_km2": 103000,
+    "lat": 65,
+    "lon": -18,
+    "alt_spellings": [
+      "IS",
+      "Island",
+      "Republic of Iceland",
+      "Lýðveldið Ísland"
+    ]
+  },
+  {
+    "cca3": "ISR",
+    "cca2": "IL",
+    "name_common": "Israel",
+    "name_official": "State of Israel",
+    "capital": "Jerusalem",
+    "region": "Western Asia",
+    "population": 10134800,
+    "area_km2": 21937,
+    "lat": 31.47,
+    "lon": 35.13,
+    "alt_spellings": [
+      "IL",
+      "State of Israel",
+      "Medīnat Yisrā'el"
+    ]
+  },
+  {
+    "cca3": "ITA",
+    "cca2": "IT",
+    "name_common": "Italy",
+    "name_official": "Italian Republic",
+    "capital": "Rome",
+    "region": "Southern Europe",
+    "population": 58927633,
+    "area_km2": 301336,
+    "lat": 42.83333333,
+    "lon": 12.83333333,
+    "alt_spellings": [
+      "IT",
+      "Italian Republic",
+      "Repubblica italiana"
+    ]
+  },
+  {
+    "cca3": "JAM",
+    "cca2": "JM",
+    "name_common": "Jamaica",
+    "name_official": "Jamaica",
+    "capital": "Kingston",
+    "region": "Caribbean",
+    "population": 2825544,
+    "area_km2": 10991,
+    "lat": 18.25,
+    "lon": -77.5,
+    "alt_spellings": [
+      "JM"
+    ]
+  },
+  {
+    "cca3": "JEY",
+    "cca2": "JE",
+    "name_common": "Jersey",
+    "name_official": "Bailiwick of Jersey",
+    "capital": "Saint Helier",
+    "region": "Northern Europe",
+    "population": 103267,
+    "area_km2": 116,
+    "lat": 49.25,
+    "lon": -2.16666666,
+    "alt_spellings": [
+      "JE",
+      "Bailiwick of Jersey",
+      "Bailliage de Jersey",
+      "Bailliage dé Jèrri"
+    ]
+  },
+  {
+    "cca3": "JOR",
+    "cca2": "JO",
+    "name_common": "Jordan",
+    "name_official": "Hashemite Kingdom of Jordan",
+    "capital": "Amman",
+    "region": "Western Asia",
+    "population": 11734000,
+    "area_km2": 89342,
+    "lat": 31,
+    "lon": 36,
+    "alt_spellings": [
+      "JO",
+      "Hashemite Kingdom of Jordan",
+      "al-Mamlakah al-Urdunīyah al-Hāshimīyah"
+    ]
+  },
+  {
+    "cca3": "JPN",
+    "cca2": "JP",
+    "name_common": "Japan",
+    "name_official": "Japan",
+    "capital": "Tokyo",
+    "region": "Eastern Asia",
+    "population": 123210000,
+    "area_km2": 377930,
+    "lat": 36,
+    "lon": 138,
+    "alt_spellings": [
+      "JP",
+      "Nippon",
+      "Nihon"
+    ]
+  },
+  {
+    "cca3": "KAZ",
+    "cca2": "KZ",
+    "name_common": "Kazakhstan",
+    "name_official": "Republic of Kazakhstan",
+    "capital": "Astana",
+    "region": "Central Asia",
+    "population": 20426568,
+    "area_km2": 2724900,
+    "lat": 48.0196,
+    "lon": 66.9237,
+    "alt_spellings": [
+      "KZ",
+      "Qazaqstan",
+      "Казахстан",
+      "Republic of Kazakhstan",
+      "Қазақстан Республикасы",
+      "Qazaqstan Respublïkası",
+      "Республика Казахстан",
+      "Respublika Kazakhstan"
+    ]
+  },
+  {
+    "cca3": "KEN",
+    "cca2": "KE",
+    "name_common": "Kenya",
+    "name_official": "Republic of Kenya",
+    "capital": "Nairobi",
+    "region": "Eastern Africa",
+    "population": 53330978,
+    "area_km2": 580367,
+    "lat": 1,
+    "lon": 38,
+    "alt_spellings": [
+      "KE",
+      "Republic of Kenya",
+      "Jamhuri ya Kenya"
+    ]
+  },
+  {
+    "cca3": "KGZ",
+    "cca2": "KG",
+    "name_common": "Kyrgyzstan",
+    "name_official": "Kyrgyz Republic",
+    "capital": "Bishkek",
+    "region": "Central Asia",
+    "population": 7281800,
+    "area_km2": 199951,
+    "lat": 41,
+    "lon": 75,
+    "alt_spellings": [
+      "KG",
+      "Киргизия",
+      "Kyrgyz Republic",
+      "Кыргыз Республикасы",
+      "Kyrgyz Respublikasy"
+    ]
+  },
+  {
+    "cca3": "KHM",
+    "cca2": "KH",
+    "name_common": "Cambodia",
+    "name_official": "Kingdom of Cambodia",
+    "capital": "Phnom Penh",
+    "region": "South-Eastern Asia",
+    "population": 17577760,
+    "area_km2": 181035,
+    "lat": 13,
+    "lon": 105,
+    "alt_spellings": [
+      "KH",
+      "Kingdom of Cambodia"
+    ]
+  },
+  {
+    "cca3": "KIR",
+    "cca2": "KI",
+    "name_common": "Kiribati",
+    "name_official": "Independent and Sovereign Republic of Kiribati",
+    "capital": "South Tarawa",
+    "region": "Micronesia",
+    "population": 120740,
+    "area_km2": 811,
+    "lat": 1.41666666,
+    "lon": 173,
+    "alt_spellings": [
+      "KI",
+      "Republic of Kiribati",
+      "Ribaberiki Kiribati"
+    ]
+  },
+  {
+    "cca3": "KNA",
+    "cca2": "KN",
+    "name_common": "Saint Kitts and Nevis",
+    "name_official": "Federation of Saint Christopher and Nevis",
+    "capital": "Basseterre",
+    "region": "Caribbean",
+    "population": 51320,
+    "area_km2": 261,
+    "lat": 17.33333333,
+    "lon": -62.75,
+    "alt_spellings": [
+      "KN",
+      "Federation of Saint Christopher and Nevis"
+    ]
+  },
+  {
+    "cca3": "KOR",
+    "cca2": "KR",
+    "name_common": "South Korea",
+    "name_official": "Republic of Korea",
+    "capital": "Seoul",
+    "region": "Eastern Asia",
+    "population": 51159889,
+    "area_km2": 100210,
+    "lat": 37,
+    "lon": 127.5,
+    "alt_spellings": [
+      "KR",
+      "Korea, Republic of",
+      "Republic of Korea",
+      "남한",
+      "남조선"
+    ]
+  },
+  {
+    "cca3": "KWT",
+    "cca2": "KW",
+    "name_common": "Kuwait",
+    "name_official": "State of Kuwait",
+    "capital": "Kuwait City",
+    "region": "Western Asia",
+    "population": 4881254,
+    "area_km2": 17818,
+    "lat": 29.5,
+    "lon": 45.75,
+    "alt_spellings": [
+      "KW",
+      "State of Kuwait",
+      "Dawlat al-Kuwait"
+    ]
+  },
+  {
+    "cca3": "LAO",
+    "cca2": "LA",
+    "name_common": "Laos",
+    "name_official": "Lao People's Democratic Republic",
+    "capital": "Vientiane",
+    "region": "South-Eastern Asia",
+    "population": 7647000,
+    "area_km2": 236800,
+    "lat": 18,
+    "lon": 105,
+    "alt_spellings": [
+      "LA",
+      "Lao",
+      "Lao People's Democratic Republic",
+      "Sathalanalat Paxathipatai Paxaxon Lao"
+    ]
+  },
+  {
+    "cca3": "LBN",
+    "cca2": "LB",
+    "name_common": "Lebanon",
+    "name_official": "Lebanese Republic",
+    "capital": "Beirut",
+    "region": "Western Asia",
+    "population": 5490000,
+    "area_km2": 10452,
+    "lat": 33.83333333,
+    "lon": 35.83333333,
+    "alt_spellings": [
+      "LB",
+      "Lebanese Republic",
+      "Al-Jumhūrīyah Al-Libnānīyah"
+    ]
+  },
+  {
+    "cca3": "LBR",
+    "cca2": "LR",
+    "name_common": "Liberia",
+    "name_official": "Republic of Liberia",
+    "capital": "Monrovia",
+    "region": "Western Africa",
+    "population": 5248621,
+    "area_km2": 111369,
+    "lat": 6.5,
+    "lon": -9.5,
+    "alt_spellings": [
+      "LR",
+      "Republic of Liberia"
+    ]
+  },
+  {
+    "cca3": "LBY",
+    "cca2": "LY",
+    "name_common": "Libya",
+    "name_official": "State of Libya",
+    "capital": "Tripoli",
+    "region": "Northern Africa",
+    "population": 7459000,
+    "area_km2": 1759540,
+    "lat": 25,
+    "lon": 17,
+    "alt_spellings": [
+      "LY",
+      "State of Libya",
+      "Dawlat Libya"
+    ]
+  },
+  {
+    "cca3": "LCA",
+    "cca2": "LC",
+    "name_common": "Saint Lucia",
+    "name_official": "Saint Lucia",
+    "capital": "Castries",
+    "region": "Caribbean",
+    "population": 184100,
+    "area_km2": 616,
+    "lat": 13.88333333,
+    "lon": -60.96666666,
+    "alt_spellings": [
+      "LC"
+    ]
+  },
+  {
+    "cca3": "LIE",
+    "cca2": "LI",
+    "name_common": "Liechtenstein",
+    "name_official": "Principality of Liechtenstein",
+    "capital": "Vaduz",
+    "region": "Western Europe",
+    "population": 40900,
+    "area_km2": 160,
+    "lat": 47.26666666,
+    "lon": 9.53333333,
+    "alt_spellings": [
+      "LI",
+      "Principality of Liechtenstein",
+      "Fürstentum Liechtenstein"
+    ]
+  },
+  {
+    "cca3": "LKA",
+    "cca2": "LK",
+    "name_common": "Sri Lanka",
+    "name_official": "Democratic Socialist Republic of Sri Lanka",
+    "capital": "Sri Jayawardenepura Kotte",
+    "region": "Southern Asia",
+    "population": 21763170,
+    "area_km2": 65610,
+    "lat": 7,
+    "lon": 81,
+    "alt_spellings": [
+      "LK",
+      "ilaṅkai",
+      "Democratic Socialist Republic of Sri Lanka"
+    ]
+  },
+  {
+    "cca3": "LSO",
+    "cca2": "LS",
+    "name_common": "Lesotho",
+    "name_official": "Kingdom of Lesotho",
+    "capital": "Maseru",
+    "region": "Southern Africa",
+    "population": 2116427,
+    "area_km2": 30355,
+    "lat": -29.5,
+    "lon": 28.5,
+    "alt_spellings": [
+      "LS",
+      "Kingdom of Lesotho",
+      "Muso oa Lesotho"
+    ]
+  },
+  {
+    "cca3": "LTU",
+    "cca2": "LT",
+    "name_common": "Lithuania",
+    "name_official": "Republic of Lithuania",
+    "capital": "Vilnius",
+    "region": "Northern Europe",
+    "population": 2894886,
+    "area_km2": 65300,
+    "lat": 56,
+    "lon": 24,
+    "alt_spellings": [
+      "LT",
+      "Republic of Lithuania",
+      "Lietuvos Respublika"
+    ]
+  },
+  {
+    "cca3": "LUX",
+    "cca2": "LU",
+    "name_common": "Luxembourg",
+    "name_official": "Grand Duchy of Luxembourg",
+    "capital": "Luxembourg",
+    "region": "Western Europe",
+    "population": 681973,
+    "area_km2": 2586,
+    "lat": 49.75,
+    "lon": 6.16666666,
+    "alt_spellings": [
+      "LU",
+      "Grand Duchy of Luxembourg",
+      "Grand-Duché de Luxembourg",
+      "Großherzogtum Luxemburg",
+      "Groussherzogtum Lëtzebuerg"
+    ]
+  },
+  {
+    "cca3": "LVA",
+    "cca2": "LV",
+    "name_common": "Latvia",
+    "name_official": "Republic of Latvia",
+    "capital": "Riga",
+    "region": "Northern Europe",
+    "population": 1829000,
+    "area_km2": 64559,
+    "lat": 57,
+    "lon": 25,
+    "alt_spellings": [
+      "LV",
+      "Republic of Latvia",
+      "Latvijas Republika"
+    ]
+  },
+  {
+    "cca3": "MAC",
+    "cca2": "MO",
+    "name_common": "Macau",
+    "name_official": "Macao Special Administrative Region of the People's Republic of China",
+    "capital": "-",
+    "region": "Eastern Asia",
+    "population": 685900,
+    "area_km2": 30,
+    "lat": 22.16666666,
+    "lon": 113.55,
+    "alt_spellings": [
+      "MO",
+      "澳门",
+      "Macao",
+      "Macao Special Administrative Region of the People's Republic of China",
+      "中華人民共和國澳門特別行政區",
+      "Região Administrativa Especial de Macau da República Popular da China"
+    ]
+  },
+  {
+    "cca3": "MAF",
+    "cca2": "MF",
+    "name_common": "Saint Martin",
+    "name_official": "Saint Martin",
+    "capital": "Marigot",
+    "region": "Caribbean",
+    "population": 31496,
+    "area_km2": 53,
+    "lat": 18.0708,
+    "lon": -63.0501,
+    "alt_spellings": [
+      "MF",
+      "Collectivity of Saint Martin",
+      "Collectivité de Saint-Martin",
+      "Saint Martin (French part)"
+    ]
+  },
+  {
+    "cca3": "MAR",
+    "cca2": "MA",
+    "name_common": "Morocco",
+    "name_official": "Kingdom of Morocco",
+    "capital": "Rabat",
+    "region": "Northern Africa",
+    "population": 36828330,
+    "area_km2": 446550,
+    "lat": 32,
+    "lon": -5,
+    "alt_spellings": [
+      "MA",
+      "Kingdom of Morocco",
+      "Al-Mamlakah al-Maġribiyah"
+    ]
+  },
+  {
+    "cca3": "MCO",
+    "cca2": "MC",
+    "name_common": "Monaco",
+    "name_official": "Principality of Monaco",
+    "capital": "Monaco",
+    "region": "Western Europe",
+    "population": 38423,
+    "area_km2": 2.02,
+    "lat": 43.73333333,
+    "lon": 7.4,
+    "alt_spellings": [
+      "MC",
+      "Principality of Monaco",
+      "Principauté de Monaco"
+    ]
+  },
+  {
+    "cca3": "MDA",
+    "cca2": "MD",
+    "name_common": "Moldova",
+    "name_official": "Republic of Moldova",
+    "capital": "Chișinău",
+    "region": "Eastern Europe",
+    "population": 2749076,
+    "area_km2": 33847,
+    "lat": 47,
+    "lon": 29,
+    "alt_spellings": [
+      "MD",
+      "Moldova, Republic of",
+      "Republic of Moldova",
+      "Republica Moldova"
+    ]
+  },
+  {
+    "cca3": "MDG",
+    "cca2": "MG",
+    "name_common": "Madagascar",
+    "name_official": "Republic of Madagascar",
+    "capital": "Antananarivo",
+    "region": "Eastern Africa",
+    "population": 31727042,
+    "area_km2": 587041,
+    "lat": -20,
+    "lon": 47,
+    "alt_spellings": [
+      "MG",
+      "Republic of Madagascar",
+      "Repoblikan'i Madagasikara",
+      "République de Madagascar"
+    ]
+  },
+  {
+    "cca3": "MDV",
+    "cca2": "MV",
+    "name_common": "Maldives",
+    "name_official": "Republic of the Maldives",
+    "capital": "Malé",
+    "region": "Southern Asia",
+    "population": 515132,
+    "area_km2": 300,
+    "lat": 3.25,
+    "lon": 73,
+    "alt_spellings": [
+      "MV",
+      "Maldive Islands",
+      "Republic of the Maldives",
+      "Dhivehi Raajjeyge Jumhooriyya"
+    ]
+  },
+  {
+    "cca3": "MEX",
+    "cca2": "MX",
+    "name_common": "Mexico",
+    "name_official": "United Mexican States",
+    "capital": "Mexico City",
+    "region": "North America",
+    "population": 130575786,
+    "area_km2": 1964375,
+    "lat": 23,
+    "lon": -102,
+    "alt_spellings": [
+      "MX",
+      "Mexicanos",
+      "United Mexican States",
+      "Estados Unidos Mexicanos"
+    ]
+  },
+  {
+    "cca3": "MHL",
+    "cca2": "MH",
+    "name_common": "Marshall Islands",
+    "name_official": "Republic of the Marshall Islands",
+    "capital": "Majuro",
+    "region": "Micronesia",
+    "population": 42418,
+    "area_km2": 181,
+    "lat": 9,
+    "lon": 168,
+    "alt_spellings": [
+      "MH",
+      "Republic of the Marshall Islands",
+      "Aolepān Aorōkin M̧ajeļ"
+    ]
+  },
+  {
+    "cca3": "MKD",
+    "cca2": "MK",
+    "name_common": "North Macedonia",
+    "name_official": "Republic of North Macedonia",
+    "capital": "Skopje",
+    "region": "Southeast Europe",
+    "population": 1822612,
+    "area_km2": 25713,
+    "lat": 41.83333333,
+    "lon": 22,
+    "alt_spellings": [
+      "MK",
+      "The former Yugoslav Republic of Macedonia",
+      "Republic of North Macedonia",
+      "Macedonia, The Former Yugoslav Republic of",
+      "Република Северна Македонија"
+    ]
+  },
+  {
+    "cca3": "MLI",
+    "cca2": "ML",
+    "name_common": "Mali",
+    "name_official": "Republic of Mali",
+    "capital": "Bamako",
+    "region": "Western Africa",
+    "population": 22395489,
+    "area_km2": 1240192,
+    "lat": 17,
+    "lon": -4,
+    "alt_spellings": [
+      "ML",
+      "Republic of Mali",
+      "République du Mali"
+    ]
+  },
+  {
+    "cca3": "MLT",
+    "cca2": "MT",
+    "name_common": "Malta",
+    "name_official": "Republic of Malta",
+    "capital": "Valletta",
+    "region": "Southern Europe",
+    "population": 574250,
+    "area_km2": 316,
+    "lat": 35.9375,
+    "lon": 14.3754,
+    "alt_spellings": [
+      "MT",
+      "Republic of Malta",
+      "Repubblika ta' Malta"
+    ]
+  },
+  {
+    "cca3": "MMR",
+    "cca2": "MM",
+    "name_common": "Myanmar",
+    "name_official": "Republic of the Union of Myanmar",
+    "capital": "Naypyidaw",
+    "region": "South-Eastern Asia",
+    "population": 51316756,
+    "area_km2": 676578,
+    "lat": 22,
+    "lon": 98,
+    "alt_spellings": [
+      "MM",
+      "Burma",
+      "Republic of the Union of Myanmar",
+      "Pyidaunzu Thanmăda Myăma Nainngandaw"
+    ]
+  },
+  {
+    "cca3": "MNE",
+    "cca2": "ME",
+    "name_common": "Montenegro",
+    "name_official": "Montenegro",
+    "capital": "Podgorica",
+    "region": "Southeast Europe",
+    "population": 623327,
+    "area_km2": 13812,
+    "lat": 42.5,
+    "lon": 19.3,
+    "alt_spellings": [
+      "ME",
+      "Crna Gora"
+    ]
+  },
+  {
+    "cca3": "MNG",
+    "cca2": "MN",
+    "name_common": "Mongolia",
+    "name_official": "Mongolia",
+    "capital": "Ulan Bator",
+    "region": "Eastern Asia",
+    "population": 3544835,
+    "area_km2": 1564110,
+    "lat": 46,
+    "lon": 105,
+    "alt_spellings": [
+      "MN"
+    ]
+  },
+  {
+    "cca3": "MNP",
+    "cca2": "MP",
+    "name_common": "Northern Mariana Islands",
+    "name_official": "Commonwealth of the Northern Mariana Islands",
+    "capital": "Saipan",
+    "region": "Micronesia",
+    "population": 47329,
+    "area_km2": 464,
+    "lat": 15.2,
+    "lon": 145.75,
+    "alt_spellings": [
+      "MP",
+      "Commonwealth of the Northern Mariana Islands",
+      "Sankattan Siha Na Islas Mariånas"
+    ]
+  },
+  {
+    "cca3": "MOZ",
+    "cca2": "MZ",
+    "name_common": "Mozambique",
+    "name_official": "Republic of Mozambique",
+    "capital": "Maputo",
+    "region": "Eastern Africa",
+    "population": 34090466,
+    "area_km2": 801590,
+    "lat": -18.25,
+    "lon": 35,
+    "alt_spellings": [
+      "MZ",
+      "Republic of Mozambique",
+      "República de Moçambique"
+    ]
+  },
+  {
+    "cca3": "MRT",
+    "cca2": "MR",
+    "name_common": "Mauritania",
+    "name_official": "Islamic Republic of Mauritania",
+    "capital": "Nouakchott",
+    "region": "Western Africa",
+    "population": 4927532,
+    "area_km2": 1030700,
+    "lat": 20,
+    "lon": -12,
+    "alt_spellings": [
+      "MR",
+      "Islamic Republic of Mauritania",
+      "al-Jumhūriyyah al-ʾIslāmiyyah al-Mūrītāniyyah"
+    ]
+  },
+  {
+    "cca3": "MSR",
+    "cca2": "MS",
+    "name_common": "Montserrat",
+    "name_official": "Montserrat",
+    "capital": "Plymouth",
+    "region": "Caribbean",
+    "population": 4386,
+    "area_km2": 102,
+    "lat": 16.75,
+    "lon": -62.2,
+    "alt_spellings": [
+      "MS"
+    ]
+  },
+  {
+    "cca3": "MTQ",
+    "cca2": "MQ",
+    "name_common": "Martinique",
+    "name_official": "Martinique",
+    "capital": "Fort-de-France",
+    "region": "Caribbean",
+    "population": 349925,
+    "area_km2": 1128,
+    "lat": 14.666667,
+    "lon": -61,
+    "alt_spellings": [
+      "MQ"
+    ]
+  },
+  {
+    "cca3": "MUS",
+    "cca2": "MU",
+    "name_common": "Mauritius",
+    "name_official": "Republic of Mauritius",
+    "capital": "Port Louis",
+    "region": "Eastern Africa",
+    "population": 1243741,
+    "area_km2": 2040,
+    "lat": -20.28333333,
+    "lon": 57.55,
+    "alt_spellings": [
+      "MU",
+      "Republic of Mauritius",
+      "République de Maurice"
+    ]
+  },
+  {
+    "cca3": "MWI",
+    "cca2": "MW",
+    "name_common": "Malawi",
+    "name_official": "Republic of Malawi",
+    "capital": "Lilongwe",
+    "region": "Eastern Africa",
+    "population": 20734262,
+    "area_km2": 118484,
+    "lat": -13.5,
+    "lon": 34,
+    "alt_spellings": [
+      "MW",
+      "Republic of Malawi"
+    ]
+  },
+  {
+    "cca3": "MYS",
+    "cca2": "MY",
+    "name_common": "Malaysia",
+    "name_official": "Malaysia",
+    "capital": "Kuala Lumpur",
+    "region": "South-Eastern Asia",
+    "population": 34231700,
+    "area_km2": 330803,
+    "lat": 2.5,
+    "lon": 112.5,
+    "alt_spellings": [
+      "MY"
+    ]
+  },
+  {
+    "cca3": "MYT",
+    "cca2": "YT",
+    "name_common": "Mayotte",
+    "name_official": "Department of Mayotte",
+    "capital": "Mamoudzou",
+    "region": "Eastern Africa",
+    "population": 320901,
+    "area_km2": 374,
+    "lat": -12.83333333,
+    "lon": 45.16666666,
+    "alt_spellings": [
+      "YT",
+      "Department of Mayotte",
+      "Département de Mayotte"
+    ]
+  },
+  {
+    "cca3": "NAM",
+    "cca2": "NA",
+    "name_common": "Namibia",
+    "name_official": "Republic of Namibia",
+    "capital": "Windhoek",
+    "region": "Southern Africa",
+    "population": 3022401,
+    "area_km2": 825615,
+    "lat": -22,
+    "lon": 17,
+    "alt_spellings": [
+      "NA",
+      "Namibië",
+      "Republic of Namibia"
+    ]
+  },
+  {
+    "cca3": "NCL",
+    "cca2": "NC",
+    "name_common": "New Caledonia",
+    "name_official": "New Caledonia",
+    "capital": "Nouméa",
+    "region": "Melanesia",
+    "population": 264596,
+    "area_km2": 18575,
+    "lat": -21.5,
+    "lon": 165.5,
+    "alt_spellings": [
+      "NC"
+    ]
+  },
+  {
+    "cca3": "NER",
+    "cca2": "NE",
+    "name_common": "Niger",
+    "name_official": "Republic of Niger",
+    "capital": "Niamey",
+    "region": "Western Africa",
+    "population": 26312034,
+    "area_km2": 1267000,
+    "lat": 16,
+    "lon": 8,
+    "alt_spellings": [
+      "NE",
+      "Nijar"
+    ]
+  },
+  {
+    "cca3": "NFK",
+    "cca2": "NF",
+    "name_common": "Norfolk Island",
+    "name_official": "Territory of Norfolk Island",
+    "capital": "Kingston",
+    "region": "Australia and New Zealand",
+    "population": 2188,
+    "area_km2": 36,
+    "lat": -29.03333333,
+    "lon": 167.95,
+    "alt_spellings": [
+      "NF",
+      "Territory of Norfolk Island",
+      "Teratri of Norf'k Ailen"
+    ]
+  },
+  {
+    "cca3": "NGA",
+    "cca2": "NG",
+    "name_common": "Nigeria",
+    "name_official": "Federal Republic of Nigeria",
+    "capital": "Abuja",
+    "region": "Western Africa",
+    "population": 223800000,
+    "area_km2": 923768,
+    "lat": 10,
+    "lon": 8,
+    "alt_spellings": [
+      "NG",
+      "Nijeriya",
+      "Naíjíríà",
+      "Federal Republic of Nigeria"
+    ]
+  },
+  {
+    "cca3": "NIC",
+    "cca2": "NI",
+    "name_common": "Nicaragua",
+    "name_official": "Republic of Nicaragua",
+    "capital": "Managua",
+    "region": "Central America",
+    "population": 6803886,
+    "area_km2": 130373,
+    "lat": 13,
+    "lon": -85,
+    "alt_spellings": [
+      "NI",
+      "Republic of Nicaragua",
+      "República de Nicaragua"
+    ]
+  },
+  {
+    "cca3": "NIU",
+    "cca2": "NU",
+    "name_common": "Niue",
+    "name_official": "Niue",
+    "capital": "Alofi",
+    "region": "Polynesia",
+    "population": 1681,
+    "area_km2": 260,
+    "lat": -19.03333333,
+    "lon": -169.86666666,
+    "alt_spellings": [
+      "NU"
+    ]
+  },
+  {
+    "cca3": "NLD",
+    "cca2": "NL",
+    "name_common": "Netherlands",
+    "name_official": "Kingdom of the Netherlands",
+    "capital": "Amsterdam",
+    "region": "Western Europe",
+    "population": 18100436,
+    "area_km2": 41865,
+    "lat": 52.5,
+    "lon": 5.75,
+    "alt_spellings": [
+      "NL",
+      "Holland",
+      "Nederland",
+      "The Netherlands"
+    ]
+  },
+  {
+    "cca3": "NOR",
+    "cca2": "NO",
+    "name_common": "Norway",
+    "name_official": "Kingdom of Norway",
+    "capital": "Oslo",
+    "region": "Northern Europe",
+    "population": 5606944,
+    "area_km2": 386224,
+    "lat": 62,
+    "lon": 10,
+    "alt_spellings": [
+      "NO",
+      "Norge",
+      "Noreg",
+      "Kingdom of Norway",
+      "Kongeriket Norge",
+      "Kongeriket Noreg"
+    ]
+  },
+  {
+    "cca3": "NPL",
+    "cca2": "NP",
+    "name_common": "Nepal",
+    "name_official": "Federal Democratic Republic of Nepal",
+    "capital": "Kathmandu",
+    "region": "Southern Asia",
+    "population": 29911840,
+    "area_km2": 147181,
+    "lat": 28,
+    "lon": 84,
+    "alt_spellings": [
+      "NP",
+      "Federal Democratic Republic of Nepal",
+      "Loktāntrik Ganatantra Nepāl"
+    ]
+  },
+  {
+    "cca3": "NRU",
+    "cca2": "NR",
+    "name_common": "Nauru",
+    "name_official": "Republic of Nauru",
+    "capital": "Yaren",
+    "region": "Micronesia",
+    "population": 11680,
+    "area_km2": 21,
+    "lat": -0.53333333,
+    "lon": 166.91666666,
+    "alt_spellings": [
+      "NR",
+      "Naoero",
+      "Pleasant Island",
+      "Republic of Nauru",
+      "Ripublik Naoero"
+    ]
+  },
+  {
+    "cca3": "NZL",
+    "cca2": "NZ",
+    "name_common": "New Zealand",
+    "name_official": "New Zealand",
+    "capital": "Wellington",
+    "region": "Australia and New Zealand",
+    "population": 5324700,
+    "area_km2": 268838,
+    "lat": -41,
+    "lon": 174,
+    "alt_spellings": [
+      "NZ",
+      "Aotearoa"
+    ]
+  },
+  {
+    "cca3": "OMN",
+    "cca2": "OM",
+    "name_common": "Oman",
+    "name_official": "Sultanate of Oman",
+    "capital": "Muscat",
+    "region": "Western Asia",
+    "population": 5343630,
+    "area_km2": 309500,
+    "lat": 21,
+    "lon": 57,
+    "alt_spellings": [
+      "OM",
+      "Sultanate of Oman",
+      "Salṭanat ʻUmān"
+    ]
+  },
+  {
+    "cca3": "PAK",
+    "cca2": "PK",
+    "name_common": "Pakistan",
+    "name_official": "Islamic Republic of Pakistan",
+    "capital": "Islamabad",
+    "region": "Southern Asia",
+    "population": 241499431,
+    "area_km2": 796095,
+    "lat": 30,
+    "lon": 70,
+    "alt_spellings": [
+      "PK",
+      "Pākistān",
+      "Islamic Republic of Pakistan",
+      "Islāmī Jumhūriya'eh Pākistān"
+    ]
+  },
+  {
+    "cca3": "PAN",
+    "cca2": "PA",
+    "name_common": "Panama",
+    "name_official": "Republic of Panama",
+    "capital": "Panama City",
+    "region": "Central America",
+    "population": 4064780,
+    "area_km2": 75417,
+    "lat": 9,
+    "lon": -80,
+    "alt_spellings": [
+      "PA",
+      "Republic of Panama",
+      "República de Panamá"
+    ]
+  },
+  {
+    "cca3": "PCN",
+    "cca2": "PN",
+    "name_common": "Pitcairn Islands",
+    "name_official": "Pitcairn Group of Islands",
+    "capital": "Adamstown",
+    "region": "Polynesia",
+    "population": 35,
+    "area_km2": 47,
+    "lat": -25.06666666,
+    "lon": -130.1,
+    "alt_spellings": [
+      "PN",
+      "Pitcairn",
+      "Pitcairn Henderson Ducie and Oeno Islands"
+    ]
+  },
+  {
+    "cca3": "PER",
+    "cca2": "PE",
+    "name_common": "Peru",
+    "name_official": "Republic of Peru",
+    "capital": "Lima",
+    "region": "South America",
+    "population": 34350244,
+    "area_km2": 1285216,
+    "lat": -10,
+    "lon": -76,
+    "alt_spellings": [
+      "PE",
+      "Republic of Peru",
+      "República del Perú"
+    ]
+  },
+  {
+    "cca3": "PHL",
+    "cca2": "PH",
+    "name_common": "Philippines",
+    "name_official": "Republic of the Philippines",
+    "capital": "Manila",
+    "region": "South-Eastern Asia",
+    "population": 114123600,
+    "area_km2": 342353,
+    "lat": 13,
+    "lon": 122,
+    "alt_spellings": [
+      "PH",
+      "Republic of the Philippines",
+      "Repúblika ng Pilipinas"
+    ]
+  },
+  {
+    "cca3": "PLW",
+    "cca2": "PW",
+    "name_common": "Palau",
+    "name_official": "Republic of Palau",
+    "capital": "Ngerulmud",
+    "region": "Micronesia",
+    "population": 16733,
+    "area_km2": 459,
+    "lat": 7.5,
+    "lon": 134.5,
+    "alt_spellings": [
+      "PW",
+      "Republic of Palau",
+      "Beluu er a Belau"
+    ]
+  },
+  {
+    "cca3": "PNG",
+    "cca2": "PG",
+    "name_common": "Papua New Guinea",
+    "name_official": "Independent State of Papua New Guinea",
+    "capital": "Port Moresby",
+    "region": "Melanesia",
+    "population": 11781559,
+    "area_km2": 462840,
+    "lat": -6,
+    "lon": 147,
+    "alt_spellings": [
+      "PG",
+      "Independent State of Papua New Guinea",
+      "Independen Stet bilong Papua Niugini"
+    ]
+  },
+  {
+    "cca3": "POL",
+    "cca2": "PL",
+    "name_common": "Poland",
+    "name_official": "Republic of Poland",
+    "capital": "Warsaw",
+    "region": "Central Europe",
+    "population": 37392000,
+    "area_km2": 312679,
+    "lat": 52,
+    "lon": 20,
+    "alt_spellings": [
+      "PL",
+      "Republic of Poland",
+      "Rzeczpospolita Polska"
+    ]
+  },
+  {
+    "cca3": "PRI",
+    "cca2": "PR",
+    "name_common": "Puerto Rico",
+    "name_official": "Commonwealth of Puerto Rico",
+    "capital": "San Juan",
+    "region": "Caribbean",
+    "population": 3203295,
+    "area_km2": 8870,
+    "lat": 18.25,
+    "lon": -66.5,
+    "alt_spellings": [
+      "PR",
+      "Commonwealth of Puerto Rico",
+      "Estado Libre Asociado de Puerto Rico"
+    ]
+  },
+  {
+    "cca3": "PRK",
+    "cca2": "KP",
+    "name_common": "North Korea",
+    "name_official": "Democratic People's Republic of Korea",
+    "capital": "Pyongyang",
+    "region": "Eastern Asia",
+    "population": 25950000,
+    "area_km2": 120538,
+    "lat": 40,
+    "lon": 127,
+    "alt_spellings": [
+      "KP",
+      "Democratic People's Republic of Korea",
+      "DPRK",
+      "조선민주주의인민공화국",
+      "Chosŏn Minjujuŭi Inmin Konghwaguk",
+      "Korea, Democratic People's Republic of",
+      "북한",
+      "북조선"
+    ]
+  },
+  {
+    "cca3": "PRT",
+    "cca2": "PT",
+    "name_common": "Portugal",
+    "name_official": "Portuguese Republic",
+    "capital": "Lisbon",
+    "region": "Southern Europe",
+    "population": 10749635,
+    "area_km2": 92090,
+    "lat": 39.5,
+    "lon": -8,
+    "alt_spellings": [
+      "PT",
+      "Portuguesa",
+      "Portuguese Republic",
+      "República Portuguesa"
+    ]
+  },
+  {
+    "cca3": "PRY",
+    "cca2": "PY",
+    "name_common": "Paraguay",
+    "name_official": "Republic of Paraguay",
+    "capital": "Asunción",
+    "region": "South America",
+    "population": 6109644,
+    "area_km2": 406752,
+    "lat": -23,
+    "lon": -58,
+    "alt_spellings": [
+      "PY",
+      "Republic of Paraguay",
+      "República del Paraguay",
+      "Tetã Paraguái"
+    ]
+  },
+  {
+    "cca3": "PSE",
+    "cca2": "PS",
+    "name_common": "Palestine",
+    "name_official": "State of Palestine",
+    "capital": "Ramallah",
+    "region": "Western Asia",
+    "population": 5483450,
+    "area_km2": 6220,
+    "lat": 31.9,
+    "lon": 35.2,
+    "alt_spellings": [
+      "PS",
+      "Palestine, State of",
+      "State of Palestine",
+      "Dawlat Filasṭin"
+    ]
+  },
+  {
+    "cca3": "PYF",
+    "cca2": "PF",
+    "name_common": "French Polynesia",
+    "name_official": "French Polynesia",
+    "capital": "Papeetē",
+    "region": "Polynesia",
+    "population": 279500,
+    "area_km2": 4167,
+    "lat": -17.6797,
+    "lon": -149.4068,
+    "alt_spellings": [
+      "PF",
+      "Polynésie française",
+      "French Polynesia",
+      "Pōrīnetia Farāni"
+    ]
+  },
+  {
+    "cca3": "QAT",
+    "cca2": "QA",
+    "name_common": "Qatar",
+    "name_official": "State of Qatar",
+    "capital": "Doha",
+    "region": "Western Asia",
+    "population": 3173024,
+    "area_km2": 11586,
+    "lat": 25.5,
+    "lon": 51.25,
+    "alt_spellings": [
+      "QA",
+      "State of Qatar",
+      "Dawlat Qaṭar"
+    ]
+  },
+  {
+    "cca3": "REU",
+    "cca2": "RE",
+    "name_common": "Réunion",
+    "name_official": "Réunion Island",
+    "capital": "Saint-Denis",
+    "region": "Eastern Africa",
+    "population": 896175,
+    "area_km2": 2511,
+    "lat": -21.15,
+    "lon": 55.5,
+    "alt_spellings": [
+      "RE",
+      "Reunion"
+    ]
+  },
+  {
+    "cca3": "ROU",
+    "cca2": "RO",
+    "name_common": "Romania",
+    "name_official": "Romania",
+    "capital": "Bucharest",
+    "region": "Southeast Europe",
+    "population": 19036031,
+    "area_km2": 238391,
+    "lat": 46,
+    "lon": 25,
+    "alt_spellings": [
+      "RO",
+      "Rumania",
+      "Roumania",
+      "România"
+    ]
+  },
+  {
+    "cca3": "RUS",
+    "cca2": "RU",
+    "name_common": "Russia",
+    "name_official": "Russian Federation",
+    "capital": "Moscow",
+    "region": "Eastern Europe",
+    "population": 146028325,
+    "area_km2": 17098246,
+    "lat": 60,
+    "lon": 100,
+    "alt_spellings": [
+      "RU",
+      "Russian Federation",
+      "Российская Федерация"
+    ]
+  },
+  {
+    "cca3": "RWA",
+    "cca2": "RW",
+    "name_common": "Rwanda",
+    "name_official": "Republic of Rwanda",
+    "capital": "Kigali",
+    "region": "Eastern Africa",
+    "population": 14104969,
+    "area_km2": 26338,
+    "lat": -2,
+    "lon": 30,
+    "alt_spellings": [
+      "RW",
+      "Republic of Rwanda",
+      "Repubulika y'u Rwanda",
+      "République du Rwanda"
+    ]
+  },
+  {
+    "cca3": "SAU",
+    "cca2": "SA",
+    "name_common": "Saudi Arabia",
+    "name_official": "Kingdom of Saudi Arabia",
+    "capital": "Riyadh",
+    "region": "Western Asia",
+    "population": 35300280,
+    "area_km2": 2149690,
+    "lat": 25,
+    "lon": 45,
+    "alt_spellings": [
+      "Saudi",
+      "SA",
+      "Kingdom of Saudi Arabia",
+      "Al-Mamlakah al-‘Arabiyyah as-Su‘ūdiyyah"
+    ]
+  },
+  {
+    "cca3": "SDN",
+    "cca2": "SD",
+    "name_common": "Sudan",
+    "name_official": "Republic of the Sudan",
+    "capital": "Khartoum",
+    "region": "Northern Africa",
+    "population": 51662000,
+    "area_km2": 1886068,
+    "lat": 15,
+    "lon": 30,
+    "alt_spellings": [
+      "SD",
+      "Republic of the Sudan",
+      "Jumhūrīyat as-Sūdān"
+    ]
+  },
+  {
+    "cca3": "SEN",
+    "cca2": "SN",
+    "name_common": "Senegal",
+    "name_official": "Republic of Senegal",
+    "capital": "Dakar",
+    "region": "Western Africa",
+    "population": 18593258,
+    "area_km2": 196722,
+    "lat": 14,
+    "lon": -14,
+    "alt_spellings": [
+      "SN",
+      "Republic of Senegal",
+      "République du Sénégal"
+    ]
+  },
+  {
+    "cca3": "SGP",
+    "cca2": "SG",
+    "name_common": "Singapore",
+    "name_official": "Republic of Singapore",
+    "capital": "Singapore",
+    "region": "South-Eastern Asia",
+    "population": 6110200,
+    "area_km2": 710,
+    "lat": 1.36666666,
+    "lon": 103.8,
+    "alt_spellings": [
+      "SG",
+      "Singapura",
+      "Republik Singapura",
+      "新加坡共和国"
+    ]
+  },
+  {
+    "cca3": "SGS",
+    "cca2": "GS",
+    "name_common": "South Georgia",
+    "name_official": "South Georgia and the South Sandwich Islands",
+    "capital": "King Edward Point",
+    "region": "Antarctic",
+    "population": 0,
+    "area_km2": 3903,
+    "lat": -54.5,
+    "lon": -37,
+    "alt_spellings": [
+      "GS",
+      "South Georgia and the South Sandwich Islands"
+    ]
+  },
+  {
+    "cca3": "SHN",
+    "cca2": "SH",
+    "name_common": "Saint Helena, Ascension and Tristan da Cunha",
+    "name_official": "Saint Helena, Ascension and Tristan da Cunha",
+    "capital": "Jamestown",
+    "region": "Western Africa",
+    "population": 5651,
+    "area_km2": 394,
+    "lat": -15.95,
+    "lon": -5.72,
+    "alt_spellings": [
+      "Saint Helena",
+      "St. Helena, Ascension and Tristan da Cunha"
+    ]
+  },
+  {
+    "cca3": "SJM",
+    "cca2": "SJ",
+    "name_common": "Svalbard and Jan Mayen",
+    "name_official": "Svalbard og Jan Mayen",
+    "capital": "Longyearbyen",
+    "region": "Northern Europe",
+    "population": 2530,
+    "area_km2": 61399,
+    "lat": 78,
+    "lon": 20,
+    "alt_spellings": [
+      "SJ",
+      "Svalbard and Jan Mayen Islands"
+    ]
+  },
+  {
+    "cca3": "SLB",
+    "cca2": "SB",
+    "name_common": "Solomon Islands",
+    "name_official": "Solomon Islands",
+    "capital": "Honiara",
+    "region": "Melanesia",
+    "population": 750325,
+    "area_km2": 28896,
+    "lat": -8,
+    "lon": 159,
+    "alt_spellings": [
+      "SB"
+    ]
+  },
+  {
+    "cca3": "SLE",
+    "cca2": "SL",
+    "name_common": "Sierra Leone",
+    "name_official": "Republic of Sierra Leone",
+    "capital": "Freetown",
+    "region": "Western Africa",
+    "population": 9077691,
+    "area_km2": 71740,
+    "lat": 8.5,
+    "lon": -11.5,
+    "alt_spellings": [
+      "SL",
+      "Republic of Sierra Leone"
+    ]
+  },
+  {
+    "cca3": "SLV",
+    "cca2": "SV",
+    "name_common": "El Salvador",
+    "name_official": "Republic of El Salvador",
+    "capital": "San Salvador",
+    "region": "Central America",
+    "population": 6029976,
+    "area_km2": 21041,
+    "lat": 13.83333333,
+    "lon": -88.91666666,
+    "alt_spellings": [
+      "SV",
+      "Republic of El Salvador",
+      "República de El Salvador"
+    ]
+  },
+  {
+    "cca3": "SMR",
+    "cca2": "SM",
+    "name_common": "San Marino",
+    "name_official": "Republic of San Marino",
+    "capital": "City of San Marino",
+    "region": "Southern Europe",
+    "population": 34132,
+    "area_km2": 61,
+    "lat": 43.76666666,
+    "lon": 12.41666666,
+    "alt_spellings": [
+      "SM",
+      "Republic of San Marino",
+      "Repubblica di San Marino"
+    ]
+  },
+  {
+    "cca3": "SOM",
+    "cca2": "SO",
+    "name_common": "Somalia",
+    "name_official": "Federal Republic of Somalia",
+    "capital": "Mogadishu",
+    "region": "Eastern Africa",
+    "population": 19655000,
+    "area_km2": 637657,
+    "lat": 10,
+    "lon": 49,
+    "alt_spellings": [
+      "SO",
+      "aṣ-Ṣūmāl",
+      "Federal Republic of Somalia",
+      "Jamhuuriyadda Federaalka Soomaaliya",
+      "Jumhūriyyat aṣ-Ṣūmāl al-Fiderāliyya"
+    ]
+  },
+  {
+    "cca3": "SPM",
+    "cca2": "PM",
+    "name_common": "Saint Pierre and Miquelon",
+    "name_official": "Saint Pierre and Miquelon",
+    "capital": "Saint-Pierre",
+    "region": "North America",
+    "population": 5819,
+    "area_km2": 242,
+    "lat": 46.83333333,
+    "lon": -56.33333333,
+    "alt_spellings": [
+      "PM",
+      "Collectivité territoriale de Saint-Pierre-et-Miquelon"
+    ]
+  },
+  {
+    "cca3": "SRB",
+    "cca2": "RS",
+    "name_common": "Serbia",
+    "name_official": "Republic of Serbia",
+    "capital": "Belgrade",
+    "region": "Southeast Europe",
+    "population": 6567783,
+    "area_km2": 77589,
+    "lat": 44,
+    "lon": 21,
+    "alt_spellings": [
+      "RS",
+      "Srbija",
+      "Republic of Serbia",
+      "Република Србија",
+      "Republika Srbija"
+    ]
+  },
+  {
+    "cca3": "SSD",
+    "cca2": "SS",
+    "name_common": "South Sudan",
+    "name_official": "Republic of South Sudan",
+    "capital": "Juba",
+    "region": "Middle Africa",
+    "population": 15786898,
+    "area_km2": 619745,
+    "lat": 7,
+    "lon": 30,
+    "alt_spellings": [
+      "SS"
+    ]
+  },
+  {
+    "cca3": "STP",
+    "cca2": "ST",
+    "name_common": "São Tomé and Príncipe",
+    "name_official": "Democratic Republic of São Tomé and Príncipe",
+    "capital": "São Tomé",
+    "region": "Middle Africa",
+    "population": 209607,
+    "area_km2": 964,
+    "lat": 1,
+    "lon": 7,
+    "alt_spellings": [
+      "ST",
+      "Democratic Republic of São Tomé and Príncipe",
+      "Sao Tome and Principe",
+      "República Democrática de São Tomé e Príncipe"
+    ]
+  },
+  {
+    "cca3": "SUR",
+    "cca2": "SR",
+    "name_common": "Suriname",
+    "name_official": "Republic of Suriname",
+    "capital": "Paramaribo",
+    "region": "South America",
+    "population": 616500,
+    "area_km2": 163820,
+    "lat": 4,
+    "lon": -56,
+    "alt_spellings": [
+      "SR",
+      "Sarnam",
+      "Sranangron",
+      "Republic of Suriname",
+      "Republiek Suriname"
+    ]
+  },
+  {
+    "cca3": "SVK",
+    "cca2": "SK",
+    "name_common": "Slovakia",
+    "name_official": "Slovak Republic",
+    "capital": "Bratislava",
+    "region": "Central Europe",
+    "population": 5413813,
+    "area_km2": 49037,
+    "lat": 48.66666666,
+    "lon": 19.5,
+    "alt_spellings": [
+      "SK",
+      "Slovak Republic",
+      "Slovenská republika"
+    ]
+  },
+  {
+    "cca3": "SVN",
+    "cca2": "SI",
+    "name_common": "Slovenia",
+    "name_official": "Republic of Slovenia",
+    "capital": "Ljubljana",
+    "region": "Central Europe",
+    "population": 2130638,
+    "area_km2": 20273,
+    "lat": 46.11666666,
+    "lon": 14.81666666,
+    "alt_spellings": [
+      "SI",
+      "Republic of Slovenia",
+      "Republika Slovenija"
+    ]
+  },
+  {
+    "cca3": "SWE",
+    "cca2": "SE",
+    "name_common": "Sweden",
+    "name_official": "Kingdom of Sweden",
+    "capital": "Stockholm",
+    "region": "Northern Europe",
+    "population": 10605098,
+    "area_km2": 450295,
+    "lat": 62,
+    "lon": 15,
+    "alt_spellings": [
+      "SE",
+      "Kingdom of Sweden",
+      "Konungariket Sverige"
+    ]
+  },
+  {
+    "cca3": "SWZ",
+    "cca2": "SZ",
+    "name_common": "Eswatini",
+    "name_official": "Kingdom of Eswatini",
+    "capital": "Mbabane",
+    "region": "Southern Africa",
+    "population": 1235549,
+    "area_km2": 17364,
+    "lat": -26.5,
+    "lon": 31.5,
+    "alt_spellings": [
+      "SZ",
+      "Swaziland",
+      "weSwatini",
+      "Swatini",
+      "Ngwane",
+      "Kingdom of Eswatini",
+      "Umbuso weSwatini"
+    ]
+  },
+  {
+    "cca3": "SXM",
+    "cca2": "SX",
+    "name_common": "Sint Maarten",
+    "name_official": "Sint Maarten",
+    "capital": "Philipsburg",
+    "region": "Caribbean",
+    "population": 41349,
+    "area_km2": 34,
+    "lat": 18.033333,
+    "lon": -63.05,
+    "alt_spellings": [
+      "SX",
+      "Sint Maarten (Dutch part)"
+    ]
+  },
+  {
+    "cca3": "SYC",
+    "cca2": "SC",
+    "name_common": "Seychelles",
+    "name_official": "Republic of Seychelles",
+    "capital": "Victoria",
+    "region": "Eastern Africa",
+    "population": 122729,
+    "area_km2": 452,
+    "lat": -4.58333333,
+    "lon": 55.66666666,
+    "alt_spellings": [
+      "SC",
+      "Republic of Seychelles",
+      "Repiblik Sesel",
+      "République des Seychelles"
+    ]
+  },
+  {
+    "cca3": "SYR",
+    "cca2": "SY",
+    "name_common": "Syria",
+    "name_official": "Syrian Arab Republic",
+    "capital": "Damascus",
+    "region": "Western Asia",
+    "population": 25620000,
+    "area_km2": 185180,
+    "lat": 35,
+    "lon": 38,
+    "alt_spellings": [
+      "SY",
+      "Syrian Arab Republic",
+      "Al-Jumhūrīyah Al-ʻArabīyah As-Sūrīyah"
+    ]
+  },
+  {
+    "cca3": "TCA",
+    "cca2": "TC",
+    "name_common": "Turks and Caicos Islands",
+    "name_official": "Turks and Caicos Islands",
+    "capital": "Cockburn Town",
+    "region": "Caribbean",
+    "population": 50828,
+    "area_km2": 948,
+    "lat": 21.75,
+    "lon": -71.58333333,
+    "alt_spellings": [
+      "TC"
+    ]
+  },
+  {
+    "cca3": "TCD",
+    "cca2": "TD",
+    "name_common": "Chad",
+    "name_official": "Republic of Chad",
+    "capital": "N'Djamena",
+    "region": "Middle Africa",
+    "population": 19340757,
+    "area_km2": 1284000,
+    "lat": 15,
+    "lon": 19,
+    "alt_spellings": [
+      "TD",
+      "Tchad",
+      "Republic of Chad",
+      "République du Tchad"
+    ]
+  },
+  {
+    "cca3": "TGO",
+    "cca2": "TG",
+    "name_common": "Togo",
+    "name_official": "Togolese Republic",
+    "capital": "Lomé",
+    "region": "Western Africa",
+    "population": 8095498,
+    "area_km2": 56785,
+    "lat": 8,
+    "lon": 1.16666666,
+    "alt_spellings": [
+      "TG",
+      "Togolese",
+      "Togolese Republic",
+      "République Togolaise"
+    ]
+  },
+  {
+    "cca3": "THA",
+    "cca2": "TH",
+    "name_common": "Thailand",
+    "name_official": "Kingdom of Thailand",
+    "capital": "Bangkok",
+    "region": "South-Eastern Asia",
+    "population": 65859640,
+    "area_km2": 513120,
+    "lat": 15,
+    "lon": 100,
+    "alt_spellings": [
+      "TH",
+      "Prathet",
+      "Thai",
+      "Kingdom of Thailand",
+      "ราชอาณาจักรไทย",
+      "Ratcha Anachak Thai"
+    ]
+  },
+  {
+    "cca3": "TJK",
+    "cca2": "TJ",
+    "name_common": "Tajikistan",
+    "name_official": "Republic of Tajikistan",
+    "capital": "Dushanbe",
+    "region": "Central Asia",
+    "population": 10499000,
+    "area_km2": 143100,
+    "lat": 39,
+    "lon": 71,
+    "alt_spellings": [
+      "TJ",
+      "Toçikiston",
+      "Republic of Tajikistan",
+      "Ҷумҳурии Тоҷикистон",
+      "Çumhuriyi Toçikiston"
+    ]
+  },
+  {
+    "cca3": "TKL",
+    "cca2": "TK",
+    "name_common": "Tokelau",
+    "name_official": "Tokelau",
+    "capital": "Fakaofo",
+    "region": "Polynesia",
+    "population": 2608,
+    "area_km2": 12,
+    "lat": -9,
+    "lon": -172,
+    "alt_spellings": [
+      "TK"
+    ]
+  },
+  {
+    "cca3": "TKM",
+    "cca2": "TM",
+    "name_common": "Turkmenistan",
+    "name_official": "Turkmenistan",
+    "capital": "Ashgabat",
+    "region": "Central Asia",
+    "population": 7057841,
+    "area_km2": 488100,
+    "lat": 40,
+    "lon": 60,
+    "alt_spellings": [
+      "TM"
+    ]
+  },
+  {
+    "cca3": "TLS",
+    "cca2": "TL",
+    "name_common": "Timor-Leste",
+    "name_official": "Democratic Republic of Timor-Leste",
+    "capital": "Dili",
+    "region": "South-Eastern Asia",
+    "population": 1391221,
+    "area_km2": 14874,
+    "lat": -8.83333333,
+    "lon": 125.91666666,
+    "alt_spellings": [
+      "TL",
+      "East Timor",
+      "Democratic Republic of Timor-Leste",
+      "República Democrática de Timor-Leste",
+      "Repúblika Demokrátika Timór-Leste",
+      "Timór Lorosa'e",
+      "Timor Lorosae"
+    ]
+  },
+  {
+    "cca3": "TON",
+    "cca2": "TO",
+    "name_common": "Tonga",
+    "name_official": "Kingdom of Tonga",
+    "capital": "Nuku'alofa",
+    "region": "Polynesia",
+    "population": 100179,
+    "area_km2": 747,
+    "lat": -20,
+    "lon": -175,
+    "alt_spellings": [
+      "TO"
+    ]
+  },
+  {
+    "cca3": "TTO",
+    "cca2": "TT",
+    "name_common": "Trinidad and Tobago",
+    "name_official": "Republic of Trinidad and Tobago",
+    "capital": "Port of Spain",
+    "region": "Caribbean",
+    "population": 1367764,
+    "area_km2": 5130,
+    "lat": 10.6918,
+    "lon": -61.2225,
+    "alt_spellings": [
+      "TT",
+      "Republic of Trinidad and Tobago"
+    ]
+  },
+  {
+    "cca3": "TUN",
+    "cca2": "TN",
+    "name_common": "Tunisia",
+    "name_official": "Tunisian Republic",
+    "capital": "Tunis",
+    "region": "Northern Africa",
+    "population": 11972169,
+    "area_km2": 163610,
+    "lat": 34,
+    "lon": 9,
+    "alt_spellings": [
+      "TN",
+      "Republic of Tunisia",
+      "al-Jumhūriyyah at-Tūnisiyyah"
+    ]
+  },
+  {
+    "cca3": "TUR",
+    "cca2": "TR",
+    "name_common": "Turkey",
+    "name_official": "Republic of Turkey",
+    "capital": "Ankara",
+    "region": "Western Asia",
+    "population": 85664944,
+    "area_km2": 783562,
+    "lat": 39,
+    "lon": 35,
+    "alt_spellings": [
+      "TR",
+      "Turkiye",
+      "Republic of Turkey",
+      "Türkiye Cumhuriyeti"
+    ]
+  },
+  {
+    "cca3": "TUV",
+    "cca2": "TV",
+    "name_common": "Tuvalu",
+    "name_official": "Tuvalu",
+    "capital": "Funafuti",
+    "region": "Polynesia",
+    "population": 10643,
+    "area_km2": 26,
+    "lat": -8,
+    "lon": 178,
+    "alt_spellings": [
+      "TV"
+    ]
+  },
+  {
+    "cca3": "TWN",
+    "cca2": "TW",
+    "name_common": "Taiwan",
+    "name_official": "Republic of China (Taiwan)",
+    "capital": "Taipei",
+    "region": "Eastern Asia",
+    "population": 23317031,
+    "area_km2": 36197,
+    "lat": 23.5,
+    "lon": 121,
+    "alt_spellings": [
+      "TW",
+      "Táiwān",
+      "Republic of China",
+      "中華民國",
+      "Zhōnghuá Mínguó",
+      "Chinese Taipei"
+    ]
+  },
+  {
+    "cca3": "TZA",
+    "cca2": "TZ",
+    "name_common": "Tanzania",
+    "name_official": "United Republic of Tanzania",
+    "capital": "Dodoma",
+    "region": "Eastern Africa",
+    "population": 68153004,
+    "area_km2": 947303,
+    "lat": -6,
+    "lon": 35,
+    "alt_spellings": [
+      "TZ",
+      "Tanzania, United Republic of",
+      "United Republic of Tanzania",
+      "Jamhuri ya Muungano wa Tanzania"
+    ]
+  },
+  {
+    "cca3": "UGA",
+    "cca2": "UG",
+    "name_common": "Uganda",
+    "name_official": "Republic of Uganda",
+    "capital": "Kampala",
+    "region": "Eastern Africa",
+    "population": 45905417,
+    "area_km2": 241550,
+    "lat": 1,
+    "lon": 32,
+    "alt_spellings": [
+      "UG",
+      "Republic of Uganda",
+      "Jamhuri ya Uganda"
+    ]
+  },
+  {
+    "cca3": "UKR",
+    "cca2": "UA",
+    "name_common": "Ukraine",
+    "name_official": "Ukraine",
+    "capital": "Kyiv",
+    "region": "Eastern Europe",
+    "population": 32862000,
+    "area_km2": 603550,
+    "lat": 49,
+    "lon": 32,
+    "alt_spellings": [
+      "UA",
+      "Ukrayina"
+    ]
+  },
+  {
+    "cca3": "UMI",
+    "cca2": "UM",
+    "name_common": "United States Minor Outlying Islands",
+    "name_official": "United States Minor Outlying Islands",
+    "capital": "Washington DC",
+    "region": "North America",
+    "population": 0,
+    "area_km2": 34.2,
+    "lat": 19.3,
+    "lon": 166.633333,
+    "alt_spellings": [
+      "UM"
+    ]
+  },
+  {
+    "cca3": "UNK",
+    "cca2": "XK",
+    "name_common": "Kosovo",
+    "name_official": "Republic of Kosovo",
+    "capital": "Pristina",
+    "region": "Southeast Europe",
+    "population": 1585566,
+    "area_km2": 10908,
+    "lat": 42.666667,
+    "lon": 21.166667,
+    "alt_spellings": [
+      "XK",
+      "Република Косово"
+    ]
+  },
+  {
+    "cca3": "URY",
+    "cca2": "UY",
+    "name_common": "Uruguay",
+    "name_official": "Oriental Republic of Uruguay",
+    "capital": "Montevideo",
+    "region": "South America",
+    "population": 3499451,
+    "area_km2": 181034,
+    "lat": -33,
+    "lon": -56,
+    "alt_spellings": [
+      "UY",
+      "Oriental Republic of Uruguay",
+      "República Oriental del Uruguay"
+    ]
+  },
+  {
+    "cca3": "USA",
+    "cca2": "US",
+    "name_common": "United States",
+    "name_official": "United States of America",
+    "capital": "Washington, D.C.",
+    "region": "North America",
+    "population": 340110988,
+    "area_km2": 9525067,
+    "lat": 38,
+    "lon": -97,
+    "alt_spellings": [
+      "US",
+      "USA",
+      "United States of America"
+    ]
+  },
+  {
+    "cca3": "UZB",
+    "cca2": "UZ",
+    "name_common": "Uzbekistan",
+    "name_official": "Republic of Uzbekistan",
+    "capital": "Tashkent",
+    "region": "Central Asia",
+    "population": 37859698,
+    "area_km2": 447400,
+    "lat": 41,
+    "lon": 64,
+    "alt_spellings": [
+      "UZ",
+      "Republic of Uzbekistan",
+      "O‘zbekiston Respublikasi",
+      "Ўзбекистон Республикаси"
+    ]
+  },
+  {
+    "cca3": "VAT",
+    "cca2": "VA",
+    "name_common": "Vatican City",
+    "name_official": "Vatican City State",
+    "capital": "Vatican City",
+    "region": "Southern Europe",
+    "population": 882,
+    "area_km2": 0.49,
+    "lat": 41.9,
+    "lon": 12.45,
+    "alt_spellings": [
+      "VA",
+      "Holy See (Vatican City State)",
+      "Vatican City State",
+      "Stato della Città del Vaticano"
+    ]
+  },
+  {
+    "cca3": "VCT",
+    "cca2": "VC",
+    "name_common": "Saint Vincent and the Grenadines",
+    "name_official": "Saint Vincent and the Grenadines",
+    "capital": "Kingstown",
+    "region": "Caribbean",
+    "population": 110872,
+    "area_km2": 389,
+    "lat": 13.25,
+    "lon": -61.2,
+    "alt_spellings": [
+      "VC"
+    ]
+  },
+  {
+    "cca3": "VEN",
+    "cca2": "VE",
+    "name_common": "Venezuela",
+    "name_official": "Bolivarian Republic of Venezuela",
+    "capital": "Caracas",
+    "region": "South America",
+    "population": 28517000,
+    "area_km2": 916445,
+    "lat": 8,
+    "lon": -66,
+    "alt_spellings": [
+      "VE",
+      "Bolivarian Republic of Venezuela",
+      "Venezuela, Bolivarian Republic of",
+      "República Bolivariana de Venezuela"
+    ]
+  },
+  {
+    "cca3": "VGB",
+    "cca2": "VG",
+    "name_common": "British Virgin Islands",
+    "name_official": "Virgin Islands",
+    "capital": "Road Town",
+    "region": "Caribbean",
+    "population": 39471,
+    "area_km2": 151,
+    "lat": 18.431383,
+    "lon": -64.62305,
+    "alt_spellings": [
+      "VG",
+      "Virgin Islands, British"
+    ]
+  },
+  {
+    "cca3": "VIR",
+    "cca2": "VI",
+    "name_common": "United States Virgin Islands",
+    "name_official": "Virgin Islands of the United States",
+    "capital": "Charlotte Amalie",
+    "region": "Caribbean",
+    "population": 87146,
+    "area_km2": 347,
+    "lat": 18.35,
+    "lon": -64.933333,
+    "alt_spellings": [
+      "VI",
+      "Virgin Islands, U.S."
+    ]
+  },
+  {
+    "cca3": "VNM",
+    "cca2": "VN",
+    "name_common": "Vietnam",
+    "name_official": "Socialist Republic of Vietnam",
+    "capital": "Hanoi",
+    "region": "South-Eastern Asia",
+    "population": 101343800,
+    "area_km2": 331212,
+    "lat": 16.16666666,
+    "lon": 107.83333333,
+    "alt_spellings": [
+      "VN",
+      "Socialist Republic of Vietnam",
+      "Cộng hòa Xã hội chủ nghĩa Việt Nam",
+      "Viet Nam"
+    ]
+  },
+  {
+    "cca3": "VUT",
+    "cca2": "VU",
+    "name_common": "Vanuatu",
+    "name_official": "Republic of Vanuatu",
+    "capital": "Port Vila",
+    "region": "Melanesia",
+    "population": 321409,
+    "area_km2": 12189,
+    "lat": -16,
+    "lon": 167,
+    "alt_spellings": [
+      "VU",
+      "Republic of Vanuatu",
+      "Ripablik blong Vanuatu",
+      "République de Vanuatu"
+    ]
+  },
+  {
+    "cca3": "WLF",
+    "cca2": "WF",
+    "name_common": "Wallis and Futuna",
+    "name_official": "Territory of the Wallis and Futuna Islands",
+    "capital": "Mata-Utu",
+    "region": "Polynesia",
+    "population": 11620,
+    "area_km2": 142,
+    "lat": -13.3,
+    "lon": -176.2,
+    "alt_spellings": [
+      "WF",
+      "Territory of the Wallis and Futuna Islands",
+      "Territoire des îles Wallis et Futuna"
+    ]
+  },
+  {
+    "cca3": "WSM",
+    "cca2": "WS",
+    "name_common": "Samoa",
+    "name_official": "Independent State of Samoa",
+    "capital": "Apia",
+    "region": "Polynesia",
+    "population": 205557,
+    "area_km2": 2842,
+    "lat": -13.58333333,
+    "lon": -172.33333333,
+    "alt_spellings": [
+      "WS",
+      "Independent State of Samoa",
+      "Malo Saʻoloto Tutoʻatasi o Sāmoa"
+    ]
+  },
+  {
+    "cca3": "YEM",
+    "cca2": "YE",
+    "name_common": "Yemen",
+    "name_official": "Republic of Yemen",
+    "capital": "Sana'a",
+    "region": "Western Asia",
+    "population": 32684503,
+    "area_km2": 527968,
+    "lat": 15,
+    "lon": 48,
+    "alt_spellings": [
+      "YE",
+      "Yemeni Republic",
+      "al-Jumhūriyyah al-Yamaniyyah"
+    ]
+  },
+  {
+    "cca3": "ZAF",
+    "cca2": "ZA",
+    "name_common": "South Africa",
+    "name_official": "Republic of South Africa",
+    "capital": "Pretoria",
+    "region": "Southern Africa",
+    "population": 63100945,
+    "area_km2": 1221037,
+    "lat": -29,
+    "lon": 24,
+    "alt_spellings": [
+      "ZA",
+      "RSA",
+      "Suid-Afrika",
+      "Republic of South Africa"
+    ]
+  },
+  {
+    "cca3": "ZMB",
+    "cca2": "ZM",
+    "name_common": "Zambia",
+    "name_official": "Republic of Zambia",
+    "capital": "Lusaka",
+    "region": "Eastern Africa",
+    "population": 19693423,
+    "area_km2": 752612,
+    "lat": -15,
+    "lon": 30,
+    "alt_spellings": [
+      "ZM",
+      "Republic of Zambia"
+    ]
+  },
+  {
+    "cca3": "ZWE",
+    "cca2": "ZW",
+    "name_common": "Zimbabwe",
+    "name_official": "Republic of Zimbabwe",
+    "capital": "Harare",
+    "region": "Southern Africa",
+    "population": 17073087,
+    "area_km2": 390757,
+    "lat": -20,
+    "lon": 30,
+    "alt_spellings": [
+      "ZW",
+      "Republic of Zimbabwe"
+    ]
+  }
+]

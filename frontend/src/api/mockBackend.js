@@ -1,3 +1,5 @@
+import countriesBaseline from "../data/countriesBaseline.json";
+
 const DEMO_LOCATIONS = [
   { id: "new_york", name: "New York", country: "US", lat: 40.7128, lon: -74.006 },
   { id: "istanbul", name: "Istanbul", country: "TR", lat: 41.0082, lon: 28.9784 },
@@ -7,130 +9,71 @@ const DEMO_LOCATIONS = [
   { id: "nairobi", name: "Nairobi", country: "KE", lat: -1.2864, lon: 36.8172 },
 ];
 
-const COUNTRY_DATA = {
-  TUR: { country_name: "Turkey", region: "Europe & Central Asia", capital: "Ankara", population: 85816199, area_km2: 783562, lat: 39.0, lon: 35.0 },
-  USA: { country_name: "United States", region: "North America", capital: "Washington", population: 335000000, area_km2: 9833520, lat: 39.8, lon: -98.5 },
-  DEU: { country_name: "Germany", region: "Europe & Central Asia", capital: "Berlin", population: 84300000, area_km2: 357022, lat: 51.2, lon: 10.4 },
-  JPN: { country_name: "Japan", region: "East Asia & Pacific", capital: "Tokyo", population: 124000000, area_km2: 377975, lat: 36.2, lon: 138.3 },
-  BRA: { country_name: "Brazil", region: "Latin America & Caribbean", capital: "Brasilia", population: 203000000, area_km2: 8515767, lat: -10.8, lon: -52.9 },
-  KEN: { country_name: "Kenya", region: "Sub-Saharan Africa", capital: "Nairobi", population: 55000000, area_km2: 580367, lat: 0.2, lon: 37.9 },
-  RUS: { country_name: "Russia", region: "Europe & Central Asia", capital: "Moscow", population: 143000000, area_km2: 17098242, lat: 61.5, lon: 96.0 },
-  KAZ: { country_name: "Kazakhstan", region: "Europe & Central Asia", capital: "Astana", population: 19900000, area_km2: 2724900, lat: 48.0, lon: 68.0 },
-  AFG: { country_name: "Afghanistan", region: "South Asia", capital: "Kabul", population: 42239854, area_km2: 652230, lat: 33.9, lon: 67.7 },
-  PAK: { country_name: "Pakistan", region: "South Asia", capital: "Islamabad", population: 241499431, area_km2: 881913, lat: 30.4, lon: 69.3 },
-  IRN: { country_name: "Iran", region: "Middle East & North Africa", capital: "Tehran", population: 89172767, area_km2: 1648195, lat: 32.4, lon: 53.7 },
-  IRQ: { country_name: "Iraq", region: "Middle East & North Africa", capital: "Baghdad", population: 45504560, area_km2: 438317, lat: 33.2, lon: 43.7 },
-  SAU: { country_name: "Saudi Arabia", region: "Middle East & North Africa", capital: "Riyadh", population: 36947025, area_km2: 2149690, lat: 23.9, lon: 45.1 },
-  ARE: { country_name: "United Arab Emirates", region: "Middle East & North Africa", capital: "Abu Dhabi", population: 9516871, area_km2: 83600, lat: 24.3, lon: 54.4 },
-  EGY: { country_name: "Egypt", region: "Middle East & North Africa", capital: "Cairo", population: 112716598, area_km2: 1002450, lat: 26.8, lon: 30.8 },
-  IDN: { country_name: "Indonesia", region: "East Asia & Pacific", capital: "Jakarta", population: 277534122, area_km2: 1904569, lat: -2.2, lon: 117.3 },
-  BGD: { country_name: "Bangladesh", region: "South Asia", capital: "Dhaka", population: 172954319, area_km2: 148460, lat: 23.7, lon: 90.3 },
-  NPL: { country_name: "Nepal", region: "South Asia", capital: "Kathmandu", population: 30896590, area_km2: 147516, lat: 28.4, lon: 84.1 },
-  CHN: { country_name: "China", region: "East Asia & Pacific", capital: "Beijing", population: 1410710000, area_km2: 9596961, lat: 35.9, lon: 104.2 },
-  IND: { country_name: "India", region: "South Asia", capital: "New Delhi", population: 1428627663, area_km2: 3287263, lat: 20.6, lon: 78.9 },
-  GBR: { country_name: "United Kingdom", region: "Europe & Central Asia", capital: "London", population: 67736802, area_km2: 242495, lat: 55.0, lon: -3.4 },
-  FRA: { country_name: "France", region: "Europe & Central Asia", capital: "Paris", population: 68170000, area_km2: 551695, lat: 46.2, lon: 2.2 },
-  ITA: { country_name: "Italy", region: "Europe & Central Asia", capital: "Rome", population: 58990000, area_km2: 301340, lat: 41.9, lon: 12.6 },
-  ESP: { country_name: "Spain", region: "Europe & Central Asia", capital: "Madrid", population: 48600000, area_km2: 505990, lat: 40.4, lon: -3.7 },
-  CAN: { country_name: "Canada", region: "North America", capital: "Ottawa", population: 40100000, area_km2: 9984670, lat: 56.1, lon: -106.3 },
-  AUS: { country_name: "Australia", region: "East Asia & Pacific", capital: "Canberra", population: 26900000, area_km2: 7692024, lat: -25.3, lon: 133.8 },
-};
+function normalizeAliasKey(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
+    .trim()
+    .toLowerCase();
+}
 
-const COUNTRY_ALIASES = {
-  turkey: "TUR",
+function buildCountryLookups() {
+  const countryData = {};
+  const countryAliases = {};
+  const countryIso2ToIso3 = {};
+
+  countriesBaseline.forEach((entry) => {
+    const iso3 = String(entry?.cca3 || "").trim().toUpperCase();
+    if (!iso3 || iso3.length !== 3) return;
+
+    countryData[iso3] = {
+      country_name: String(entry?.name_common || iso3),
+      region: String(entry?.region || "Global"),
+      capital: String(entry?.capital || "-"),
+      population: Number.isFinite(Number(entry?.population)) ? Number(entry.population) : null,
+      area_km2: Number.isFinite(Number(entry?.area_km2)) ? Number(entry.area_km2) : null,
+      lat: Number.isFinite(Number(entry?.lat)) ? Number(entry.lat) : null,
+      lon: Number.isFinite(Number(entry?.lon)) ? Number(entry.lon) : null,
+    };
+
+    const iso2 = String(entry?.cca2 || "").trim().toUpperCase();
+    if (iso2 && iso2.length === 2) {
+      countryIso2ToIso3[iso2] = iso3;
+    }
+
+    const aliasCandidates = [entry?.name_common, entry?.name_official, iso3, iso2, ...(entry?.alt_spellings || [])];
+    aliasCandidates.forEach((candidate) => {
+      const key = normalizeAliasKey(candidate);
+      if (!key || countryAliases[key]) return;
+      countryAliases[key] = iso3;
+    });
+  });
+
+  return { countryData, countryAliases, countryIso2ToIso3 };
+}
+
+const { countryData: COUNTRY_DATA, countryAliases: COUNTRY_ALIASES, countryIso2ToIso3: COUNTRY_ISO2_TO_ISO3 } = buildCountryLookups();
+
+const MANUAL_COUNTRY_ALIASES = {
   turkiye: "TUR",
-  tur: "TUR",
-  usa: "USA",
+  "turkiye cumhuriyeti": "TUR",
+  abd: "USA",
+  amerika: "USA",
+  "birlesik devletler": "USA",
   "united states": "USA",
   "united states of america": "USA",
-  deu: "DEU",
-  germany: "DEU",
-  jpn: "JPN",
-  japan: "JPN",
-  bra: "BRA",
-  brazil: "BRA",
-  ken: "KEN",
-  kenya: "KEN",
-  russia: "RUS",
-  russian: "RUS",
-  "russian federation": "RUS",
-  rus: "RUS",
-  kazakhstan: "KAZ",
-  kazakistan: "KAZ",
-  kaz: "KAZ",
-  afghanistan: "AFG",
   afganistan: "AFG",
   afkanistan: "AFG",
-  afg: "AFG",
-  pakistan: "PAK",
-  pak: "PAK",
-  iran: "IRN",
-  irn: "IRN",
-  iraq: "IRQ",
-  irq: "IRQ",
-  "saudi arabia": "SAU",
-  saudi: "SAU",
-  sau: "SAU",
-  "united arab emirates": "ARE",
+  kazakistan: "KAZ",
+  ingiltere: "GBR",
+  "birlesik krallik": "GBR",
   uae: "ARE",
-  are: "ARE",
-  egypt: "EGY",
-  egy: "EGY",
-  indonesia: "IDN",
-  idn: "IDN",
-  bangladesh: "BGD",
-  bgd: "BGD",
-  nepal: "NPL",
-  npl: "NPL",
-  china: "CHN",
-  chn: "CHN",
-  india: "IND",
-  ind: "IND",
-  uk: "GBR",
-  gbr: "GBR",
-  "united kingdom": "GBR",
-  britain: "GBR",
-  england: "GBR",
-  france: "FRA",
-  fra: "FRA",
-  italy: "ITA",
-  ita: "ITA",
-  spain: "ESP",
-  esp: "ESP",
-  canada: "CAN",
-  can: "CAN",
-  australia: "AUS",
-  aus: "AUS",
 };
 
-const COUNTRY_ISO2_TO_ISO3 = {
-  TR: "TUR",
-  US: "USA",
-  DE: "DEU",
-  JP: "JPN",
-  BR: "BRA",
-  KE: "KEN",
-  RU: "RUS",
-  KZ: "KAZ",
-  AF: "AFG",
-  PK: "PAK",
-  IR: "IRN",
-  IQ: "IRQ",
-  SA: "SAU",
-  AE: "ARE",
-  EG: "EGY",
-  ID: "IDN",
-  BD: "BGD",
-  NP: "NPL",
-  GB: "GBR",
-  FR: "FRA",
-  IT: "ITA",
-  ES: "ESP",
-  CA: "CAN",
-  AU: "AUS",
-  CN: "CHN",
-  IN: "IND",
-};
+Object.entries(MANUAL_COUNTRY_ALIASES).forEach(([alias, iso3]) => {
+  COUNTRY_ALIASES[normalizeAliasKey(alias)] = iso3;
+});
 
 const THREATS = ["drought", "flood", "wildfire", "heatwave"];
 const SOURCE_ATTRIBUTION = [
@@ -140,6 +83,160 @@ const SOURCE_ATTRIBUTION = [
 ];
 
 const REPORT_STORE = new Map();
+const LIVE_COUNTRY_PROFILE_CACHE = new Map();
+const LIVE_LOCATION_WEATHER_CACHE = new Map();
+const LIVE_WORLD_BANK_BENCHMARK_CACHE = new Map();
+
+const COUNTRY_PROFILE_LIVE_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+const LOCATION_WEATHER_CACHE_TTL_MS = 15 * 60 * 1000;
+const WORLD_BENCHMARK_CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+
+const LIVE_INDICATORS = [
+  { id: "EG.FEC.RNEW.ZS", label: "Renewable energy share", unit: "%" },
+  { id: "EN.ATM.CO2E.PC", label: "CO2 emissions per capita", unit: "t" },
+  { id: "AG.LND.FRST.ZS", label: "Forest area", unit: "%" },
+  { id: "NY.GDP.PCAP.CD", label: "GDP per capita", unit: "USD" },
+];
+
+function toFiniteOrNull(value, digits = null) {
+  const numeric = Number(value);
+  if (!Number.isFinite(numeric)) return null;
+  if (digits === null) return numeric;
+  return Number(numeric.toFixed(digits));
+}
+
+async function fetchJsonWithTimeout(url, { timeoutMs = 14000, headers = {} } = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      signal: controller.signal,
+      headers: {
+        Accept: "application/json",
+        ...headers,
+      },
+    });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    return await response.json();
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function pickLatestWorldBankValue(payload) {
+  const rows = Array.isArray(payload?.[1]) ? payload[1] : [];
+  const latest = rows.find((row) => row && row.value !== null && row.value !== undefined);
+  if (!latest) return { value: null, year: null };
+  return {
+    value: toFiniteOrNull(latest.value),
+    year: Number.isFinite(Number(latest.date)) ? Number(latest.date) : null,
+  };
+}
+
+async function fetchWorldBankIndicator(countryCode, indicatorId) {
+  const target = String(countryCode || "").trim().toLowerCase();
+  const url = `https://api.worldbank.org/v2/country/${encodeURIComponent(target)}/indicator/${encodeURIComponent(indicatorId)}?format=json&per_page=70`;
+  const payload = await fetchJsonWithTimeout(url);
+  return pickLatestWorldBankValue(payload);
+}
+
+async function fetchWorldBankBenchmark(indicatorId) {
+  const cached = LIVE_WORLD_BANK_BENCHMARK_CACHE.get(indicatorId);
+  if (cached && Date.now() - cached.cachedAt < WORLD_BENCHMARK_CACHE_TTL_MS) {
+    return cached.value;
+  }
+  const latest = await fetchWorldBankIndicator("WLD", indicatorId);
+  LIVE_WORLD_BANK_BENCHMARK_CACHE.set(indicatorId, { cachedAt: Date.now(), value: latest.value });
+  return latest.value;
+}
+
+async function fetchCountryMetaLive(iso3, countryRef) {
+  const normalizedIso3 = String(iso3 || "").trim().toUpperCase();
+  if (normalizedIso3.length !== 3) return null;
+
+  const alphaUrl = `https://restcountries.com/v3.1/alpha/${encodeURIComponent(normalizedIso3)}?fields=cca2,cca3,name,capital,region,subregion,population,area,latlng`;
+  try {
+    const alphaPayload = await fetchJsonWithTimeout(alphaUrl);
+    const row = Array.isArray(alphaPayload) ? alphaPayload[0] : alphaPayload;
+    if (row && row.cca3) return row;
+  } catch {
+    // Fallback to name endpoint below
+  }
+
+  const rawName = String(countryRef || "").trim();
+  if (!rawName || /^[A-Za-z]{2,3}$/.test(rawName)) return null;
+  const nameUrl = `https://restcountries.com/v3.1/name/${encodeURIComponent(rawName)}?fullText=false&fields=cca2,cca3,name,capital,region,subregion,population,area,latlng`;
+  const byName = await fetchJsonWithTimeout(nameUrl);
+  const matched = Array.isArray(byName) ? byName.find((item) => String(item?.cca3 || "").toUpperCase() === normalizedIso3) || byName[0] : null;
+  return matched || null;
+}
+
+async function fetchMacroMetricsLive(countryCode) {
+  const code = String(countryCode || "").trim();
+  if (!code) return [];
+
+  const items = await Promise.all(
+    LIVE_INDICATORS.map(async (indicator) => {
+      const [countryMetric, benchmarkValue] = await Promise.all([
+        fetchWorldBankIndicator(code, indicator.id),
+        fetchWorldBankBenchmark(indicator.id),
+      ]);
+
+      const metricValue = toFiniteOrNull(countryMetric.value, 2);
+      const worldValue = toFiniteOrNull(benchmarkValue, 2);
+      const delta =
+        metricValue === null || worldValue === null || worldValue === 0
+          ? null
+          : toFiniteOrNull(((metricValue - worldValue) / Math.abs(worldValue)) * 100, 1);
+
+      return {
+        label: indicator.label,
+        indicator_id: indicator.id,
+        value: metricValue,
+        unit: indicator.unit,
+        year: countryMetric.year,
+        benchmark_value: worldValue,
+        delta_pct_vs_benchmark: delta,
+      };
+    }),
+  );
+
+  return items;
+}
+
+async function fetchLocationWeatherLive(location) {
+  if (!location?.id) return null;
+  const cached = LIVE_LOCATION_WEATHER_CACHE.get(location.id);
+  if (cached && Date.now() - cached.cachedAt < LOCATION_WEATHER_CACHE_TTL_MS) {
+    return cached.data;
+  }
+
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(location.lat)}&longitude=${encodeURIComponent(
+    location.lon,
+  )}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&hourly=temperature_2m&forecast_days=3&timezone=UTC`;
+  const payload = await fetchJsonWithTimeout(url);
+
+  const current = payload?.current || {};
+  const hourlyTimes = Array.isArray(payload?.hourly?.time) ? payload.hourly.time : [];
+  const hourlyTemps = Array.isArray(payload?.hourly?.temperature_2m) ? payload.hourly.temperature_2m : [];
+  const forecastPoints = hourlyTimes.slice(0, 18).map((timestamp, index) => ({
+    timestamp,
+    value: toFiniteOrNull(hourlyTemps[index], 2),
+  }));
+
+  const weatherData = {
+    current_weather: {
+      temperature_c: toFiniteOrNull(current.temperature_2m, 1),
+      humidity_pct: toFiniteOrNull(current.relative_humidity_2m, 0),
+      wind_kmh: toFiniteOrNull(current.wind_speed_10m, 1),
+    },
+    forecast_points: forecastPoints.filter((item) => item.value !== null),
+  };
+
+  LIVE_LOCATION_WEATHER_CACHE.set(location.id, { cachedAt: Date.now(), data: weatherData });
+  return weatherData;
+}
 
 function nowIso() {
   return new Date().toISOString();
@@ -394,7 +491,7 @@ function resolveCountryCode(input) {
 
   if (/^[A-Z]{3}$/.test(upper)) return upper;
 
-  const normalized = raw.toLowerCase();
+  const normalized = normalizeAliasKey(raw);
   if (COUNTRY_ALIASES[normalized]) return COUNTRY_ALIASES[normalized];
 
   const compact = normalized.replace(/[^a-z]/g, "");
@@ -507,6 +604,45 @@ function makeCountryProfile(countryRef, lang = "en") {
   };
 }
 
+async function makeCountryProfileLive(countryRef, lang = "en") {
+  const iso3 = resolveCountryCode(countryRef);
+  const cacheKey = `${iso3}:${lang}`;
+  const cached = LIVE_COUNTRY_PROFILE_CACHE.get(cacheKey);
+  if (cached && Date.now() - cached.cachedAt < COUNTRY_PROFILE_LIVE_CACHE_TTL_MS) {
+    return cached.data;
+  }
+
+  const profile = makeCountryProfile(countryRef, lang);
+
+  try {
+    const liveMeta = await fetchCountryMetaLive(iso3, countryRef);
+    if (liveMeta) {
+      const liveIso3 = String(liveMeta?.cca3 || iso3).toUpperCase();
+      profile.iso3 = liveIso3;
+      profile.country_name = String(liveMeta?.name?.common || profile.country_name || liveIso3);
+      profile.region = String(liveMeta?.subregion || liveMeta?.region || profile.region || "Global");
+      profile.capital = String((Array.isArray(liveMeta?.capital) && liveMeta.capital[0]) || profile.capital || "-");
+      profile.population = toFiniteOrNull(liveMeta?.population, 0) ?? profile.population;
+      profile.area_km2 = toFiniteOrNull(liveMeta?.area, 0) ?? profile.area_km2;
+      profile.lat = toFiniteOrNull(liveMeta?.latlng?.[0], 2) ?? profile.lat;
+      profile.lon = toFiniteOrNull(liveMeta?.latlng?.[1], 2) ?? profile.lon;
+
+      const worldBankCountryCode = String(liveMeta?.cca2 || liveIso3 || "").toLowerCase();
+      if (worldBankCountryCode) {
+        const liveMetrics = await fetchMacroMetricsLive(worldBankCountryCode);
+        if (liveMetrics.length) {
+          profile.macro_metrics = liveMetrics;
+        }
+      }
+    }
+  } catch {
+    // API errors should not break the UI in demo mode.
+  }
+
+  LIVE_COUNTRY_PROFILE_CACHE.set(cacheKey, { cachedAt: Date.now(), data: profile });
+  return profile;
+}
+
 function parseRequest(config) {
   const method = String(config?.method || "get").toLowerCase();
   const rawUrl = String(config?.url || "");
@@ -529,7 +665,7 @@ function parseJson(value) {
   }
 }
 
-export function resolveMockResponse(config) {
+export async function resolveMockResponse(config) {
   const req = parseRequest(config);
 
   if (req.method === "get" && req.pathname === "/api/v1/locations") {
@@ -558,18 +694,44 @@ export function resolveMockResponse(config) {
     const resource = locationMatch[2];
     const location = resolveLocation(locationId);
 
-    if (resource === "snapshot") return makeSnapshot(location.id);
+    if (resource === "snapshot") {
+      const snapshot = makeSnapshot(location.id);
+      try {
+        const liveWeather = await fetchLocationWeatherLive(location);
+        if (liveWeather?.current_weather) {
+          snapshot.current_weather = {
+            temperature_c: liveWeather.current_weather.temperature_c ?? snapshot.current_weather.temperature_c,
+            humidity_pct: liveWeather.current_weather.humidity_pct ?? snapshot.current_weather.humidity_pct,
+            wind_kmh: liveWeather.current_weather.wind_kmh ?? snapshot.current_weather.wind_kmh,
+          };
+          snapshot.generated_at = nowIso();
+        }
+      } catch {
+        // Keep synthetic fallback when public weather API is unavailable.
+      }
+      return snapshot;
+    }
     if (resource === "risks") return { latest: generateRisk(location.id), history: generateHistory(location.id) };
     if (resource === "risk-features") return { items: generateRiskFeatures(location.id) };
     if (resource === "events") return { items: generateEvents(location.id) };
-    if (resource === "timeseries") return { points: generateForecast(location.id) };
+    if (resource === "timeseries") {
+      try {
+        const liveWeather = await fetchLocationWeatherLive(location);
+        if (Array.isArray(liveWeather?.forecast_points) && liveWeather.forecast_points.length) {
+          return { points: liveWeather.forecast_points };
+        }
+      } catch {
+        // Keep synthetic fallback when public weather API is unavailable.
+      }
+      return { points: generateForecast(location.id) };
+    }
     if (resource === "insights") return makeInsight(location, req.params?.lang || "en");
   }
 
   const countryMatch = req.pathname.match(/^\/api\/v1\/countries\/([^/]+)\/profile$/);
   if (req.method === "get" && countryMatch) {
     const countryRef = decodeURIComponent(countryMatch[1]);
-    return makeCountryProfile(countryRef, req.params?.lang || "en");
+    return await makeCountryProfileLive(countryRef, req.params?.lang || "en");
   }
 
   if (req.method === "post" && req.pathname === "/api/v1/feedback") {
