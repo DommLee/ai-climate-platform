@@ -10,6 +10,7 @@ import SafeResponsiveChart from "../components/SafeResponsiveChart";
 const COUNTRIES_GEOJSON_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
 const EARTH_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg";
 const EARTH_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
+const EXCLUDED_COUNTRY_ISO3 = new Set(["BMU"]);
 const COUNTRY_PROFILE_CACHE_TTL_MS = 10 * 60 * 1000;
 const COUNTRY_REQUEST_TIMEOUT_MS = 35000;
 const COUNTRY_RETRY_DELAY_MS = 450;
@@ -39,6 +40,10 @@ function normalizeCountryName(value) {
     .replace(/[\u0300-\u036f]/g, "")
     .trim()
     .toLowerCase();
+}
+
+function isExcludedCountryFeature(feature) {
+  return EXCLUDED_COUNTRY_ISO3.has(normalizeIso3(feature?.id));
 }
 
 function wait(ms) {
@@ -107,7 +112,7 @@ export default function WorldExplorer() {
       .then((json) => {
         if (!mounted) return;
         const features = Array.isArray(json?.features) ? json.features : [];
-        setCountries(features.filter((item) => item?.geometry));
+        setCountries(features.filter((item) => item?.geometry && !isExcludedCountryFeature(item)));
       })
       .catch(() => {
         if (!mounted) return;
