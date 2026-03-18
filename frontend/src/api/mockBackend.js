@@ -1,13 +1,7 @@
 import countriesBaseline from "../data/countriesBaseline.json";
+import demoLocations from "../data/demoLocations.json";
 
-const DEMO_LOCATIONS = [
-  { id: "new_york", name: "New York", country: "US", lat: 40.7128, lon: -74.006 },
-  { id: "istanbul", name: "Istanbul", country: "TR", lat: 41.0082, lon: 28.9784 },
-  { id: "berlin", name: "Berlin", country: "DE", lat: 52.52, lon: 13.405 },
-  { id: "tokyo", name: "Tokyo", country: "JP", lat: 35.6762, lon: 139.6503 },
-  { id: "sao_paulo", name: "Sao Paulo", country: "BR", lat: -23.5558, lon: -46.6396 },
-  { id: "nairobi", name: "Nairobi", country: "KE", lat: -1.2864, lon: 36.8172 },
-];
+const DEMO_LOCATIONS = Array.isArray(demoLocations) ? demoLocations : [];
 
 function normalizeAliasKey(value) {
   return String(value || "")
