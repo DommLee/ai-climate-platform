@@ -7,25 +7,63 @@ import { api } from "../api/client";
 import { useClimate } from "../context/ClimateContext";
 import { useI18n } from "../context/I18nContext";
 import SafeResponsiveChart from "../components/SafeResponsiveChart";
+import countriesBaseline from "../data/countriesBaseline.json";
+import worldCountriesGeo from "../data/worldCountries.json";
 
-const COUNTRIES_GEOJSON_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
-const COUNTRIES_GEOJSON_FALLBACK_URL = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
+const COUNTRIES_GEOJSON_REMOTE_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
+const COUNTRIES_GEOJSON_REMOTE_FALLBACK_URL = "https://cdn.jsdelivr.net/gh/johan/world.geo.json@master/countries.geo.json";
 const EARTH_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg";
 const EARTH_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
 const DEFAULT_EXCLUDED_COUNTRY_ISO3 = new Set(["BMU"]);
 const LARGE_COUNTRY_ISO3 = new Set(["RUS", "CAN", "USA", "CHN", "BRA", "AUS", "IND", "ARG", "DZA", "SAU"]);
-const MANUALLY_EXCLUDED_COUNTRY_NAMES = new Set(["bermuda"]);
+const MANUALLY_EXCLUDED_COUNTRY_NAME_TOKENS = ["bermuda"];
 const COUNTRY_PROFILE_CACHE_TTL_MS = 10 * 60 * 1000;
 const COUNTRY_REQUEST_TIMEOUT_MS = 35000;
 const COUNTRY_RETRY_DELAY_MS = 450;
-const COUNTRY_NAME_ALIASES = {
-  turkiye: "turkey",
-  "turkiye cumhuriyeti": "turkey",
-  "united states": "united states of america",
-  usa: "united states of america",
-  abd: "united states of america",
-  uk: "united kingdom",
+const COUNTRY_NAME_TO_ISO3_ALIASES = {
+  turkiye: "TUR",
+  turkey: "TUR",
+  "turkiye cumhuriyeti": "TUR",
+  "united states": "USA",
+  "united states of america": "USA",
+  usa: "USA",
+  abd: "USA",
+  uk: "GBR",
+  "united kingdom": "GBR",
+  "great britain": "GBR",
 };
+
+const COUNTRY_NAME_ALIASES = {
+  "u.s.a": "USA",
+  england: "GBR",
+  scotland: "GBR",
+  wales: "GBR",
+  russia: "RUS",
+  "south korea": "KOR",
+  "north korea": "PRK",
+};
+
+function buildCountryNameToIso3Map() {
+  const map = new Map();
+  (countriesBaseline || []).forEach((entry) => {
+    const iso3 = normalizeIso3(entry?.cca3);
+    if (!iso3 || iso3.length !== 3) return;
+    const candidates = [entry?.name_common, entry?.name_official, ...(Array.isArray(entry?.alt_spellings) ? entry.alt_spellings : [])];
+    candidates.forEach((candidate) => {
+      const normalized = normalizeCountryName(candidate);
+      if (!normalized || map.has(normalized)) return;
+      map.set(normalized, iso3);
+    });
+  });
+  Object.entries(COUNTRY_NAME_TO_ISO3_ALIASES).forEach(([alias, iso3]) => {
+    const normalizedAlias = normalizeCountryName(alias);
+    const normalizedIso3 = normalizeIso3(iso3);
+    if (normalizedAlias && normalizedIso3.length === 3) map.set(normalizedAlias, normalizedIso3);
+  });
+  return map;
+}
+
+const COUNTRY_NAME_TO_ISO3 = buildCountryNameToIso3Map();
 
 function formatNumber(value) {
   if (value === null || value === undefined) return "-";
@@ -38,14 +76,48 @@ function normalizeIso3(value) {
     .toUpperCase();
 }
 
+function normalizeIsoCandidate(value) {
+  const iso = normalizeIso3(value);
+  if (iso.length !== 3) return "";
+  if (!/^[A-Z0-9]{3}$/.test(iso)) return "";
+  if (iso === "-99") return "";
+  return iso;
+}
+
+function isoFromFeatureName(feature) {
+  const normalizedName = normalizeCountryName(feature?.properties?.name);
+  if (!normalizedName) return "";
+  return normalizeIsoCandidate(COUNTRY_NAME_TO_ISO3.get(normalizedName));
+}
+
 function featureIso3(feature) {
-  return normalizeIso3(
-    feature?.id ||
-      feature?.properties?.iso_a3 ||
-      feature?.properties?.ISO_A3 ||
-      feature?.properties?.adm0_a3 ||
-      feature?.properties?.ADM0_A3,
-  );
+  const geometryCandidates = [
+    feature?.properties?.iso_a3,
+    feature?.properties?.ISO_A3,
+    feature?.properties?.adm0_a3,
+    feature?.properties?.ADM0_A3,
+    feature?.id,
+  ]
+    .map((item) => normalizeIsoCandidate(item))
+    .filter(Boolean);
+  const isoFromName = isoFromFeatureName(feature);
+  if (geometryCandidates.length) return geometryCandidates[0];
+  return isoFromName || "";
+}
+
+function featureIsoCandidates(feature) {
+  const isoCandidates = [
+    feature?.properties?.iso_a3,
+    feature?.properties?.ISO_A3,
+    feature?.properties?.adm0_a3,
+    feature?.properties?.ADM0_A3,
+    feature?.id,
+  ]
+    .map((item) => normalizeIsoCandidate(item))
+    .filter(Boolean);
+  const isoFromName = isoFromFeatureName(feature);
+  if (isoFromName && !isoCandidates.includes(isoFromName)) isoCandidates.push(isoFromName);
+  return isoCandidates;
 }
 
 function normalizeCountryName(value) {
@@ -94,10 +166,10 @@ function isAnomalousGeometry(feature) {
 }
 
 function isExcludedCountryFeature(feature, excludedIso3) {
-  const iso3 = featureIso3(feature);
+  const isoCandidates = featureIsoCandidates(feature);
   const normalizedName = normalizeCountryName(feature?.properties?.name);
-  if (excludedIso3.has(iso3)) return true;
-  if (MANUALLY_EXCLUDED_COUNTRY_NAMES.has(normalizedName)) return true;
+  if (isoCandidates.some((item) => excludedIso3.has(item))) return true;
+  if (normalizedName && MANUALLY_EXCLUDED_COUNTRY_NAME_TOKENS.some((token) => normalizedName.includes(token))) return true;
   if (isAnomalousGeometry(feature)) return true;
   return false;
 }
@@ -172,19 +244,23 @@ export default function WorldExplorer() {
     setGeoLoading(true);
 
     const load = async () => {
-      const sources = [COUNTRIES_GEOJSON_URL, COUNTRIES_GEOJSON_FALLBACK_URL];
-      let loadedFeatures = null;
-      for (const sourceUrl of sources) {
-        try {
-          const response = await fetch(sourceUrl);
-          if (!response.ok) continue;
-          const json = await response.json();
-          const features = Array.isArray(json?.features) ? json.features : [];
-          if (!features.length) continue;
-          loadedFeatures = features;
-          break;
-        } catch {
-          // Continue with next source.
+      const localFeatures = Array.isArray(worldCountriesGeo?.features) ? worldCountriesGeo.features : [];
+      let loadedFeatures = localFeatures.length ? localFeatures : null;
+
+      if (!loadedFeatures) {
+        const remoteSources = [COUNTRIES_GEOJSON_REMOTE_URL, COUNTRIES_GEOJSON_REMOTE_FALLBACK_URL];
+        for (const sourceUrl of remoteSources) {
+          try {
+            const response = await fetch(sourceUrl);
+            if (!response.ok) continue;
+            const json = await response.json();
+            const features = Array.isArray(json?.features) ? json.features : [];
+            if (!features.length) continue;
+            loadedFeatures = features;
+            break;
+          } catch {
+            // Continue with next source.
+          }
         }
       }
 
@@ -427,8 +503,9 @@ export default function WorldExplorer() {
       if (asIso3.length === 3 && countriesByIso3.has(asIso3)) return countriesByIso3.get(asIso3);
 
       const aliasTarget = COUNTRY_NAME_ALIASES[normalizedQuery];
-      if (aliasTarget && countriesByNormalizedName.has(aliasTarget)) {
-        return countriesByNormalizedName.get(aliasTarget);
+      if (aliasTarget) {
+        const aliasIso3 = normalizeIso3(aliasTarget);
+        if (aliasIso3.length === 3 && countriesByIso3.has(aliasIso3)) return countriesByIso3.get(aliasIso3);
       }
 
       if (countriesByNormalizedName.has(normalizedQuery)) {

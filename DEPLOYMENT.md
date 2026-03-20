@@ -76,8 +76,17 @@ Steps:
    - optional: `EMDAT_API_KEY`, `COPERNICUS_API_KEY`
 3. Deploy and verify backend:
    - `https://<your-api>.onrender.com/api/v1/health`
+   - `python scripts/smoke_api.py --base-url https://<your-api>.onrender.com`
 4. In GitHub repo settings, set `VITE_API_BASE_URL=https://<your-api>.onrender.com`.
 5. Push to `main` (or rerun Pages workflow) to update frontend.
+
+### Staging -> Main Gate
+
+1. Set `STAGING_API_BASE_URL` in GitHub repository variables/secrets.
+2. Push to `staging` branch:
+   - workflow `Staging Smoke Gate` must pass.
+3. Merge `staging` into `main` only after green smoke checks.
+4. `main` Pages deploy now includes `smoke-gate` and blocks deployment if API checks fail.
 
 ## 5) Docker VPS Path (Alternative)
 

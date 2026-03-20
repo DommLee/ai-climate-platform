@@ -4,6 +4,7 @@ This repository contains a global AI-powered climate risk platform.
 
 ## Live Demo
 - Frontend (GitHub Pages): [https://dommlee.github.io/ai-climate-platform/](https://dommlee.github.io/ai-climate-platform/)
+- API (Render): set your live URL in repository variable/secret `VITE_API_BASE_URL`
 
 ## Stack
 - Backend: FastAPI + SQLAlchemy + APScheduler + ReportLab
@@ -50,6 +51,10 @@ This repository contains a global AI-powered climate risk platform.
    - `GROQ_API_KEY`
    - `OPENAI_API_KEY`
    - `GEMINI_API_KEY`
+   - `LLM_PRIMARY_PROVIDER=groq`
+   - `LLM_SECONDARY_PROVIDER=gemini`
+   - `GROQ_MODEL=llama-3.3-70b-versatile`
+   - `GEMINI_MODEL=gemini-1.5-flash`
    - Optional secret binding:
       - `OPENAI_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
       - `GROQ_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
@@ -61,6 +66,9 @@ This repository contains a global AI-powered climate risk platform.
    - API docs: `http://localhost:8000/docs`
    - 3D World Explorer: `http://localhost:5180/world`
    - Country Compare: `http://localhost:5180/compare`
+
+4. Smoke check (local or remote API):
+   - `python scripts/smoke_api.py --base-url http://localhost:8000`
 
 ## Notes
 - Worker performs scheduled ingestion every 15 minutes.
@@ -90,9 +98,14 @@ This repository contains a global AI-powered climate risk platform.
    - You can add it as either:
      - Repository Variable: `VITE_API_BASE_URL`, or
      - Repository Secret: `VITE_API_BASE_URL`
-3. Push to `main`; workflow `Deploy Frontend to GitHub Pages` will publish automatically.
+3. Push to `main`; workflow `Deploy Frontend to GitHub Pages` runs an API smoke gate before publish.
 4. Page URL will be:
    - `https://dommlee.github.io/ai-climate-platform/`
+
+### Staging -> Main Gate
+1. Set staging API URL in `STAGING_API_BASE_URL` (repo variable or secret).
+2. Push to `staging`; workflow `Staging Smoke Gate` validates API + frontend build.
+3. Merge `staging` into `main` only after staging smoke is green.
 
 ## Deploy Backend on Render
 1. In Render dashboard, create Blueprint from this repo (`render.yaml`).

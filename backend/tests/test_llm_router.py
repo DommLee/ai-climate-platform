@@ -26,7 +26,7 @@ def test_llm_router_fallback_returns_valid_payload() -> None:
     assert payload.summary
     assert len(payload.recommendations) >= 3
     assert payload.citations
-    assert decision.provider in {"openai", "gemini", "fallback"}
+    assert decision.provider in {"openai", "gemini", "groq", "fallback"}
     assert isinstance(decision.fallback_used, bool)
 
 

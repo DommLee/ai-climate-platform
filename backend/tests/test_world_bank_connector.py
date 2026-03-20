@@ -1,7 +1,11 @@
+from app.connectors import world_bank
 from app.connectors.world_bank import fetch_world_bank_metrics
 
 
 def test_world_bank_connector_parses_metrics(monkeypatch):
+    world_bank.WORLD_BANK_CACHE.clear()
+    world_bank.OWID_CO2_CACHE = None
+
     def fake_get_json(url, params=None, headers=None):
         if "country/WLD/indicator/" in url:
             return [
@@ -36,6 +40,9 @@ def test_world_bank_connector_parses_metrics(monkeypatch):
 
 
 def test_world_bank_connector_falls_back_to_owid_for_co2(monkeypatch):
+    world_bank.WORLD_BANK_CACHE.clear()
+    world_bank.OWID_CO2_CACHE = None
+
     def fake_get_json(url, params=None, headers=None):
         if "EN.ATM.CO2E.PC" in url:
             return [{"page": 1}, [{"date": "2024", "value": None}]]

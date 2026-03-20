@@ -24,7 +24,7 @@ function WeatherItem({ icon, label, value }) {
 
 export default function Dashboard() {
   const { t } = useI18n();
-  const { snapshot, riskData, forecastSeries, events, globalHotspots, loading, error, locations, locationId, setLocationId } = useClimate();
+  const { snapshot, riskData, forecastSeries, events, globalHotspots, loading, error, locations, locationId, setLocationId, runtimeStatus, systemStatus } = useClimate();
 
   if (loading) {
     return <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-zinc-300">{t("loading")}</div>;
@@ -49,8 +49,14 @@ export default function Dashboard() {
         </div>
 
         <div className="space-y-4">
-          <DataHealthBanner sourceAttribution={snapshot.source_attribution} />
-          <RiskGaugeCard risk={snapshot.risk} generatedAt={snapshot.generated_at} sourceAttribution={snapshot.source_attribution} />
+          <DataHealthBanner sourceAttribution={snapshot.source_attribution} runtimeStatus={runtimeStatus} systemStatus={systemStatus} />
+          <RiskGaugeCard
+            risk={snapshot.risk}
+            generatedAt={snapshot.generated_at}
+            sourceAttribution={snapshot.source_attribution}
+            runtimeStatus={runtimeStatus}
+            systemStatus={systemStatus}
+          />
           <OperationalCommandPanel snapshot={snapshot} riskData={riskData} events={events} locationName={location?.name} />
           <MapEmbed lat={location?.lat} lon={location?.lon} locationName={location?.name} countryCode={location?.country} />
           <GlobalHotspotsPanel items={globalHotspots} currentLocationId={locationId} onSelectLocation={setLocationId} />

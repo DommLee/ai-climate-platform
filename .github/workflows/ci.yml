@@ -27,6 +27,13 @@ jobs:
         run: |
           python -m compileall backend/app backend/main.py backend/worker.py
 
+      - name: Backend targeted tests
+        run: |
+          python -m pytest \
+            backend/tests/test_llm_router.py \
+            backend/tests/test_countries_profile.py \
+            backend/tests/test_world_bank_connector.py -q
+
   frontend-build:
     runs-on: ubuntu-latest
     steps:

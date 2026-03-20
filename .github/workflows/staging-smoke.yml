@@ -1,0 +1,69 @@
+name: Staging Smoke Gate
+
+on:
+  push:
+    branches: ["staging"]
+  workflow_dispatch:
+
+jobs:
+  staging-smoke:
+    runs-on: ubuntu-latest
+    env:
+      API_BASE_FROM_VAR: ${{ vars.STAGING_API_BASE_URL }}
+      API_BASE_FROM_SECRET: ${{ secrets.STAGING_API_BASE_URL }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install smoke dependencies
+        run: pip install requests
+
+      - name: Resolve staging API base url
+        id: resolve
+        shell: bash
+        run: |
+          sanitize_api_base() {
+            case "$1" in
+              ""|"STAGING_API_BASE_URL"|"undefined"|"null")
+                echo ""
+                ;;
+              *)
+                echo "$1"
+                ;;
+            esac
+          }
+
+          API_BASE_FROM_SECRET="$(sanitize_api_base "$API_BASE_FROM_SECRET")"
+          API_BASE_FROM_VAR="$(sanitize_api_base "$API_BASE_FROM_VAR")"
+          API_BASE_URL="${API_BASE_FROM_SECRET:-$API_BASE_FROM_VAR}"
+
+          if [ -z "$API_BASE_URL" ]; then
+            echo "::error::STAGING_API_BASE_URL is not configured."
+            exit 1
+          fi
+          echo "api_base_url=$API_BASE_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Run staging API smoke tests
+        run: python scripts/smoke_api.py --base-url "${{ steps.resolve.outputs.api_base_url }}"
+
+      - name: Build frontend against staging API
+        working-directory: frontend
+        env:
+          VITE_BASE_PATH: /
+          VITE_ROUTER_MODE: browser
+          VITE_API_BASE_URL: ${{ steps.resolve.outputs.api_base_url }}
+        run: |
+          npm ci
+          npm run build

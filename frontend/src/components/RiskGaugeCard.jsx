@@ -2,7 +2,15 @@ import React from "react";
 import { AlertTriangle, ShieldAlert } from "lucide-react";
 import { useI18n } from "../context/I18nContext";
 
-export default function RiskGaugeCard({ risk, generatedAt, sourceAttribution }) {
+function resolveMode(runtimeStatus, systemStatus) {
+  const runtimeModeRaw = String(runtimeStatus?.mode || "LIVE");
+  const backendModeRaw = String(systemStatus?.mode || "LIVE");
+  if (runtimeModeRaw === "DEMO") return "DEMO";
+  if (backendModeRaw === "LIVE_WITH_FALLBACK" || runtimeModeRaw === "LIVE_WITH_FALLBACK") return "LIVE_WITH_FALLBACK";
+  return "LIVE";
+}
+
+export default function RiskGaugeCard({ risk, generatedAt, sourceAttribution, runtimeStatus = null, systemStatus = null }) {
   const { t } = useI18n();
   if (!risk) return null;
 
@@ -10,6 +18,8 @@ export default function RiskGaugeCard({ risk, generatedAt, sourceAttribution }) 
   const colorClass = score >= 75 ? "text-red-400" : score >= 45 ? "text-amber-300" : "text-emerald-300";
   const Icon = score >= 70 ? AlertTriangle : ShieldAlert;
   const sources = Array.isArray(sourceAttribution) ? sourceAttribution : [];
+  const runtimeMode = resolveMode(runtimeStatus, systemStatus);
+  const fallbackReason = String(runtimeStatus?.reason || "").trim();
 
   return (
     <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
@@ -36,6 +46,12 @@ export default function RiskGaugeCard({ risk, generatedAt, sourceAttribution }) 
       <div className="mt-4 rounded-lg border border-zinc-800 bg-zinc-950/50 p-3">
         <p className="text-xs uppercase tracking-wide text-zinc-400">Generated</p>
         <p className="mt-1 text-sm text-zinc-200">{generatedAt ? new Date(generatedAt).toLocaleString() : "-"}</p>
+        {runtimeMode !== "LIVE" ? (
+          <p className="mt-2 text-xs font-semibold text-amber-300">
+            {runtimeMode}
+            {fallbackReason ? ` | ${fallbackReason}` : ""}
+          </p>
+        ) : null}
         <div className="mt-3 space-y-1">
           {sources.slice(0, 3).map((item, idx) => (
             <p key={`${item.source}-${idx}`} className="text-xs text-zinc-400">

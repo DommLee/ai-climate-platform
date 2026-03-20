@@ -47,39 +47,25 @@ export default function ReportPanel() {
       sources,
       autoPrint,
     });
-    const popup = window.open("about:blank", "_blank");
-
-    try {
-      if (popup && popup.document) {
-        popup.document.open();
-        popup.document.write(html);
-        popup.document.close();
-        return;
-      }
-    } catch {
-      // Continue to URL-based fallback.
-    }
+    let blobUrl = "";
 
     try {
       const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-      const blobUrl = URL.createObjectURL(blob);
-      if (popup && !popup.closed) {
-        popup.location.href = blobUrl;
-      } else {
-        window.open(blobUrl, "_blank");
-      }
-      setTimeout(() => URL.revokeObjectURL(blobUrl), 90_000);
-      return;
+      blobUrl = URL.createObjectURL(blob);
     } catch {
-      // Continue to data URL fallback.
+      blobUrl = "";
     }
 
-    const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
-    if (popup && !popup.closed) {
-      popup.location.href = dataUrl;
-    } else {
-      window.open(dataUrl, "_blank");
+    const targetUrl = blobUrl || `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
+    const popup = window.open(targetUrl, "_blank", "noopener,noreferrer");
+    if (!popup) {
+      const anchor = document.createElement("a");
+      anchor.href = targetUrl;
+      anchor.target = "_blank";
+      anchor.rel = "noopener noreferrer";
+      anchor.click();
     }
+    if (blobUrl) setTimeout(() => URL.revokeObjectURL(blobUrl), 90_000);
   };
 
   return (

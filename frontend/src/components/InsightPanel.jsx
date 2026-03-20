@@ -99,6 +99,7 @@ export default function InsightPanel({ insight, snapshot, riskData, events = [],
   const risk = snapshot?.risk || riskData?.latest || null;
   const trend = inferRiskTrend(riskData?.history || []);
   const sourceAttribution = insight?.source_attribution || snapshot?.source_attribution || [];
+  const runtimeModeRaw = String(insight?.provider || "").toLowerCase() === "fallback" ? "LIVE_WITH_FALLBACK" : null;
   const avgTrust = sourceAttribution.length
     ? sourceAttribution.reduce((sum, item) => sum + Number(item?.trust_score || 0), 0) / sourceAttribution.length
     : null;
@@ -174,6 +175,7 @@ export default function InsightPanel({ insight, snapshot, riskData, events = [],
         <p className="mt-1 text-xs text-zinc-500">
           {insight.provider}/{insight.model} | {new Date(insight.generated_at).toLocaleString()}
         </p>
+        {runtimeModeRaw ? <p className="mt-2 text-xs font-semibold text-amber-300">{runtimeModeRaw}</p> : null}
         <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className="rounded-lg border border-zinc-800 bg-zinc-950/50 p-3">
             <p className="text-[11px] uppercase tracking-wide text-zinc-500">{t("riskScore")}</p>

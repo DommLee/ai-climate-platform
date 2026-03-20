@@ -646,12 +646,15 @@ function makeCountryProfile(countryRef, lang = "en") {
     };
   });
 
-  const macroMetrics = [
-    { label: "Renewable energy share", indicator_id: "EG.FEC.RNEW.ZS", value: Number(seeded(`${iso3}:ren`, 9, 48).toFixed(2)), unit: "%", year: 2024, benchmark_value: 27.8, delta_pct_vs_benchmark: Number(seeded(`${iso3}:ren:delta`, -28, 34).toFixed(1)) },
-    { label: "CO2 emissions per capita", indicator_id: "EN.ATM.CO2E.PC", value: Number(seeded(`${iso3}:co2`, 1.4, 14.2).toFixed(2)), unit: "t", year: 2023, benchmark_value: 4.7, delta_pct_vs_benchmark: Number(seeded(`${iso3}:co2:delta`, -38, 52).toFixed(1)) },
-    { label: "Forest area", indicator_id: "AG.LND.FRST.ZS", value: Number(seeded(`${iso3}:forest`, 10, 64).toFixed(2)), unit: "%", year: 2023, benchmark_value: 31.1, delta_pct_vs_benchmark: Number(seeded(`${iso3}:forest:delta`, -29, 26).toFixed(1)) },
-    { label: "GDP per capita", indicator_id: "NY.GDP.PCAP.CD", value: Number(seeded(`${iso3}:gdp`, 4000, 75000).toFixed(0)), unit: "USD", year: 2024, benchmark_value: 13200, delta_pct_vs_benchmark: Number(seeded(`${iso3}:gdp:delta`, -42, 180).toFixed(1)) },
-  ];
+  const macroMetrics = LIVE_INDICATORS.map((indicator) => ({
+    label: indicator.label,
+    indicator_id: indicator.id,
+    value: null,
+    unit: indicator.unit,
+    year: null,
+    benchmark_value: null,
+    delta_pct_vs_benchmark: null,
+  }));
 
   const resilience = {
     overall_resilience_score: Number(seeded(`${iso3}:res`, 38, 86).toFixed(1)),

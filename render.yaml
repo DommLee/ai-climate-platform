@@ -23,7 +23,7 @@ services:
       - key: CORS_ORIGINS
         value: https://dommlee.github.io
       - key: TRUSTED_HOSTS
-        value: "*.onrender.com,localhost,127.0.0.1"
+        value: "*.onrender.com,dommlee.github.io"
       - key: DATABASE_URL
         sync: false
       - key: REDIS_URL
@@ -62,7 +62,7 @@ services:
       - key: CORS_ORIGINS
         value: https://dommlee.github.io
       - key: TRUSTED_HOSTS
-        value: "*.onrender.com,localhost,127.0.0.1"
+        value: "*.onrender.com,dommlee.github.io"
       - key: DATABASE_URL
         sync: false
       - key: REDIS_URL
