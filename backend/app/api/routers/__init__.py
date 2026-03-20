@@ -6,8 +6,10 @@ from app.api.routers.health import router as health_router
 from app.api.routers.locations import router as locations_router
 from app.api.routers.maps import router as maps_router
 from app.api.routers.observability import router as observability_router
+from app.api.routers.opportunities import router as opportunities_router
 from app.api.routers.reports import router as reports_router
 from app.api.routers.sources import router as sources_router
+from app.api.routers.system import router as system_router
 
 __all__ = [
     "health_router",
@@ -16,8 +18,10 @@ __all__ = [
     "reports_router",
     "sources_router",
     "observability_router",
+    "opportunities_router",
     "governance_router",
     "compliance_router",
     "maps_router",
     "feedback_router",
+    "system_router",
 ]

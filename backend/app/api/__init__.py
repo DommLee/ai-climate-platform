@@ -9,8 +9,10 @@ from app.api.routers import (
     locations_router,
     maps_router,
     observability_router,
+    opportunities_router,
     reports_router,
     sources_router,
+    system_router,
 )
 
 api_router = APIRouter(prefix="/api/v1")
@@ -24,3 +26,5 @@ api_router.include_router(governance_router)
 api_router.include_router(compliance_router)
 api_router.include_router(maps_router)
 api_router.include_router(feedback_router)
+api_router.include_router(system_router)
+api_router.include_router(opportunities_router)

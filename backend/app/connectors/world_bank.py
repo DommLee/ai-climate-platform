@@ -20,6 +20,14 @@ OWID_CO2_CACHE_TTL_HOURS = 24
 OWID_CO2_CACHE: tuple[datetime, Dict[str, tuple[float, int]]] | None = None
 
 WORLD_BANK_INDICATORS = {
+    "SP.POP.TOTL": {
+        "label": "Population, total",
+        "unit": "people",
+    },
+    "AG.SRF.TOTL.K2": {
+        "label": "Surface area",
+        "unit": "km2",
+    },
     "EN.ATM.CO2E.PC": {
         "label": "CO2 emissions per capita",
         "unit": "t CO2/person",

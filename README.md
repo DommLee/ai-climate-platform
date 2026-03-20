@@ -29,6 +29,10 @@ This repository contains a global AI-powered climate risk platform.
 - `GET /api/v1/maps/geocode?query=...`
 - `GET /api/v1/maps/tile/{z}/{x}/{y}.png`
 - `GET /api/v1/countries/{country_code}/profile?lang=tr|en&days=90`
+- `GET /api/v1/countries`
+- `GET /api/v1/countries/{country_code}/cities`
+- `GET /api/v1/system/status`
+- `GET /api/v1/opportunities`
 - `POST /api/v1/feedback`
 - `GET /api/v1/feedback`
 - `GET /api/v1/health/alerts`
@@ -43,11 +47,13 @@ This repository contains a global AI-powered climate risk platform.
 
 ## Local Run
 1. Set API keys as environment variables if needed:
+   - `GROQ_API_KEY`
    - `OPENAI_API_KEY`
    - `GEMINI_API_KEY`
    - Optional secret binding:
-     - `OPENAI_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
-     - `GEMINI_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
+      - `OPENAI_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
+      - `GROQ_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
+      - `GEMINI_API_KEY_SECRET_NAME=YOUR_ENV_VAR_NAME`
 2. Start stack:
    - `docker compose up --build -d`
 3. Open:
@@ -92,7 +98,7 @@ This repository contains a global AI-powered climate risk platform.
 1. In Render dashboard, create Blueprint from this repo (`render.yaml`).
 2. For both services (`ai-climate-api`, `ai-climate-worker`) set the same required secrets:
    - `DATABASE_URL` (recommended: managed Postgres connection string)
-   - `OPENAI_API_KEY`, `GEMINI_API_KEY`
+   - `GROQ_API_KEY`, `GEMINI_API_KEY` (optional third: `OPENAI_API_KEY`)
    - optional: `EMDAT_API_KEY`, `COPERNICUS_API_KEY`
 3. After backend deploy, copy API URL (for example `https://ai-climate-api.onrender.com`).
 4. In GitHub repo settings, set `VITE_API_BASE_URL` to that URL and redeploy Pages.

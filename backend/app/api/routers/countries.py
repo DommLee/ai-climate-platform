@@ -15,9 +15,14 @@ from app.api.deps import get_llm_router
 from app.config import get_settings
 from app.connectors import fetch_emdat_events, fetch_gdelt_news, fetch_news_rss, fetch_reliefweb_events, fetch_world_bank_metrics
 from app.connectors.base import ConnectorMetadata, ConnectorResult
+from app.country_filters import EXCLUDED_COUNTRY_ISO3
 from app.llm_router.models import InsightRequest
 from app.llm_router.router import LLMRouter
+from app.locations import list_locations
 from app.schemas import (
+    CountriesCatalogResponse,
+    CountryCatalogItem,
+    CountryCitiesResponse,
     CountryHistoricalSummary,
     CountryInsight,
     CountryMacroMetric,
@@ -38,6 +43,7 @@ logger = logging.getLogger(__name__)
 
 COUNTRY_CACHE_TTL_HOURS = 24
 COUNTRY_META_CACHE: Dict[str, tuple[datetime, dict]] = {}
+COUNTRY_INDEX_CACHE: tuple[datetime, dict[str, dict]] | None = None
 SOURCE_TRUST = {
     "reliefweb": 0.85,
     "gdelt": 0.74,
@@ -135,6 +141,55 @@ def _localized(lang: str, tr_text: str, en_text: str) -> str:
     return tr_text if lang == "tr" else en_text
 
 
+def _normalize_country_token(value: str) -> str:
+    return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+
+def _choose_country_row(rows: list[dict], query: str, expected_iso2: str | None = None, expected_iso3: str | None = None) -> dict | None:
+    best_row = None
+    best_score = -10_000
+    normalized_query = _normalize_country_token(query)
+    for row in rows:
+        if not isinstance(row, dict):
+            continue
+        row_iso2 = str(row.get("cca2") or "").upper()
+        row_iso3 = str(row.get("cca3") or "").upper()
+        common_name = str(row.get("name", {}).get("common") or "")
+        official_name = str(row.get("name", {}).get("official") or "")
+        normalized_common = _normalize_country_token(common_name)
+        normalized_official = _normalize_country_token(official_name)
+
+        if expected_iso2 and row_iso2 and row_iso2 != expected_iso2:
+            continue
+        if expected_iso3 and row_iso3 and row_iso3 != expected_iso3:
+            continue
+
+        score = 0
+        if expected_iso2 and row_iso2 == expected_iso2:
+            score += 5000
+        if expected_iso3 and row_iso3 == expected_iso3:
+            score += 5000
+        if normalized_query:
+            if normalized_query == normalized_common:
+                score += 4000
+            if normalized_query == normalized_official:
+                score += 3500
+            if normalized_common.startswith(normalized_query):
+                score += 1800
+            if normalized_query in normalized_common:
+                score += 900
+            if normalized_query in normalized_official:
+                score += 700
+            if len(normalized_query) >= 3 and normalized_query in _normalize_country_token(f"{row_iso2} {row_iso3}"):
+                score += 600
+
+        if score > best_score:
+            best_score = score
+            best_row = row
+
+    return best_row
+
+
 def _clamp(value: float, min_value: float = 0.0, max_value: float = 1.0) -> float:
     return max(min_value, min(max_value, value))
 
@@ -178,6 +233,16 @@ def _metric_delta(macro_metrics: List[dict], indicator_id: str) -> float | None:
         except Exception:
             return None
     return None
+
+
+def _metric_int(macro_metrics: List[dict], indicator_id: str) -> int | None:
+    value = _metric_value(macro_metrics, indicator_id)
+    if value is None:
+        return None
+    try:
+        return int(round(value))
+    except Exception:
+        return None
 
 
 def _fmt_metric(value: float | None, suffix: str = "", digits: int = 1) -> str:
@@ -542,10 +607,16 @@ def _extract_country_meta(country_code: str) -> dict:
         return cached[1]
 
     fields = "name,cca2,cca3,capital,population,area,region,latlng"
-    candidate_urls = []
-    if len(key) in (2, 3) and key.isalnum():
+    candidate_urls: list[str] = []
+    expected_iso3 = key if len(key) == 3 and key.isalnum() else None
+    expected_iso2 = key if len(key) == 2 and key.isalnum() else None
+    if expected_iso2 or expected_iso3:
+        # For code-based requests, query alpha endpoint only to prevent accidental
+        # country drift (e.g., ambiguous name search returning a different ISO).
         candidate_urls.append(f"https://restcountries.com/v3.1/alpha/{key}?fields={fields}")
-    candidate_urls.append(f"https://restcountries.com/v3.1/name/{country_code.strip()}?fullText=true&fields={fields}")
+    else:
+        candidate_urls.append(f"https://restcountries.com/v3.1/name/{country_code.strip()}?fullText=true&fields={fields}")
+        candidate_urls.append(f"https://restcountries.com/v3.1/name/{country_code.strip()}?fullText=false&fields={fields}")
 
     payload = None
     for url in candidate_urls:
@@ -554,21 +625,28 @@ def _extract_country_meta(country_code: str) -> dict:
             if response.status_code >= 400:
                 continue
             data = response.json()
-            if isinstance(data, list) and data:
-                payload = data[0]
-                break
-            if isinstance(data, dict) and data:
-                payload = data
+            rows = data if isinstance(data, list) else ([data] if isinstance(data, dict) else [])
+            if not rows:
+                continue
+            selected = _choose_country_row(
+                rows,
+                query=raw_country_code,
+                expected_iso2=expected_iso2,
+                expected_iso3=expected_iso3,
+            )
+
+            if selected:
+                payload = selected
                 break
         except Exception:
             continue
 
     if not payload:
-        if len(key) in (2, 3):
+        if expected_iso2 or expected_iso3:
             fallback_meta = {
                 "country_name": key,
-                "iso2": key if len(key) == 2 else None,
-                "iso3": key if len(key) == 3 else key,
+                "iso2": expected_iso2,
+                "iso3": expected_iso3 or key,
                 "region": None,
                 "capital": None,
                 "population": None,
@@ -600,6 +678,113 @@ def _extract_country_meta(country_code: str) -> dict:
     if meta["iso2"]:
         COUNTRY_META_CACHE[str(meta["iso2"]).upper()] = (expires_at, meta)
     return meta
+
+
+def _fetch_country_index() -> dict[str, dict]:
+    global COUNTRY_INDEX_CACHE
+    now = datetime.now(timezone.utc)
+    if COUNTRY_INDEX_CACHE and COUNTRY_INDEX_CACHE[0] > now:
+        return COUNTRY_INDEX_CACHE[1]
+
+    settings = get_settings()
+    index: dict[str, dict] = {}
+    try:
+        fields = "name,cca2,cca3"
+        response = requests.get(
+            f"https://restcountries.com/v3.1/all?fields={fields}",
+            timeout=settings.request_timeout_seconds,
+        )
+        if response.status_code < 400:
+            rows = response.json()
+            if isinstance(rows, list):
+                for row in rows:
+                    if not isinstance(row, dict):
+                        continue
+                    iso2 = str(row.get("cca2") or "").upper()
+                    iso3 = str(row.get("cca3") or "").upper()
+                    country_name = str(row.get("name", {}).get("common") or iso3 or iso2)
+                    if not iso2:
+                        continue
+                    index[iso2] = {
+                        "iso2": iso2,
+                        "iso3": iso3 or iso2,
+                        "country_name": country_name,
+                    }
+    except Exception:
+        index = {}
+
+    COUNTRY_INDEX_CACHE = (now + timedelta(hours=COUNTRY_CACHE_TTL_HOURS), index)
+    return index
+
+
+@router.get("", response_model=CountriesCatalogResponse)
+def get_countries() -> CountriesCatalogResponse:
+    now = datetime.now(timezone.utc)
+    country_counts: Dict[str, int] = {}
+    country_sample_location: Dict[str, dict] = {}
+    country_index = _fetch_country_index()
+    for item in list_locations(core_only=False):
+        iso2 = str(item.get("country") or "").upper()
+        if not iso2:
+            continue
+        country_counts[iso2] = country_counts.get(iso2, 0) + 1
+        country_sample_location.setdefault(iso2, item)
+
+    rows: list[CountryCatalogItem] = []
+    for iso2, city_count in country_counts.items():
+        record = country_index.get(iso2)
+        if record is None:
+            try:
+                meta = _extract_country_meta(iso2)
+                record = {
+                    "iso2": iso2,
+                    "iso3": str(meta.get("iso3") or iso2).upper(),
+                    "country_name": str(meta.get("country_name") or iso2),
+                }
+            except Exception:
+                record = {
+                    "iso2": iso2,
+                    "iso3": iso2,
+                    "country_name": str(country_sample_location[iso2].get("country") or iso2),
+                }
+
+        iso3 = str(record.get("iso3") or iso2).upper()
+        if iso3 in EXCLUDED_COUNTRY_ISO3:
+            continue
+        rows.append(
+            CountryCatalogItem(
+                iso2=iso2,
+                iso3=iso3,
+                country_name=str(record.get("country_name") or iso3),
+                city_count=city_count,
+            )
+        )
+
+    rows.sort(key=lambda item: item.country_name.lower())
+    return CountriesCatalogResponse(generated_at=now, items=rows)
+
+
+@router.get("/{country_code}/cities", response_model=CountryCitiesResponse)
+def get_country_cities(country_code: str) -> CountryCitiesResponse:
+    meta = _extract_country_meta(country_code)
+    iso2 = str(meta.get("iso2") or "").upper() or None
+    iso3 = str(meta.get("iso3") or country_code).upper()
+    if iso3 in EXCLUDED_COUNTRY_ISO3:
+        raise HTTPException(status_code=404, detail="Country is excluded from world explorer due to geometry constraints")
+
+    locations = [
+        item
+        for item in list_locations(core_only=False)
+        if not iso2 or str(item.get("country") or "").upper() == iso2
+    ]
+    locations.sort(key=lambda item: str(item.get("name") or "").lower())
+    return CountryCitiesResponse(
+        generated_at=datetime.now(timezone.utc),
+        iso2=iso2,
+        iso3=iso3,
+        country_name=str(meta.get("country_name") or iso3),
+        items=locations,
+    )
 
 
 def _infer_primary_threat(events: List[dict]) -> str:
@@ -775,6 +960,8 @@ def get_country_profile(
     llm_router: LLMRouter = Depends(get_llm_router),
 ) -> CountryProfileResponse:
     meta = _extract_country_meta(country_code)
+    if str(meta.get("iso3") or "").upper() in EXCLUDED_COUNTRY_ISO3:
+        raise HTTPException(status_code=404, detail="Country is excluded from world explorer due to geometry constraints")
     country_name = meta["country_name"]
 
     connector_results = _collect_country_connector_results(country_name)
@@ -840,6 +1027,26 @@ def get_country_profile(
         )
         macro_metrics = []
     if macro_metrics:
+        # Prefer live macro indicators for population/area to keep profile values consistent across countries.
+        population_live = _metric_int(macro_metrics, "SP.POP.TOTL")
+        area_live = _metric_value(macro_metrics, "AG.SRF.TOTL.K2")
+        baseline_population = int(meta["population"]) if meta.get("population") not in (None, 0) else None
+        baseline_area = float(meta["area_km2"]) if meta.get("area_km2") not in (None, 0) else None
+
+        population_trustworthy = True
+        if baseline_population and population_live:
+            ratio = population_live / float(baseline_population)
+            population_trustworthy = 0.2 <= ratio <= 5.0
+        if population_live is not None and population_live > 0 and population_trustworthy:
+            meta["population"] = population_live
+
+        area_trustworthy = True
+        if baseline_area and area_live:
+            ratio = area_live / float(baseline_area)
+            area_trustworthy = 0.2 <= ratio <= 5.0
+        if area_live is not None and area_live > 0 and area_trustworthy:
+            meta["area_km2"] = round(area_live, 2)
+
         macro_sources = sorted({str(item.get("source") or "world_bank") for item in macro_metrics})
         existing_sources = {item.source for item in source_attribution}
         for macro_source in macro_sources:

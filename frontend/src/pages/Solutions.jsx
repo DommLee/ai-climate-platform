@@ -7,6 +7,7 @@ import InsightPanel from "../components/InsightPanel";
 import ReportPanel from "../components/ReportPanel";
 import SourcesPanel from "../components/SourcesPanel";
 import StrategicRoadmapPanel from "../components/StrategicRoadmapPanel";
+import OpportunitiesPanel from "../components/OpportunitiesPanel";
 
 export default function Solutions() {
   const { t } = useI18n();
@@ -34,6 +35,7 @@ export default function Solutions() {
         <ReportPanel />
         <FeedbackPanel />
         <StrategicRoadmapPanel />
+        <OpportunitiesPanel />
         <GovernancePanel complianceItems={complianceItems} modelVersions={modelVersions} />
         <SourcesPanel sources={sources} />
       </div>

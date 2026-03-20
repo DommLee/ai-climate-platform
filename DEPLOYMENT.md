@@ -72,7 +72,7 @@ Steps:
 1. Render -> New -> Blueprint -> select this GitHub repo.
 2. Set shared env vars for both services:
    - `DATABASE_URL` (same Postgres connection for web + worker)
-   - `OPENAI_API_KEY`, `GEMINI_API_KEY`
+   - `GROQ_API_KEY`, `GEMINI_API_KEY` (optional fallback/tertiary: `OPENAI_API_KEY`)
    - optional: `EMDAT_API_KEY`, `COPERNICUS_API_KEY`
 3. Deploy and verify backend:
    - `https://<your-api>.onrender.com/api/v1/health`
@@ -93,7 +93,7 @@ docker compose up --build -d
 
 ## 6) Production Hardening Checklist
 
-- Store `OPENAI_API_KEY` and `GEMINI_API_KEY` only in secret manager.
+- Store `GROQ_API_KEY`, `GEMINI_API_KEY`, and `OPENAI_API_KEY` only in secret manager.
 - Restrict CORS and trusted hosts to your real domains.
 - Keep `HTTPS only` and secure headers enabled.
 - Enable backup policy for Postgres and Redis.

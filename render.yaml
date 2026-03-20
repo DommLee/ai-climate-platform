@@ -16,6 +16,10 @@ services:
         value: "false"
       - key: SECRET_MANAGER_MODE
         value: env
+      - key: LLM_PRIMARY_PROVIDER
+        value: groq
+      - key: LLM_SECONDARY_PROVIDER
+        value: gemini
       - key: CORS_ORIGINS
         value: https://dommlee.github.io
       - key: TRUSTED_HOSTS
@@ -25,6 +29,8 @@ services:
       - key: REDIS_URL
         sync: false
       - key: OPENAI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
         sync: false
       - key: GEMINI_API_KEY
         sync: false
@@ -49,6 +55,10 @@ services:
         value: "false"
       - key: SECRET_MANAGER_MODE
         value: env
+      - key: LLM_PRIMARY_PROVIDER
+        value: groq
+      - key: LLM_SECONDARY_PROVIDER
+        value: gemini
       - key: CORS_ORIGINS
         value: https://dommlee.github.io
       - key: TRUSTED_HOSTS
@@ -58,6 +68,8 @@ services:
       - key: REDIS_URL
         sync: false
       - key: OPENAI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
         sync: false
       - key: GEMINI_API_KEY
         sync: false

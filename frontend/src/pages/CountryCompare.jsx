@@ -43,8 +43,10 @@ export default function CountryCompare() {
   const navigate = useNavigate();
   const [codesInput, setCodesInput] = useState("TUR,DEU,JPN,USA");
   const [rows, setRows] = useState([]);
+  const [usingCachedRows, setUsingCachedRows] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const cacheKey = "country_compare_last_snapshot_v1";
 
   const parsedCodes = useMemo(() => {
     const raw = String(codesInput || "");
@@ -89,10 +91,34 @@ export default function CountryCompare() {
           }),
         ),
       );
-      setRows(responses.map((response) => response.data));
+      const nextRows = responses.map((response) => response.data);
+      setRows(nextRows);
+      setUsingCachedRows(false);
+      try {
+        localStorage.setItem(cacheKey, JSON.stringify({ generated_at: new Date().toISOString(), items: nextRows }));
+      } catch {
+        // Ignore cache write errors.
+      }
     } catch (requestError) {
-      setError(requestError?.response?.data?.detail || "Comparison request failed");
-      setRows([]);
+      const detail = requestError?.response?.data?.detail || "Comparison request failed";
+      let cachedRows = [];
+      try {
+        const raw = localStorage.getItem(cacheKey);
+        const parsed = raw ? JSON.parse(raw) : null;
+        cachedRows = Array.isArray(parsed?.items) ? parsed.items : [];
+      } catch {
+        cachedRows = [];
+      }
+
+      if (cachedRows.length) {
+        setRows(cachedRows);
+        setUsingCachedRows(true);
+        setError(`${detail} (cached snapshot shown)`);
+      } else {
+        setError(detail);
+        setRows([]);
+        setUsingCachedRows(false);
+      }
     } finally {
       setLoading(false);
     }
@@ -186,6 +212,13 @@ export default function CountryCompare() {
 
       {rows.length ? (
         <div className="space-y-4">
+          {usingCachedRows ? (
+            <div className="rounded-xl border border-amber-900 bg-amber-950/30 p-3 text-xs text-amber-200">
+              {lang === "tr"
+                ? "Canli karsilastirma su anda ulasilamiyor. Son basarili cache snapshot gosteriliyor."
+                : "Live comparison is currently unavailable. Last successful cached snapshot is displayed."}
+            </div>
+          ) : null}
           {comparisonHighlights ? (
             <div className="grid grid-cols-1 gap-3 xl:grid-cols-4">
               <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-4">

@@ -6,7 +6,7 @@ from typing import Tuple
 
 from app.config import get_settings
 from app.llm_router.models import DecisionMetadata, InsightPayload, InsightRequest
-from app.llm_router.providers import call_gemini, call_openai
+from app.llm_router.providers import call_gemini, call_groq, call_openai
 from app.llm_router.sanitization import extract_json_blob, sanitize_evidence, truncate_text
 
 
@@ -131,6 +131,8 @@ class LLMRouter:
             return call_openai(self.settings, prompt, system_prompt)
         if provider == "gemini":
             return call_gemini(self.settings, prompt, system_prompt)
+        if provider == "groq":
+            return call_groq(self.settings, prompt, system_prompt)
         raise RuntimeError(f"Unsupported provider: {provider}")
 
     def _model_for(self, provider: str) -> str:
@@ -139,6 +141,8 @@ class LLMRouter:
             return self.settings.openai_model
         if provider == "gemini":
             return self.settings.gemini_model
+        if provider == "groq":
+            return self.settings.groq_model
         return "unknown"
 
     def _validate_payload(self, raw_text: str) -> InsightPayload:

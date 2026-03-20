@@ -74,3 +74,37 @@ def call_gemini(settings: Settings, prompt: str, system_prompt: str) -> str:
     if not text:
         raise RuntimeError("Gemini text output is empty")
     return str(text)
+
+
+def call_groq(settings: Settings, prompt: str, system_prompt: str) -> str:
+    if not settings.groq_api_key:
+        raise RuntimeError("GROQ_API_KEY is missing")
+
+    url = "https://api.groq.com/openai/v1/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {settings.groq_api_key}",
+        "Content-Type": "application/json",
+    }
+    payload: dict[str, Any] = {
+        "model": settings.groq_model,
+        "temperature": 0.2,
+        "max_tokens": settings.llm_max_output_tokens,
+        "response_format": {"type": "json_object"},
+        "messages": [
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": prompt},
+        ],
+    }
+
+    response = requests.post(url, headers=headers, json=payload, timeout=settings.llm_timeout_seconds)
+    if response.status_code >= 400:
+        raise RuntimeError(f"Groq call failed: {response.status_code} {response.text[:400]}")
+
+    data = response.json()
+    choices = data.get("choices", [])
+    if not choices:
+        raise RuntimeError("Groq response has no choices")
+    content = choices[0].get("message", {}).get("content")
+    if not content:
+        raise RuntimeError("Groq response content is empty")
+    return str(content)

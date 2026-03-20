@@ -22,6 +22,8 @@ function buildCountryLookups() {
     if (!iso3 || iso3.length !== 3) return;
 
     countryData[iso3] = {
+      iso2: String(entry?.cca2 || "").trim().toUpperCase() || null,
+      iso3,
       country_name: String(entry?.name_common || iso3),
       region: String(entry?.region || "Global"),
       capital: String(entry?.capital || "-"),
@@ -70,6 +72,7 @@ Object.entries(MANUAL_COUNTRY_ALIASES).forEach(([alias, iso3]) => {
 });
 
 const THREATS = ["drought", "flood", "wildfire", "heatwave"];
+const EXCLUDED_COUNTRY_ISO3 = new Set(["BMU"]);
 const SOURCE_ATTRIBUTION = [
   { source: "open_meteo", freshness_minutes: 35, trust_score: 0.92 },
   { source: "nasa_power", freshness_minutes: 240, trust_score: 0.89 },
@@ -446,7 +449,7 @@ function makeCompliance() {
 function makeModelVersions() {
   return {
     prompt_version: "v1",
-    primary: { provider: "openai", model: "gpt-4.1-mini" },
+    primary: { provider: "groq", model: "llama-3.3-70b-versatile" },
     secondary: { provider: "gemini", model: "gemini-1.5-flash" },
   };
 }
@@ -466,6 +469,126 @@ function makeRankings(limit = 8) {
       .sort((a, b) => b.overall_score - a.overall_score)
       .slice(0, limit),
   };
+}
+
+function getCountryMetaByIso3(iso3) {
+  const normalized = String(iso3 || "").trim().toUpperCase();
+  const item = COUNTRY_DATA[normalized];
+  if (item) return item;
+  return null;
+}
+
+function makeCountriesCatalog() {
+  const grouped = new Map();
+  DEMO_LOCATIONS.forEach((location) => {
+    const iso2 = String(location?.country || "").toUpperCase();
+    if (!iso2) return;
+    const iso3 = COUNTRY_ISO2_TO_ISO3[iso2] || iso2;
+    if (EXCLUDED_COUNTRY_ISO3.has(iso3)) return;
+    const existing = grouped.get(iso3) || { iso2, iso3, country_name: iso3, city_count: 0 };
+    const liveCountry = getCountryMetaByIso3(iso3);
+    existing.country_name = liveCountry?.country_name || existing.country_name;
+    existing.city_count += 1;
+    grouped.set(iso3, existing);
+  });
+
+  const items = [...grouped.values()].sort((a, b) => String(a.country_name).localeCompare(String(b.country_name), "en"));
+  return { generated_at: nowIso(), items };
+}
+
+function makeCountryCities(countryRef) {
+  const iso3 = resolveCountryCode(countryRef);
+  if (EXCLUDED_COUNTRY_ISO3.has(iso3)) {
+    return {
+      generated_at: nowIso(),
+      iso2: null,
+      iso3,
+      country_name: iso3,
+      items: [],
+    };
+  }
+
+  const countryMeta = getCountryMetaByIso3(iso3);
+  const iso2 = String(countryMeta?.iso2 || "").toUpperCase() || null;
+  const items = DEMO_LOCATIONS.filter((item) => {
+    if (!iso2) return resolveCountryCode(item.country) === iso3;
+    return String(item.country || "").toUpperCase() === iso2;
+  }).sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "en"));
+
+  return {
+    generated_at: nowIso(),
+    iso2,
+    iso3,
+    country_name: countryMeta?.country_name || iso3,
+    items,
+  };
+}
+
+function makeSystemStatus() {
+  return {
+    generated_at: nowIso(),
+    mode: "DEMO",
+    fallback_enabled: true,
+    llm_primary_provider: "groq",
+    llm_secondary_provider: "gemini",
+    providers: [
+      { provider: "groq", configured: false, model: "llama-3.3-70b-versatile" },
+      { provider: "gemini", configured: false, model: "gemini-1.5-flash" },
+      { provider: "openai", configured: false, model: "gpt-4.1-mini" },
+    ],
+    excluded_country_iso3: [...EXCLUDED_COUNTRY_ISO3],
+    location_count: DEMO_LOCATIONS.length,
+  };
+}
+
+function makeOpportunities(lang = "tr") {
+  const items =
+    lang === "tr"
+      ? [
+          {
+            id: "opp-reliefweb-demo",
+            title: "ReliefWeb Iklim Cagrilari",
+            organization: "ReliefWeb",
+            summary: "Canli cagri akisina ulasilamadiginda bu kart fallback olarak gorunur. Sistem canli kaynaga otomatik geri dener.",
+            source_url: "https://reliefweb.int/updates?search=climate%20funding&format=rss",
+            source: "reliefweb",
+            published_at: nowIso(),
+            tags: ["iklim", "hibe", "program"],
+          },
+          {
+            id: "opp-worldbank-demo",
+            title: "World Bank Climate Programs",
+            organization: "World Bank",
+            summary: "Surdurulebilirlik odakli fon ve program duyurulari bu alanda listelenir.",
+            source_url: "https://www.worldbank.org/en/topic/climatechange",
+            source: "world_bank",
+            published_at: nowIso(),
+            tags: ["climate", "funding"],
+          },
+        ]
+      : [
+          {
+            id: "opp-reliefweb-demo",
+            title: "ReliefWeb Climate Calls",
+            organization: "ReliefWeb",
+            summary: "When live feeds are unavailable this card is shown as transparent fallback while automatic retries continue.",
+            source_url: "https://reliefweb.int/updates?search=climate%20funding&format=rss",
+            source: "reliefweb",
+            published_at: nowIso(),
+            tags: ["climate", "grant", "program"],
+          },
+          {
+            id: "opp-worldbank-demo",
+            title: "World Bank Climate Programs",
+            organization: "World Bank",
+            summary: "Sustainability-focused funding and program notices are listed in this stream.",
+            source_url: "https://www.worldbank.org/en/topic/climatechange",
+            source: "world_bank",
+            published_at: nowIso(),
+            tags: ["climate", "funding"],
+          },
+        ];
+  return { generated_at: nowIso(), items };
 }
 
 function toTitleCase(value) {
@@ -488,9 +611,6 @@ function resolveCountryCode(input) {
   const normalized = normalizeAliasKey(raw);
   if (COUNTRY_ALIASES[normalized]) return COUNTRY_ALIASES[normalized];
 
-  const compact = normalized.replace(/[^a-z]/g, "");
-  if (compact.length >= 3) return compact.slice(0, 3).toUpperCase();
-
   return "UNK";
 }
 
@@ -500,12 +620,12 @@ function buildFallbackCountry(iso3, countryRef) {
   const countryName = prettyFromRef || iso3;
   return {
     country_name: countryName,
-    region: "Global",
+    region: null,
     capital: "-",
-    population: Math.round(seeded(`${iso3}:population`, 300000, 1500000000)),
-    area_km2: Math.round(seeded(`${iso3}:area`, 10000, 18000000)),
-    lat: Number(seeded(`${iso3}:lat`, -52, 74).toFixed(2)),
-    lon: Number(seeded(`${iso3}:lon`, -170, 170).toFixed(2)),
+    population: null,
+    area_km2: null,
+    lat: null,
+    lon: null,
   };
 }
 
@@ -612,6 +732,10 @@ async function makeCountryProfileLive(countryRef, lang = "en") {
     const liveMeta = await fetchCountryMetaLive(iso3, countryRef);
     if (liveMeta) {
       const liveIso3 = String(liveMeta?.cca3 || iso3).toUpperCase();
+      if (iso3 && iso3 !== "UNK" && liveIso3 && liveIso3 !== iso3) {
+        LIVE_COUNTRY_PROFILE_CACHE.set(cacheKey, { cachedAt: Date.now(), data: profile });
+        return profile;
+      }
       profile.iso3 = liveIso3;
       profile.country_name = String(liveMeta?.name?.common || profile.country_name || liveIso3);
       profile.region = String(liveMeta?.subregion || liveMeta?.region || profile.region || "Global");
@@ -623,10 +747,31 @@ async function makeCountryProfileLive(countryRef, lang = "en") {
 
       const worldBankCountryCode = String(liveMeta?.cca2 || liveIso3 || "").toLowerCase();
       if (worldBankCountryCode) {
-        const liveMetrics = await fetchMacroMetricsLive(worldBankCountryCode);
+        const [liveMetrics, livePopulation, liveArea] = await Promise.all([
+          fetchMacroMetricsLive(worldBankCountryCode),
+          fetchWorldBankIndicator(worldBankCountryCode, "SP.POP.TOTL"),
+          fetchWorldBankIndicator(worldBankCountryCode, "AG.SRF.TOTL.K2"),
+        ]);
         if (liveMetrics.length) {
           profile.macro_metrics = liveMetrics;
         }
+        const populationValue = toFiniteOrNull(livePopulation?.value, 0);
+        const areaValue = toFiniteOrNull(liveArea?.value, 2);
+
+        const baselinePopulation = toFiniteOrNull(profile.population, 0);
+        const baselineArea = toFiniteOrNull(profile.area_km2, 2);
+
+        const populationTrustworthy =
+          populationValue !== null &&
+          (baselinePopulation === null ||
+            baselinePopulation === 0 ||
+            (populationValue / baselinePopulation >= 0.2 && populationValue / baselinePopulation <= 5));
+        const areaTrustworthy =
+          areaValue !== null &&
+          (baselineArea === null || baselineArea === 0 || (areaValue / baselineArea >= 0.2 && areaValue / baselineArea <= 5));
+
+        if (populationTrustworthy) profile.population = populationValue;
+        if (areaTrustworthy) profile.area_km2 = areaValue;
       }
     }
   } catch {
@@ -641,9 +786,13 @@ function parseRequest(config) {
   const method = String(config?.method || "get").toLowerCase();
   const rawUrl = String(config?.url || "");
   const url = rawUrl.startsWith("http") ? new URL(rawUrl) : new URL(rawUrl, "https://example.com");
+  const normalizedPathname = String(url.pathname || "/").replace(/\/+$/, "") || "/";
+  const apiStartIndex = normalizedPathname.toLowerCase().indexOf("/api/v1/");
+  const apiPath = apiStartIndex >= 0 ? normalizedPathname.slice(apiStartIndex) : normalizedPathname;
   return {
     method,
-    pathname: url.pathname,
+    pathname: apiPath,
+    raw_pathname: normalizedPathname,
     params: config?.params || {},
     data: config?.data,
   };
@@ -661,6 +810,24 @@ function parseJson(value) {
 
 export async function resolveMockResponse(config) {
   const req = parseRequest(config);
+
+  if (req.method === "get" && req.pathname === "/api/v1/system/status") {
+    return makeSystemStatus();
+  }
+
+  if (req.method === "get" && req.pathname === "/api/v1/countries") {
+    return makeCountriesCatalog();
+  }
+
+  const countryCitiesMatch = req.pathname.match(/^\/api\/v1\/countries\/([^/]+)\/cities$/);
+  if (req.method === "get" && countryCitiesMatch) {
+    const countryRef = decodeURIComponent(countryCitiesMatch[1]);
+    return makeCountryCities(countryRef);
+  }
+
+  if (req.method === "get" && req.pathname === "/api/v1/opportunities") {
+    return makeOpportunities(req.params?.lang || "tr");
+  }
 
   if (req.method === "get" && req.pathname === "/api/v1/locations") {
     return DEMO_LOCATIONS;

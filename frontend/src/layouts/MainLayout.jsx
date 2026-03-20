@@ -8,7 +8,23 @@ import LanguageToggle from "../components/LanguageToggle";
 
 export default function MainLayout() {
   const { t } = useI18n();
-  const { refreshData, loading } = useClimate();
+  const { refreshData, loading, runtimeStatus, systemStatus } = useClimate();
+
+  const runtimeModeRaw = String(runtimeStatus?.mode || "LIVE");
+  const backendModeRaw = String(systemStatus?.mode || "LIVE");
+  const runtimeMode =
+    runtimeModeRaw === "DEMO"
+      ? "DEMO"
+      : backendModeRaw === "LIVE_WITH_FALLBACK" || runtimeModeRaw === "LIVE_WITH_FALLBACK"
+        ? "LIVE_WITH_FALLBACK"
+        : "LIVE";
+  const modeClass =
+    runtimeMode === "LIVE"
+      ? "border-emerald-700/70 bg-emerald-500/10 text-emerald-300"
+      : runtimeMode === "LIVE_WITH_FALLBACK"
+        ? "border-amber-700/70 bg-amber-500/10 text-amber-300"
+        : "border-zinc-700 bg-zinc-800/60 text-zinc-200";
+  const providerHint = systemStatus?.llm_primary_provider ? `LLM: ${String(systemStatus.llm_primary_provider).toUpperCase()}` : null;
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -24,6 +40,8 @@ export default function MainLayout() {
           </div>
 
           <div className="flex items-center gap-3">
+            <div className={`rounded-md border px-2 py-1 text-[10px] font-semibold tracking-wide ${modeClass}`}>{runtimeMode}</div>
+            {providerHint ? <div className="hidden text-[10px] text-zinc-400 md:block">{providerHint}</div> : null}
             <LocationSelect />
             <LanguageToggle />
             <button

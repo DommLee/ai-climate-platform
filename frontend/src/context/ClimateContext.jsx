@@ -1,5 +1,6 @@
-﻿import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { api } from "../api/client";
+import { getRuntimeStatus, subscribeRuntimeStatus } from "../api/runtimeConfig";
 import { useI18n } from "./I18nContext";
 
 const ClimateContext = createContext(null);
@@ -19,6 +20,8 @@ export function ClimateProvider({ children }) {
   const [complianceItems, setComplianceItems] = useState([]);
   const [modelVersions, setModelVersions] = useState(null);
   const [globalHotspots, setGlobalHotspots] = useState([]);
+  const [systemStatus, setSystemStatus] = useState(null);
+  const [runtimeStatus, setRuntimeStatus] = useState(getRuntimeStatus());
 
   const [reportJob, setReportJob] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,10 +49,26 @@ export function ClimateProvider({ children }) {
     if (hotspotsRes.status === "fulfilled") setGlobalHotspots(hotspotsRes.value.data?.items || []);
   }, []);
 
+  const fetchSystemStatus = useCallback(async () => {
+    try {
+      const { data } = await api.get("/api/v1/system/status");
+      setSystemStatus(data || null);
+    } catch {
+      setSystemStatus(null);
+    }
+  }, []);
+
   const fetchForLocation = useCallback(
     async (selectedLocationId, forceInsight = false) => {
-      const snapshotRes = await api.get(`/api/v1/locations/${selectedLocationId}/snapshot`);
-      setSnapshot(snapshotRes.data);
+      try {
+        const snapshotRes = await api.get(`/api/v1/locations/${selectedLocationId}/snapshot`);
+        setSnapshot(snapshotRes.data);
+      } catch (snapshotError) {
+        const keepExisting = snapshot && String(snapshot.location_id || "") === String(selectedLocationId || "");
+        if (!keepExisting) {
+          throw snapshotError;
+        }
+      }
 
       const settled = await Promise.allSettled([
         api.get(`/api/v1/locations/${selectedLocationId}/risks`),
@@ -74,20 +93,20 @@ export function ClimateProvider({ children }) {
       if (settled[4].status === "fulfilled") setInsight(settled[4].value.data);
       if (settled[5].status === "fulfilled") setGlobalHotspots(settled[5].value.data?.items || []);
     },
-    [lang],
+    [lang, snapshot],
   );
 
   const bootstrap = useCallback(async () => {
     setLoading(true);
     setError(null);
-    try {
-      await Promise.all([fetchLocations(), fetchStaticPanels()]);
-    } catch (err) {
-      setError(err?.response?.data?.detail || "Bootstrap failed");
-    } finally {
-      setLoading(false);
+    const settled = await Promise.allSettled([fetchLocations(), fetchStaticPanels(), fetchSystemStatus()]);
+    const failures = settled.filter((item) => item.status === "rejected");
+    if (failures.length) {
+      const firstError = failures[0];
+      setError(firstError?.reason?.response?.data?.detail || firstError?.reason?.message || "Bootstrap partially failed");
     }
-  }, [fetchLocations, fetchStaticPanels]);
+    setLoading(false);
+  }, [fetchLocations, fetchStaticPanels, fetchSystemStatus]);
 
   const refreshData = useCallback(
     async ({ forceInsight = false } = {}) => {
@@ -140,6 +159,10 @@ export function ClimateProvider({ children }) {
     return () => clearInterval(timer);
   }, [locationId, refreshData]);
 
+  useEffect(() => {
+    return subscribeRuntimeStatus((next) => setRuntimeStatus(next));
+  }, []);
+
   const value = useMemo(
     () => ({
       locations,
@@ -156,6 +179,8 @@ export function ClimateProvider({ children }) {
       modelVersions,
       globalHotspots,
       reportJob,
+      systemStatus,
+      runtimeStatus,
       loading,
       error,
       refreshData,
@@ -176,6 +201,8 @@ export function ClimateProvider({ children }) {
       modelVersions,
       globalHotspots,
       reportJob,
+      systemStatus,
+      runtimeStatus,
       loading,
       error,
       refreshData,

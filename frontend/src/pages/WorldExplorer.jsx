@@ -4,13 +4,17 @@ import { LoaderCircle, Search } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from "recharts";
 import { useLocation } from "react-router-dom";
 import { api } from "../api/client";
+import { useClimate } from "../context/ClimateContext";
 import { useI18n } from "../context/I18nContext";
 import SafeResponsiveChart from "../components/SafeResponsiveChart";
 
 const COUNTRIES_GEOJSON_URL = "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json";
+const COUNTRIES_GEOJSON_FALLBACK_URL = "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson";
 const EARTH_TEXTURE_URL = "https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg";
 const EARTH_BUMP_URL = "https://unpkg.com/three-globe/example/img/earth-topology.png";
-const EXCLUDED_COUNTRY_ISO3 = new Set(["BMU"]);
+const DEFAULT_EXCLUDED_COUNTRY_ISO3 = new Set(["BMU"]);
+const LARGE_COUNTRY_ISO3 = new Set(["RUS", "CAN", "USA", "CHN", "BRA", "AUS", "IND", "ARG", "DZA", "SAU"]);
+const MANUALLY_EXCLUDED_COUNTRY_NAMES = new Set(["bermuda"]);
 const COUNTRY_PROFILE_CACHE_TTL_MS = 10 * 60 * 1000;
 const COUNTRY_REQUEST_TIMEOUT_MS = 35000;
 const COUNTRY_RETRY_DELAY_MS = 450;
@@ -34,6 +38,16 @@ function normalizeIso3(value) {
     .toUpperCase();
 }
 
+function featureIso3(feature) {
+  return normalizeIso3(
+    feature?.id ||
+      feature?.properties?.iso_a3 ||
+      feature?.properties?.ISO_A3 ||
+      feature?.properties?.adm0_a3 ||
+      feature?.properties?.ADM0_A3,
+  );
+}
+
 function normalizeCountryName(value) {
   return String(value || "")
     .normalize("NFD")
@@ -42,8 +56,50 @@ function normalizeCountryName(value) {
     .toLowerCase();
 }
 
-function isExcludedCountryFeature(feature) {
-  return EXCLUDED_COUNTRY_ISO3.has(normalizeIso3(feature?.id));
+function collectCoordinates(node, output) {
+  if (!Array.isArray(node)) return;
+  if (node.length >= 2 && typeof node[0] === "number" && typeof node[1] === "number") {
+    output.push([Number(node[0]), Number(node[1])]);
+    return;
+  }
+  node.forEach((item) => collectCoordinates(item, output));
+}
+
+function isAnomalousGeometry(feature) {
+  const points = [];
+  collectCoordinates(feature?.geometry?.coordinates, points);
+  if (points.length < 3) return true;
+
+  let minLon = Infinity;
+  let maxLon = -Infinity;
+  let minLat = Infinity;
+  let maxLat = -Infinity;
+
+  points.forEach(([lon, lat]) => {
+    if (!Number.isFinite(lon) || !Number.isFinite(lat)) return;
+    minLon = Math.min(minLon, lon);
+    maxLon = Math.max(maxLon, lon);
+    minLat = Math.min(minLat, lat);
+    maxLat = Math.max(maxLat, lat);
+  });
+
+  if (!Number.isFinite(minLon) || !Number.isFinite(maxLon) || !Number.isFinite(minLat) || !Number.isFinite(maxLat)) return true;
+  const lonSpan = maxLon - minLon;
+  const latSpan = maxLat - minLat;
+  const bboxArea = lonSpan * latSpan;
+  const iso3 = featureIso3(feature);
+  if (latSpan > 170 || lonSpan > 330) return true;
+  if (bboxArea > 20000 && !LARGE_COUNTRY_ISO3.has(iso3)) return true;
+  return false;
+}
+
+function isExcludedCountryFeature(feature, excludedIso3) {
+  const iso3 = featureIso3(feature);
+  const normalizedName = normalizeCountryName(feature?.properties?.name);
+  if (excludedIso3.has(iso3)) return true;
+  if (MANUALLY_EXCLUDED_COUNTRY_NAMES.has(normalizedName)) return true;
+  if (isAnomalousGeometry(feature)) return true;
+  return false;
 }
 
 function wait(ms) {
@@ -88,6 +144,7 @@ function scoreTone(score) {
 
 export default function WorldExplorer() {
   const { lang, t } = useI18n();
+  const { systemStatus } = useClimate();
   const routeLocation = useLocation();
   const globeRef = useRef(null);
   const globeContainerRef = useRef(null);
@@ -103,28 +160,52 @@ export default function WorldExplorer() {
   const [globeSize, setGlobeSize] = useState({ width: 0, height: 0 });
   const [profileLoading, setProfileLoading] = useState(false);
   const [error, setError] = useState(null);
+  const excludedIso3 = useMemo(() => {
+    const values = [...DEFAULT_EXCLUDED_COUNTRY_ISO3];
+    const dynamicValues = Array.isArray(systemStatus?.excluded_country_iso3) ? systemStatus.excluded_country_iso3 : [];
+    dynamicValues.forEach((item) => values.push(normalizeIso3(item)));
+    return new Set(values.filter(Boolean));
+  }, [systemStatus]);
 
   useEffect(() => {
     let mounted = true;
     setGeoLoading(true);
-    fetch(COUNTRIES_GEOJSON_URL)
-      .then((res) => res.json())
-      .then((json) => {
-        if (!mounted) return;
-        const features = Array.isArray(json?.features) ? json.features : [];
-        setCountries(features.filter((item) => item?.geometry && !isExcludedCountryFeature(item)));
-      })
-      .catch(() => {
-        if (!mounted) return;
+
+    const load = async () => {
+      const sources = [COUNTRIES_GEOJSON_URL, COUNTRIES_GEOJSON_FALLBACK_URL];
+      let loadedFeatures = null;
+      for (const sourceUrl of sources) {
+        try {
+          const response = await fetch(sourceUrl);
+          if (!response.ok) continue;
+          const json = await response.json();
+          const features = Array.isArray(json?.features) ? json.features : [];
+          if (!features.length) continue;
+          loadedFeatures = features;
+          break;
+        } catch {
+          // Continue with next source.
+        }
+      }
+
+      if (!mounted) return;
+      if (!loadedFeatures?.length) {
         setError("World geometry could not be loaded.");
-      })
-      .finally(() => {
-        if (mounted) setGeoLoading(false);
-      });
+        setCountries([]);
+        setGeoLoading(false);
+        return;
+      }
+
+      const filtered = loadedFeatures.filter((item) => item?.geometry && !isExcludedCountryFeature(item, excludedIso3));
+      setCountries(filtered);
+      setGeoLoading(false);
+    };
+
+    load();
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [excludedIso3]);
 
   useEffect(() => {
     if (!globeRef.current) return;
@@ -158,7 +239,7 @@ export default function WorldExplorer() {
   const countriesByIso3 = useMemo(() => {
     const lookup = new Map();
     countries.forEach((feature) => {
-      const iso3 = normalizeIso3(feature?.id);
+      const iso3 = featureIso3(feature);
       if (!iso3) return;
       lookup.set(iso3, feature);
     });
@@ -169,6 +250,7 @@ export default function WorldExplorer() {
     () =>
       countries.map((feature) => ({
         feature,
+        iso3: featureIso3(feature),
         normalizedName: normalizeCountryName(feature?.properties?.name),
       })),
     [countries],
@@ -215,6 +297,10 @@ export default function WorldExplorer() {
 
       const uniqueCandidates = [...new Set(candidates.map((item) => String(item || "").trim()).filter(Boolean))];
       if (!uniqueCandidates.length) return;
+      if (normalizedIso3.length === 3 && excludedIso3.has(normalizedIso3)) {
+        setError(lang === "tr" ? "Bu ulke geometri guvenlik filtresi nedeniyle devre disi." : "This country is disabled by geometry safety filters.");
+        return;
+      }
 
       const cacheKey = uniqueCandidates[0].toUpperCase();
       const cached = profileCacheRef.current.get(cacheKey);
@@ -268,8 +354,16 @@ export default function WorldExplorer() {
             }
             const payload = response.data;
             const responseIso3 = normalizeIso3(payload?.iso3);
+            if (!responseIso3) {
+              lastError = new Error("country_profile_missing_iso3");
+              continue;
+            }
             if (normalizedExpectedIso3.length === 3 && responseIso3 && responseIso3 !== normalizedExpectedIso3) {
               lastError = new Error(`country_mismatch:${normalizedExpectedIso3}:${responseIso3}`);
+              continue;
+            }
+            if (excludedIso3.has(responseIso3)) {
+              lastError = new Error(`excluded_country:${responseIso3}`);
               continue;
             }
             data = payload;
@@ -307,14 +401,21 @@ export default function WorldExplorer() {
       } catch (err) {
         if (err?.code === "ERR_CANCELED" || err?.name === "CanceledError" || abortController.signal.aborted) return;
         if (activeRequestRef.current !== requestId) return;
-        setError(err?.response?.data?.detail || "Country profile fetch failed");
+        const detail = String(err?.response?.data?.detail || err?.message || "");
+        if (detail.startsWith("country_mismatch")) {
+          setError(lang === "tr" ? "Secilen ulke ile donen profil uyusmuyor. Lutfen baska ulke sec." : "Selected country and returned profile do not match. Please retry.");
+        } else if (detail.startsWith("excluded_country")) {
+          setError(lang === "tr" ? "Bu ulke geometri guvenlik filtresi nedeniyle devre disi birakildi." : "This country is excluded due to geometry safety filters.");
+        } else {
+          setError(err?.response?.data?.detail || "Country profile fetch failed");
+        }
       } finally {
         if (activeRequestRef.current === requestId) {
           setProfileLoading(false);
         }
       }
     },
-    [lang, countriesByIso3, countriesByNormalizedName],
+    [lang, countriesByIso3, countriesByNormalizedName, excludedIso3],
   );
 
   const findCountryFeature = useCallback(
@@ -347,9 +448,13 @@ export default function WorldExplorer() {
 
   const openFeatureProfile = useCallback(
     async (feature) => {
-      const iso3 = normalizeIso3(feature?.id);
+      const iso3 = featureIso3(feature);
       const countryName = String(feature?.properties?.name || "").trim();
       if (!iso3 && !countryName) return;
+      if (excludedIso3.has(iso3)) {
+        setError(lang === "tr" ? "Bu ulke geometri guvenlik filtresi nedeniyle devre disi." : "This country is disabled by geometry safety filters.");
+        return;
+      }
 
       setSelectedCountry(feature);
       setCountryQuery(countryName || iso3);
@@ -360,7 +465,7 @@ export default function WorldExplorer() {
         strictIso3: Boolean(iso3),
       });
     },
-    [loadCountryProfile],
+    [excludedIso3, lang, loadCountryProfile],
   );
 
   const handleCountrySearch = async (event) => {
@@ -375,6 +480,10 @@ export default function WorldExplorer() {
 
   const handleCountryClick = async (countryFeature) => {
     if (!countryFeature) return;
+    if (isExcludedCountryFeature(countryFeature, excludedIso3)) {
+      setError(lang === "tr" ? "Secilen ulke gecersiz geometri nedeniyle filtrelendi." : "Selected country is filtered due to invalid geometry.");
+      return;
+    }
     await openFeatureProfile(countryFeature);
   };
 
@@ -387,26 +496,26 @@ export default function WorldExplorer() {
     if (!feature) return;
 
     autoLoadedCountryRef.current = normalizedRouteQuery;
-    setCountryQuery(String(feature?.properties?.name || feature?.id || routeCountryQuery));
+    setCountryQuery(String(feature?.properties?.name || featureIso3(feature) || routeCountryQuery));
     openFeatureProfile(feature);
   }, [routeCountryQuery, countries.length, findCountryFeature, openFeatureProfile]);
 
   useEffect(() => {
     if (!countries.length || countryProfile || profileLoading || routeCountryQuery) return;
     const defaultCountry = countriesByIso3.get("TUR") || countries[0];
-    if (!defaultCountry?.id) return;
+    if (!featureIso3(defaultCountry)) return;
     setSelectedCountry(defaultCountry);
-    loadCountryProfile(String(defaultCountry.id), {
+    loadCountryProfile(String(featureIso3(defaultCountry)), {
       providedFeature: defaultCountry,
       fallbackName: defaultCountry?.properties?.name,
-      expectedIso3: String(defaultCountry.id),
+      expectedIso3: String(featureIso3(defaultCountry)),
       strictIso3: true,
     });
   }, [countries, countriesByIso3, countryProfile, profileLoading, routeCountryQuery, loadCountryProfile]);
 
   const highlightedIso3 = useMemo(() => {
     if (countryProfile?.iso3) return normalizeIso3(countryProfile.iso3);
-    if (selectedCountry?.id) return normalizeIso3(selectedCountry.id);
+    if (selectedCountry) return featureIso3(selectedCountry);
     return null;
   }, [countryProfile, selectedCountry]);
 
@@ -471,18 +580,18 @@ export default function WorldExplorer() {
               backgroundColor="rgba(0,0,0,0)"
               polygonsData={countries}
               polygonCapColor={(feature) => {
-                const id = normalizeIso3(feature?.id);
+                const id = featureIso3(feature);
                 if (highlightedIso3 && highlightedIso3.length === 3 && id === highlightedIso3) return "rgba(16,185,129,0.9)";
                 return "rgba(56,189,248,0.28)";
               }}
               polygonSideColor={() => "rgba(2,132,199,0.22)"}
               polygonStrokeColor={() => "rgba(15,23,42,0.85)"}
               polygonAltitude={(feature) => {
-                const id = normalizeIso3(feature?.id);
+                const id = featureIso3(feature);
                 if (highlightedIso3 && highlightedIso3.length === 3 && id === highlightedIso3) return 0.09;
                 return 0.02;
               }}
-              polygonLabel={(feature) => `${feature?.properties?.name || "Country"} (${feature?.id || "-"})`}
+              polygonLabel={(feature) => `${feature?.properties?.name || "Country"} (${featureIso3(feature) || "-"})`}
               onPolygonClick={handleCountryClick}
               atmosphereAltitude={0.2}
               atmosphereColor="#60a5fa"

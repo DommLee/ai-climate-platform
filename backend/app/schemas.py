@@ -302,3 +302,57 @@ class FeedbackItem(BaseModel):
     comment: str | None = None
     correction: dict
     created_at: datetime
+
+
+class CountryCatalogItem(BaseModel):
+    iso2: str | None = None
+    iso3: str
+    country_name: str
+    city_count: int
+
+
+class CountriesCatalogResponse(BaseModel):
+    generated_at: datetime
+    items: List[CountryCatalogItem]
+
+
+class CountryCitiesResponse(BaseModel):
+    generated_at: datetime
+    iso2: str | None = None
+    iso3: str
+    country_name: str
+    items: List[LocationItem]
+
+
+class SystemProviderStatus(BaseModel):
+    provider: str
+    configured: bool
+    model: str
+
+
+class SystemStatusResponse(BaseModel):
+    generated_at: datetime
+    mode: str
+    fallback_enabled: bool
+    llm_primary_provider: str
+    llm_secondary_provider: str
+    providers: List[SystemProviderStatus]
+    excluded_country_iso3: List[str] = Field(default_factory=list)
+    location_count: int
+
+
+class OpportunityItem(BaseModel):
+    id: str
+    title: str
+    organization: str
+    summary: str
+    source_url: str
+    source: str
+    published_at: datetime | None = None
+    deadline: str | None = None
+    tags: List[str] = Field(default_factory=list)
+
+
+class OpportunitiesResponse(BaseModel):
+    generated_at: datetime
+    items: List[OpportunityItem]

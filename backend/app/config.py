@@ -64,6 +64,8 @@ class Settings:
     openai_model: str
     gemini_api_key: str
     gemini_model: str
+    groq_api_key: str
+    groq_model: str
     llm_primary_provider: str
     llm_secondary_provider: str
     llm_timeout_seconds: int
@@ -116,7 +118,9 @@ def build_settings() -> Settings:
         openai_model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
         gemini_api_key=resolve_secret("GEMINI_API_KEY", "", mode=secret_manager_mode),
         gemini_model=os.getenv("GEMINI_MODEL", "gemini-1.5-flash"),
-        llm_primary_provider=os.getenv("LLM_PRIMARY_PROVIDER", "openai"),
+        groq_api_key=resolve_secret("GROQ_API_KEY", "", mode=secret_manager_mode),
+        groq_model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
+        llm_primary_provider=os.getenv("LLM_PRIMARY_PROVIDER", "groq"),
         llm_secondary_provider=os.getenv("LLM_SECONDARY_PROVIDER", "gemini"),
         llm_timeout_seconds=_get_int("LLM_TIMEOUT_SECONDS", 25),
         llm_max_input_chars=_get_int("LLM_MAX_INPUT_CHARS", 14000),

@@ -47,13 +47,39 @@ export default function ReportPanel() {
       sources,
       autoPrint,
     });
-    const blob = new Blob([html], { type: "text/html;charset=utf-8" });
-    const blobUrl = URL.createObjectURL(blob);
-    const popup = window.open(blobUrl, "_blank");
-    if (!popup) {
-      window.location.assign(blobUrl);
+    const popup = window.open("about:blank", "_blank");
+
+    try {
+      if (popup && popup.document) {
+        popup.document.open();
+        popup.document.write(html);
+        popup.document.close();
+        return;
+      }
+    } catch {
+      // Continue to URL-based fallback.
     }
-    setTimeout(() => URL.revokeObjectURL(blobUrl), 90_000);
+
+    try {
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const blobUrl = URL.createObjectURL(blob);
+      if (popup && !popup.closed) {
+        popup.location.href = blobUrl;
+      } else {
+        window.open(blobUrl, "_blank");
+      }
+      setTimeout(() => URL.revokeObjectURL(blobUrl), 90_000);
+      return;
+    } catch {
+      // Continue to data URL fallback.
+    }
+
+    const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(html)}`;
+    if (popup && !popup.closed) {
+      popup.location.href = dataUrl;
+    } else {
+      window.open(dataUrl, "_blank");
+    }
   };
 
   return (
