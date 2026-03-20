@@ -171,6 +171,8 @@ export default function LocationSelect() {
       return haystack.includes(normalized);
     });
   }, [cityOptions, query]);
+  const selectedCountryCityCount = cityOptions.length;
+  const globalCityCount = locations.length;
 
   const handleCountryChange = (event) => {
     const nextCountryIso3 = normalizeIso(event.target.value);
@@ -222,7 +224,7 @@ export default function LocationSelect() {
         </select>
         <div className="flex items-center justify-between text-[10px] text-zinc-500">
           <span>
-            {filteredLocations.length}/{cityOptions.length || locations.length} {t("locationCount")}
+            {filteredLocations.length}/{selectedCountryCityCount} {t("locationCountSelected")} | {globalCityCount} {t("locationCountGlobal")}
           </span>
           {countriesLoading || citiesLoading ? (
             <span className="inline-flex items-center gap-1">

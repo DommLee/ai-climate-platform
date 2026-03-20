@@ -25,6 +25,9 @@ export default function MainLayout() {
         ? "border-amber-700/70 bg-amber-500/10 text-amber-300"
         : "border-zinc-700 bg-zinc-800/60 text-zinc-200";
   const providerHint = systemStatus?.llm_primary_provider ? `LLM: ${String(systemStatus.llm_primary_provider).toUpperCase()}` : null;
+  const buildSha = String(import.meta.env.VITE_BUILD_SHA || "").trim();
+  const buildAt = String(import.meta.env.VITE_BUILD_AT || "").trim();
+  const buildHint = buildSha ? `BUILD ${buildSha}` : import.meta.env.DEV ? "BUILD dev-local" : "BUILD unknown";
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100">
@@ -42,6 +45,9 @@ export default function MainLayout() {
           <div className="flex items-center gap-3">
             <div className={`rounded-md border px-2 py-1 text-[10px] font-semibold tracking-wide ${modeClass}`}>{runtimeMode}</div>
             {providerHint ? <div className="hidden text-[10px] text-zinc-400 md:block">{providerHint}</div> : null}
+            <div className="hidden rounded-md border border-zinc-700 bg-zinc-900/70 px-2 py-1 text-[10px] text-zinc-400 lg:block" title={buildAt || buildHint}>
+              {buildHint}
+            </div>
             <LocationSelect />
             <LanguageToggle />
             <button

@@ -106,6 +106,8 @@ jobs:
           else
             echo "::warning::VITE_API_BASE_URL not set. Frontend will call relative /api paths in production."
           fi
+          export VITE_BUILD_SHA="${GITHUB_SHA:0:7}"
+          export VITE_BUILD_AT="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
           npm ci
           npm run build
           touch dist/.nojekyll
