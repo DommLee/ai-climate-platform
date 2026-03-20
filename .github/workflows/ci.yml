@@ -9,6 +9,9 @@ on:
 jobs:
   backend-smoke:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -21,18 +24,15 @@ jobs:
       - name: Install backend dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r backend/requirements.txt
+          pip install -r requirements.txt
 
       - name: Backend compile check
         run: |
-          python -m compileall backend/app backend/main.py backend/worker.py
+          python -m compileall app main.py worker.py
 
       - name: Backend targeted tests
         run: |
-          python -m pytest \
-            backend/tests/test_llm_router.py \
-            backend/tests/test_countries_profile.py \
-            backend/tests/test_world_bank_connector.py -q
+          python -m pytest tests/test_llm_router.py tests/test_countries_profile.py tests/test_world_bank_connector.py -q
 
   frontend-build:
     runs-on: ubuntu-latest

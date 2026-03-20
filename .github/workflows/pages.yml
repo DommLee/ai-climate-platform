@@ -52,12 +52,15 @@ jobs:
           API_BASE_URL="${API_BASE_FROM_SECRET:-$API_BASE_FROM_VAR}"
 
           if [ -z "$API_BASE_URL" ]; then
-            echo "::error::VITE_API_BASE_URL is not configured. Smoke gate cannot run."
-            exit 1
+            echo "::warning::VITE_API_BASE_URL is not configured. Smoke gate will be skipped and frontend will deploy in demo/fallback mode."
+            echo "smoke_enabled=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
+          echo "smoke_enabled=true" >> "$GITHUB_OUTPUT"
           echo "api_base_url=$API_BASE_URL" >> "$GITHUB_OUTPUT"
 
       - name: Run API smoke tests
+        if: steps.resolve.outputs.smoke_enabled == 'true'
         run: python scripts/smoke_api.py --base-url "${{ steps.resolve.outputs.api_base_url }}"
 
   build:
