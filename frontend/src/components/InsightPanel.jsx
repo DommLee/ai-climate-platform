@@ -91,9 +91,24 @@ function scoreClass(score) {
   return "text-emerald-300";
 }
 
-export default function InsightPanel({ insight, snapshot, riskData, events = [], locationName }) {
+function isAiProvider(providerName) {
+  const normalized = String(providerName || "").trim().toLowerCase();
+  return Boolean(normalized) && normalized !== "fallback" && normalized !== "deterministic";
+}
+
+export default function InsightPanel({ insight, snapshot, riskData, events = [], locationName, aiConnected = false }) {
   const { lang, t } = useI18n();
-  if (!insight?.content) return null;
+  const aiInsightAvailable = Boolean(aiConnected && isAiProvider(insight?.provider) && insight?.content);
+  if (!aiInsightAvailable) {
+    return (
+      <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
+        <h3 className="text-lg font-bold text-zinc-100">{t("insights")}</h3>
+        <p className="mt-3 rounded-lg border border-amber-800/60 bg-amber-950/30 p-3 text-sm font-semibold text-amber-200">
+          {t("aiConnectForInsights")}
+        </p>
+      </div>
+    );
+  }
 
   const { summary, risk_rationale, recommendations, first_72h_action_plan, citations } = insight.content;
   const risk = snapshot?.risk || riskData?.latest || null;

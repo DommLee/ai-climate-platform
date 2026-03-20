@@ -241,6 +241,11 @@ function scoreTone(score) {
   return "text-red-300";
 }
 
+function isAiProvider(providerName) {
+  const normalized = String(providerName || "").trim().toLowerCase();
+  return Boolean(normalized) && normalized !== "fallback" && normalized !== "deterministic";
+}
+
 export default function WorldExplorer() {
   const { lang, t } = useI18n();
   const { systemStatus } = useClimate();
@@ -671,6 +676,11 @@ export default function WorldExplorer() {
   const macroMetrics = countryProfile?.macro_metrics || [];
   const resilienceScorecard = countryProfile?.resilience_scorecard;
   const narrative = countryProfile?.narrative;
+  const configuredProviderCount = Array.isArray(systemStatus?.providers)
+    ? systemStatus.providers.filter((item) => Boolean(item?.configured)).length
+    : 0;
+  const aiProviderReady = configuredProviderCount > 0 || isAiProvider(countryProfile?.insight?.provider);
+  const aiCountryInsightAvailable = Boolean(aiProviderReady && isAiProvider(countryProfile?.insight?.provider) && countryProfile?.insight?.content);
 
   return (
     <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -968,7 +978,7 @@ export default function WorldExplorer() {
 
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-5 shadow-xl">
           <h3 className="text-lg font-bold text-zinc-100">{t("insights")}</h3>
-          {countryProfile?.insight?.content ? (
+          {aiCountryInsightAvailable ? (
             <div className="mt-3 space-y-3 text-sm text-zinc-300">
               <p className="text-zinc-200">{countryProfile.insight.content.summary}</p>
               <p>{countryProfile.insight.content.risk_rationale}</p>
@@ -995,7 +1005,9 @@ export default function WorldExplorer() {
               ) : null}
             </div>
           ) : (
-            <p className="mt-3 text-sm text-zinc-400">{t("selectCountryHint")}</p>
+            <p className="mt-3 rounded-lg border border-amber-800/60 bg-amber-950/30 p-3 text-sm font-semibold text-amber-200">
+              {t("aiConnectForInsights")}
+            </p>
           )}
         </div>
 

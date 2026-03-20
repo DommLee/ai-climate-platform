@@ -7,9 +7,13 @@ import { buildExecutiveReportHtml } from "../utils/reportHtml";
 const API_BASE = apiBaseForRequests;
 
 export default function ReportPanel() {
-  const { createReport, pollReport, reportJob, locations, locationId, snapshot, riskData, insight, events, sources } = useClimate();
+  const { createReport, pollReport, reportJob, locations, locationId, snapshot, riskData, insight, events, sources, systemStatus } = useClimate();
   const { t, lang } = useI18n();
   const [running, setRunning] = useState(false);
+  const configuredProviderCount = Array.isArray(systemStatus?.providers)
+    ? systemStatus.providers.filter((item) => Boolean(item?.configured)).length
+    : 0;
+  const aiInsightAvailable = Boolean(configuredProviderCount > 0 && String(insight?.provider || "").toLowerCase() !== "fallback");
 
   useEffect(() => {
     if (!running || !reportJob?.id) return;
@@ -46,6 +50,8 @@ export default function ReportPanel() {
       events,
       sources,
       autoPrint,
+      aiEnabled: aiInsightAvailable,
+      aiUnavailableMessage: t("aiConnectForInsights"),
     });
     let blobUrl = "";
 

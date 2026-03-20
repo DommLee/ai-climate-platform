@@ -11,8 +11,12 @@ import OpportunitiesPanel from "../components/OpportunitiesPanel";
 
 export default function Solutions() {
   const { t } = useI18n();
-  const { insight, snapshot, riskData, events, sources, complianceItems, modelVersions, locations, locationId, loading, error } = useClimate();
+  const { insight, snapshot, riskData, events, sources, complianceItems, modelVersions, locations, locationId, systemStatus, loading, error } = useClimate();
   const hasRenderableData = Boolean(snapshot || riskData || insight);
+  const configuredProviderCount = Array.isArray(systemStatus?.providers)
+    ? systemStatus.providers.filter((item) => Boolean(item?.configured)).length
+    : 0;
+  const aiConnected = configuredProviderCount > 0 || (insight?.provider && String(insight.provider).toLowerCase() !== "fallback");
 
   if (loading && !hasRenderableData) {
     return <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-zinc-300">{t("loading")}</div>;
@@ -31,6 +35,7 @@ export default function Solutions() {
         riskData={riskData}
         events={events}
         locationName={activeLocation?.name || snapshot?.location_name || locationId}
+        aiConnected={aiConnected}
       />
       <div className="space-y-6">
         <ReportPanel />

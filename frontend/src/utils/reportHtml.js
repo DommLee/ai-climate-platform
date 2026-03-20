@@ -41,16 +41,20 @@ export function buildExecutiveReportHtml({
   insight,
   events,
   sources,
+  aiEnabled = true,
+  aiUnavailableMessage = "Connect AI to see AI-generated commentary.",
   autoPrint = false,
 }) {
   const latestRisk = riskData?.latest || snapshot?.risk || {};
   const weather = snapshot?.current_weather || {};
-  const recommendations = insight?.content?.recommendations || [];
-  const action72 = insight?.content?.first_72h_action_plan || [];
-  const citations = insight?.content?.citations || [];
+  const recommendations = aiEnabled ? insight?.content?.recommendations || [] : [];
+  const action72 = aiEnabled ? insight?.content?.first_72h_action_plan || [] : [];
+  const citations = aiEnabled ? insight?.content?.citations || [] : [];
   const recentSignals = (events || []).slice(0, 8);
   const generatedAt = reportJob?.generated_at || snapshot?.generated_at || new Date().toISOString();
   const uncertainty = Array.isArray(latestRisk?.uncertainty_band) ? latestRisk.uncertainty_band : [];
+  const summaryText = aiEnabled ? insight?.content?.summary || "Summary not available." : aiUnavailableMessage;
+  const rationaleText = aiEnabled ? insight?.content?.risk_rationale || "Rationale not available." : aiUnavailableMessage;
 
   const printScript = autoPrint
     ? `<script>window.addEventListener("load", function () { setTimeout(function () { window.print(); }, 300); });</script>`
@@ -195,9 +199,9 @@ export function buildExecutiveReportHtml({
 
       <section class="panel">
         <h2>Situation Summary</h2>
-        <p>${escapeHtml(insight?.content?.summary || "Summary not available.")}</p>
+        <p>${escapeHtml(summaryText)}</p>
         <h3>Risk Rationale</h3>
-        <p>${escapeHtml(insight?.content?.risk_rationale || "Rationale not available.")}</p>
+        <p>${escapeHtml(rationaleText)}</p>
       </section>
 
       <section class="panel">

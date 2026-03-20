@@ -95,6 +95,7 @@
     opportunitiesNoData: "No opportunity feed is available right now.",
     opportunitiesOpenSource: "Open Source",
     opportunitiesPublished: "Published",
+    aiConnectForInsights: "Connect AI to see AI-generated commentary.",
   },
   tr: {
     appTitle: "Kuresel AI Iklim Platformu",
@@ -192,5 +193,6 @@
     opportunitiesNoData: "Su anda gosterilebilir firsat akisi bulunamadi.",
     opportunitiesOpenSource: "Kaynagi Ac",
     opportunitiesPublished: "Yayin",
+    aiConnectForInsights: "AI yorumlari icin AI baglayin.",
   },
 };
