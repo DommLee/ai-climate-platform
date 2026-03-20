@@ -106,10 +106,10 @@ export default function LocationSelect() {
 
     const byIso2 = countries.find((item) => normalizeIso(item?.iso2) === selectedIso2);
     const nextIso3 = normalizeIso(byIso2?.iso3 || selectedIso2);
-    if (nextIso3 && nextIso3 !== countryIso3) {
-      setCountryIso3(nextIso3);
+    if (nextIso3) {
+      setCountryIso3((previous) => (previous === nextIso3 ? previous : nextIso3));
     }
-  }, [locations, locationId, countries, countryIso3]);
+  }, [locations, locationId, countries]);
 
   useEffect(() => {
     if (!countryIso3) {
@@ -126,6 +126,13 @@ export default function LocationSelect() {
         return cityIso2 === countryIso3;
       })
       .sort((a, b) => String(a.name || "").localeCompare(String(b.name || ""), "en"));
+
+    // Show deterministic local fallback immediately so country switching stays responsive
+    // even when remote city endpoint is slow/unavailable.
+    setCityOptions(fallbackCities);
+    if (!fallbackCities.some((item) => item.id === locationId) && fallbackCities[0]?.id) {
+      setLocationId(fallbackCities[0].id);
+    }
 
     let mounted = true;
     setCitiesLoading(true);
