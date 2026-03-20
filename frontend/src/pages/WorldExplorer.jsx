@@ -23,6 +23,11 @@ const COUNTRY_RETRY_DELAY_MS = 450;
 const COUNTRY_NAME_TO_ISO3_ALIASES = {
   turkiye: "TUR",
   turkey: "TUR",
+  rusya: "RUS",
+  russia: "RUS",
+  "russian federation": "RUS",
+  cin: "CHN",
+  china: "CHN",
   "turkiye cumhuriyeti": "TUR",
   "united states": "USA",
   "united states of america": "USA",
@@ -39,6 +44,7 @@ const COUNTRY_NAME_ALIASES = {
   scotland: "GBR",
   wales: "GBR",
   russia: "RUS",
+  rusya: "RUS",
   "south korea": "KOR",
   "north korea": "PRK",
 };
@@ -341,6 +347,25 @@ export default function WorldExplorer() {
     return lookup;
   }, [searchIndex]);
 
+  const countrySuggestions = useMemo(() => {
+    const normalizedQuery = normalizeCountryName(countryQuery);
+    if (!normalizedQuery) return [];
+
+    const startsWithMatches = searchIndex.filter((item) => item.normalizedName.startsWith(normalizedQuery));
+    const containsMatches = searchIndex.filter(
+      (item) => !startsWithMatches.includes(item) && item.normalizedName.includes(normalizedQuery),
+    );
+
+    const merged = [...startsWithMatches, ...containsMatches];
+    const uniqueByIso = new Map();
+    merged.forEach((item) => {
+      const iso3 = normalizeIso3(item.iso3);
+      if (!iso3 || uniqueByIso.has(iso3)) return;
+      uniqueByIso.set(iso3, item.feature);
+    });
+    return [...uniqueByIso.values()].slice(0, 8);
+  }, [countryQuery, searchIndex]);
+
   const routeCountryQuery = useMemo(() => {
     const params = new URLSearchParams(routeLocation.search || "");
     return String(params.get("country") || "").trim();
@@ -508,15 +533,27 @@ export default function WorldExplorer() {
         if (aliasIso3.length === 3 && countriesByIso3.has(aliasIso3)) return countriesByIso3.get(aliasIso3);
       }
 
+      const aliasFromBaselineMap = normalizeIso3(COUNTRY_NAME_TO_ISO3.get(normalizedQuery));
+      if (aliasFromBaselineMap.length === 3 && countriesByIso3.has(aliasFromBaselineMap)) return countriesByIso3.get(aliasFromBaselineMap);
+
       if (countriesByNormalizedName.has(normalizedQuery)) {
         return countriesByNormalizedName.get(normalizedQuery);
       }
 
       const startsWithMatches = searchIndex.filter((item) => item.normalizedName.startsWith(normalizedQuery));
-      if (startsWithMatches.length === 1) return startsWithMatches[0].feature;
+      if (startsWithMatches.length >= 1) {
+        const ranked = [...startsWithMatches].sort((a, b) => a.normalizedName.length - b.normalizedName.length);
+        return ranked[0].feature;
+      }
 
       const tokenMatches = searchIndex.filter((item) => item.normalizedName.split(/\s+/).includes(normalizedQuery));
-      if (tokenMatches.length === 1) return tokenMatches[0].feature;
+      if (tokenMatches.length >= 1) return tokenMatches[0].feature;
+
+      const containsMatches = searchIndex.filter((item) => item.normalizedName.includes(normalizedQuery));
+      if (containsMatches.length >= 1) {
+        const ranked = [...containsMatches].sort((a, b) => a.normalizedName.length - b.normalizedName.length);
+        return ranked[0].feature;
+      }
 
       return null;
     },
@@ -640,6 +677,42 @@ export default function WorldExplorer() {
             {t("openLocation")}
           </button>
         </form>
+
+        {countrySuggestions.length ? (
+          <div className="mb-3 flex flex-wrap gap-2 px-2">
+            {countrySuggestions.map((feature) => {
+              const iso3 = featureIso3(feature);
+              const label = String(feature?.properties?.name || iso3 || "-");
+              return (
+                <button
+                  key={`suggestion-${iso3}-${label}`}
+                  type="button"
+                  onClick={() => openFeatureProfile(feature)}
+                  className="rounded-md border border-zinc-700 bg-zinc-900 px-2 py-1 text-xs text-zinc-200 hover:border-emerald-500 hover:text-zinc-100"
+                >
+                  {label} ({iso3 || "-"})
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div className="mb-3 flex flex-wrap gap-2 px-2">
+          {["TUR", "RUS", "USA", "CHN", "DEU", "IND", "BRA"].map((iso3) => {
+            const feature = countriesByIso3.get(iso3);
+            if (!feature) return null;
+            return (
+              <button
+                key={`quick-${iso3}`}
+                type="button"
+                onClick={() => openFeatureProfile(feature)}
+                className="rounded-md border border-zinc-700 bg-zinc-900/80 px-2 py-1 text-xs font-semibold text-zinc-300 hover:border-emerald-500 hover:text-zinc-100"
+              >
+                {String(feature?.properties?.name || iso3)}
+              </button>
+            );
+          })}
+        </div>
 
         <div ref={globeContainerRef} className="relative h-[56vh] min-h-[460px] max-h-[720px] w-full overflow-hidden rounded-xl border border-zinc-800 bg-black/30">
           {geoLoading || !globeSize.width || !globeSize.height ? (
