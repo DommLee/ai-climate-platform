@@ -143,6 +143,25 @@ function collectCoordinates(node, output) {
   node.forEach((item) => collectCoordinates(item, output));
 }
 
+function computeEffectiveLongitudeSpan(longitudes) {
+  if (!longitudes.length) return { directSpan: 0, wrappedSpan: 0, effectiveSpan: 0 };
+  const sorted = [...longitudes].sort((a, b) => a - b);
+  const directSpan = sorted[sorted.length - 1] - sorted[0];
+
+  // Handle antimeridian-crossing polygons (e.g., Russia) by using the
+  // shortest arc that contains all longitudes on a 360-degree circle.
+  const normalized = sorted.map((lon) => ((lon + 360) % 360)).sort((a, b) => a - b);
+  let largestGap = 0;
+  for (let index = 0; index < normalized.length; index += 1) {
+    const current = normalized[index];
+    const next = index === normalized.length - 1 ? normalized[0] + 360 : normalized[index + 1];
+    largestGap = Math.max(largestGap, next - current);
+  }
+  const wrappedSpan = Math.max(0, 360 - largestGap);
+  const effectiveSpan = Math.min(directSpan, wrappedSpan || directSpan);
+  return { directSpan, wrappedSpan, effectiveSpan };
+}
+
 function isAnomalousGeometry(feature) {
   const points = [];
   collectCoordinates(feature?.geometry?.coordinates, points);
@@ -152,9 +171,11 @@ function isAnomalousGeometry(feature) {
   let maxLon = -Infinity;
   let minLat = Infinity;
   let maxLat = -Infinity;
+  const longitudes = [];
 
   points.forEach(([lon, lat]) => {
     if (!Number.isFinite(lon) || !Number.isFinite(lat)) return;
+    longitudes.push(lon);
     minLon = Math.min(minLon, lon);
     maxLon = Math.max(maxLon, lon);
     minLat = Math.min(minLat, lat);
@@ -162,11 +183,11 @@ function isAnomalousGeometry(feature) {
   });
 
   if (!Number.isFinite(minLon) || !Number.isFinite(maxLon) || !Number.isFinite(minLat) || !Number.isFinite(maxLat)) return true;
-  const lonSpan = maxLon - minLon;
+  const { effectiveSpan: lonSpan } = computeEffectiveLongitudeSpan(longitudes);
   const latSpan = maxLat - minLat;
   const bboxArea = lonSpan * latSpan;
   const iso3 = featureIso3(feature);
-  if (latSpan > 170 || lonSpan > 330) return true;
+  if (latSpan > 170) return true;
   if (bboxArea > 20000 && !LARGE_COUNTRY_ISO3.has(iso3)) return true;
   return false;
 }
