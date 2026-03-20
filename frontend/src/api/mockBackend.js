@@ -82,6 +82,7 @@ const SOURCE_ATTRIBUTION = [
 const REPORT_STORE = new Map();
 const LIVE_COUNTRY_PROFILE_CACHE = new Map();
 const LIVE_LOCATION_WEATHER_CACHE = new Map();
+const LIVE_LOCATION_WEATHER_PENDING = new Map();
 const LIVE_WORLD_BANK_BENCHMARK_CACHE = new Map();
 
 const COUNTRY_PROFILE_LIVE_CACHE_TTL_MS = 6 * 60 * 60 * 1000;
@@ -208,31 +209,42 @@ async function fetchLocationWeatherLive(location) {
   if (cached && Date.now() - cached.cachedAt < LOCATION_WEATHER_CACHE_TTL_MS) {
     return cached.data;
   }
+  const pending = LIVE_LOCATION_WEATHER_PENDING.get(location.id);
+  if (pending) return pending;
 
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(location.lat)}&longitude=${encodeURIComponent(
-    location.lon,
-  )}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&hourly=temperature_2m&forecast_days=3&timezone=UTC`;
-  const payload = await fetchJsonWithTimeout(url);
+  const requestPromise = (async () => {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(location.lat)}&longitude=${encodeURIComponent(
+      location.lon,
+    )}&current=temperature_2m,relative_humidity_2m,wind_speed_10m&hourly=temperature_2m&forecast_days=3&timezone=UTC`;
+    const payload = await fetchJsonWithTimeout(url, { timeoutMs: 3200 });
 
-  const current = payload?.current || {};
-  const hourlyTimes = Array.isArray(payload?.hourly?.time) ? payload.hourly.time : [];
-  const hourlyTemps = Array.isArray(payload?.hourly?.temperature_2m) ? payload.hourly.temperature_2m : [];
-  const forecastPoints = hourlyTimes.slice(0, 18).map((timestamp, index) => ({
-    timestamp,
-    value: toFiniteOrNull(hourlyTemps[index], 2),
-  }));
+    const current = payload?.current || {};
+    const hourlyTimes = Array.isArray(payload?.hourly?.time) ? payload.hourly.time : [];
+    const hourlyTemps = Array.isArray(payload?.hourly?.temperature_2m) ? payload.hourly.temperature_2m : [];
+    const forecastPoints = hourlyTimes.slice(0, 18).map((timestamp, index) => ({
+      timestamp,
+      value: toFiniteOrNull(hourlyTemps[index], 2),
+    }));
 
-  const weatherData = {
-    current_weather: {
-      temperature_c: toFiniteOrNull(current.temperature_2m, 1),
-      humidity_pct: toFiniteOrNull(current.relative_humidity_2m, 0),
-      wind_kmh: toFiniteOrNull(current.wind_speed_10m, 1),
-    },
-    forecast_points: forecastPoints.filter((item) => item.value !== null),
-  };
+    const weatherData = {
+      current_weather: {
+        temperature_c: toFiniteOrNull(current.temperature_2m, 1),
+        humidity_pct: toFiniteOrNull(current.relative_humidity_2m, 0),
+        wind_kmh: toFiniteOrNull(current.wind_speed_10m, 1),
+      },
+      forecast_points: forecastPoints.filter((item) => item.value !== null),
+    };
 
-  LIVE_LOCATION_WEATHER_CACHE.set(location.id, { cachedAt: Date.now(), data: weatherData });
-  return weatherData;
+    LIVE_LOCATION_WEATHER_CACHE.set(location.id, { cachedAt: Date.now(), data: weatherData });
+    return weatherData;
+  })();
+
+  LIVE_LOCATION_WEATHER_PENDING.set(location.id, requestPromise);
+  try {
+    return await requestPromise;
+  } finally {
+    LIVE_LOCATION_WEATHER_PENDING.delete(location.id);
+  }
 }
 
 function nowIso() {

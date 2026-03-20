@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api/client";
 import { getRuntimeStatus, subscribeRuntimeStatus } from "../api/runtimeConfig";
 import { useI18n } from "./I18nContext";
@@ -22,10 +22,15 @@ export function ClimateProvider({ children }) {
   const [globalHotspots, setGlobalHotspots] = useState([]);
   const [systemStatus, setSystemStatus] = useState(null);
   const [runtimeStatus, setRuntimeStatus] = useState(getRuntimeStatus());
+  const snapshotRef = useRef(null);
 
   const [reportJob, setReportJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    snapshotRef.current = snapshot;
+  }, [snapshot]);
 
   const fetchLocations = useCallback(async () => {
     const { data } = await api.get("/api/v1/locations");
@@ -64,7 +69,8 @@ export function ClimateProvider({ children }) {
         const snapshotRes = await api.get(`/api/v1/locations/${selectedLocationId}/snapshot`);
         setSnapshot(snapshotRes.data);
       } catch (snapshotError) {
-        const keepExisting = snapshot && String(snapshot.location_id || "") === String(selectedLocationId || "");
+        const previousSnapshot = snapshotRef.current;
+        const keepExisting = previousSnapshot && String(previousSnapshot.location_id || "") === String(selectedLocationId || "");
         if (!keepExisting) {
           throw snapshotError;
         }
@@ -93,7 +99,7 @@ export function ClimateProvider({ children }) {
       if (settled[4].status === "fulfilled") setInsight(settled[4].value.data);
       if (settled[5].status === "fulfilled") setGlobalHotspots(settled[5].value.data?.items || []);
     },
-    [lang, snapshot],
+    [lang],
   );
 
   const bootstrap = useCallback(async () => {

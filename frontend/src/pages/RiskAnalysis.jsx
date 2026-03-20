@@ -64,11 +64,12 @@ function buildFeatureNarrative(lang, item) {
 export default function RiskAnalysis() {
   const { t, lang } = useI18n();
   const { riskData, riskFeatures, loading, error } = useClimate();
+  const hasRenderableData = Boolean(riskData?.latest || (Array.isArray(riskData?.history) && riskData.history.length));
 
-  if (loading) {
+  if (loading && !hasRenderableData) {
     return <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-zinc-300">{t("loading")}</div>;
   }
-  if (error) {
+  if (error && !hasRenderableData) {
     return <div className="rounded-2xl border border-red-900 bg-red-950/40 p-8 text-red-300">{String(error)}</div>;
   }
   if (!riskData) return null;

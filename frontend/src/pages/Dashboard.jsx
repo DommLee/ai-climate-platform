@@ -26,10 +26,10 @@ export default function Dashboard() {
   const { t } = useI18n();
   const { snapshot, riskData, forecastSeries, events, globalHotspots, loading, error, locations, locationId, setLocationId, runtimeStatus, systemStatus } = useClimate();
 
-  if (loading) {
+  if (loading && !snapshot) {
     return <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-zinc-300">{t("loading")}</div>;
   }
-  if (error) {
+  if (error && !snapshot) {
     return <div className="rounded-2xl border border-red-900 bg-red-950/40 p-8 text-red-300">{String(error)}</div>;
   }
   if (!snapshot) return null;

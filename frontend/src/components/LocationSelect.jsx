@@ -154,7 +154,7 @@ export default function LocationSelect() {
     return () => {
       mounted = false;
     };
-  }, [countryIso3, countriesByIso3, locations, locationId, setLocationId]);
+  }, [countryIso3, countriesByIso3, locations, setLocationId]);
 
   const filteredLocations = useMemo(() => {
     const normalized = String(query || "").trim().toLowerCase();

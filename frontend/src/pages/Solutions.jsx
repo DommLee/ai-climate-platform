@@ -12,11 +12,12 @@ import OpportunitiesPanel from "../components/OpportunitiesPanel";
 export default function Solutions() {
   const { t } = useI18n();
   const { insight, snapshot, riskData, events, sources, complianceItems, modelVersions, locations, locationId, loading, error } = useClimate();
+  const hasRenderableData = Boolean(snapshot || riskData || insight);
 
-  if (loading) {
+  if (loading && !hasRenderableData) {
     return <div className="rounded-2xl border border-zinc-800 bg-zinc-900 p-8 text-zinc-300">{t("loading")}</div>;
   }
-  if (error) {
+  if (error && !hasRenderableData) {
     return <div className="rounded-2xl border border-red-900 bg-red-950/40 p-8 text-red-300">{String(error)}</div>;
   }
 
